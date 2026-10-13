@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - first-order-differential-equations.ipynb
+    - bifurcations-first-order-differential-equations.ipynb
+
+website:
+  title: "Differential Equations Examples"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: first-order-differential-equations.ipynb
+        text: First-Order ODEs
+      - href: bifurcations-first-order-differential-equations.ipynb
+        text: Bifurcations
+
+format:
+  html:
+    toc: true
+    code-fold: show
+
+execute:
+  freeze: auto   # reuse saved results instead of re-running code on every render
