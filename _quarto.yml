@@ -7,7 +7,7 @@ project:
     - bifurcations-first-order-differential-equations.ipynb
 
 website:
-  title: "Differential Equations Examples"
+  title: "Differential Equations"
   navbar:
     left:
       - href: index.qmd
