@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Miraj Samarakkody">
+<meta name="dcterms.date" content="2026-10-13">
+
+<title>Bifurcations in First-Order Differential Equations – Differential Equations Examples</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ba8f7c244c1f50cbf6c6a3aa3874339a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Differential Equations Examples</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./first-order-differential-equations.html"> 
+<span class="menu-text">First-Order ODEs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./bifurcations-first-order-differential-equations.html" aria-current="page"> 
+<span class="menu-text">Bifurcations</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#autonomous-equations-and-the-phase-line" id="toc-autonomous-equations-and-the-phase-line" class="nav-link active" data-scroll-target="#autonomous-equations-and-the-phase-line">1. Autonomous equations and the phase line</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-1.1" id="toc-worked-example-1.1" class="nav-link" data-scroll-target="#worked-example-1.1">Worked example 1.1</a></li>
+  </ul></li>
+  <li><a href="#stability-of-equilibria" id="toc-stability-of-equilibria" class="nav-link" data-scroll-target="#stability-of-equilibria">2. Stability of equilibria</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-2.1" id="toc-worked-example-2.1" class="nav-link" data-scroll-target="#worked-example-2.1">Worked example 2.1</a></li>
+  <li><a href="#worked-example-2.2-when-the-test-fails" id="toc-worked-example-2.2-when-the-test-fails" class="nav-link" data-scroll-target="#worked-example-2.2-when-the-test-fails">Worked example 2.2: when the test fails</a></li>
+  </ul></li>
+  <li><a href="#what-is-a-bifurcation" id="toc-what-is-a-bifurcation" class="nav-link" data-scroll-target="#what-is-a-bifurcation">3. What is a bifurcation?</a></li>
+  <li><a href="#saddle-node-bifurcation" id="toc-saddle-node-bifurcation" class="nav-link" data-scroll-target="#saddle-node-bifurcation">4. Saddle-node bifurcation</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-4.1" id="toc-worked-example-4.1" class="nav-link" data-scroll-target="#worked-example-4.1">Worked example 4.1</a></li>
+  <li><a href="#the-ghost-and-the-bottleneck" id="toc-the-ghost-and-the-bottleneck" class="nav-link" data-scroll-target="#the-ghost-and-the-bottleneck">The “ghost” and the bottleneck</a></li>
+  </ul></li>
+  <li><a href="#transcritical-bifurcation" id="toc-transcritical-bifurcation" class="nav-link" data-scroll-target="#transcritical-bifurcation">5. Transcritical bifurcation</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-5.1" id="toc-worked-example-5.1" class="nav-link" data-scroll-target="#worked-example-5.1">Worked example 5.1</a></li>
+  </ul></li>
+  <li><a href="#pitchfork-bifurcations" id="toc-pitchfork-bifurcations" class="nav-link" data-scroll-target="#pitchfork-bifurcations">6. Pitchfork bifurcations</a>
+  <ul class="collapse">
+  <li><a href="#supercritical-pitchfork" id="toc-supercritical-pitchfork" class="nav-link" data-scroll-target="#supercritical-pitchfork">6.1 Supercritical pitchfork</a></li>
+  <li><a href="#subcritical-pitchfork" id="toc-subcritical-pitchfork" class="nav-link" data-scroll-target="#subcritical-pitchfork">6.2 Subcritical pitchfork</a></li>
+  </ul></li>
+  <li><a href="#hysteresis" id="toc-hysteresis" class="nav-link" data-scroll-target="#hysteresis">7. Hysteresis</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-7.1-locating-the-bifurcation-points" id="toc-worked-example-7.1-locating-the-bifurcation-points" class="nav-link" data-scroll-target="#worked-example-7.1-locating-the-bifurcation-points">Worked example 7.1: locating the bifurcation points</a></li>
+  </ul></li>
+  <li><a href="#application-harvesting-and-sudden-collapse" id="toc-application-harvesting-and-sudden-collapse" class="nav-link" data-scroll-target="#application-harvesting-and-sudden-collapse">8. Application: harvesting and sudden collapse</a>
+  <ul class="collapse">
+  <li><a href="#worked-example-8.1" id="toc-worked-example-8.1" class="nav-link" data-scroll-target="#worked-example-8.1">Worked example 8.1</a></li>
+  </ul></li>
+  <li><a href="#computing-bifurcation-diagrams-numerically" id="toc-computing-bifurcation-diagrams-numerically" class="nav-link" data-scroll-target="#computing-bifurcation-diagrams-numerically">9. Computing bifurcation diagrams numerically</a>
+  <ul class="collapse">
+  <li><a href="#root-finding-over-a-grid-of-r" id="toc-root-finding-over-a-grid-of-r" class="nav-link" data-scroll-target="#root-finding-over-a-grid-of-r">9.1 Root finding over a grid of <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#brute-force-simulation" id="toc-brute-force-simulation" class="nav-link" data-scroll-target="#brute-force-simulation">9.2 Brute-force simulation</a></li>
+  <li><a href="#solving-directly-for-the-bifurcation-point" id="toc-solving-directly-for-the-bifurcation-point" class="nav-link" data-scroll-target="#solving-directly-for-the-bifurcation-point">9.3 Solving directly for the bifurcation point</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">10. Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">11. Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="bifurcations-first-order-differential-equations.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bifurcations in First-Order Differential Equations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Miraj Samarakkody </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 13, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>How the long-term behaviour of <span class="math inline">\(\dfrac{dy}{dt} = f(y, r)\)</span> changes, sometimes suddenly, as a parameter <span class="math inline">\(r\)</span> is varied.</p>
+<p><strong>Contents</strong> 1. Autonomous equations, equilibria and the phase line 2. Stability of equilibria 3. What is a bifurcation? 4. Saddle-node bifurcation 5. Transcritical bifurcation 6. Pitchfork bifurcations (supercritical and subcritical) 7. Hysteresis 8. Application: fish harvesting and sudden collapse 9. Computing bifurcation diagrams numerically 10. Summary 11. Exercises</p>
+<p><em>Prerequisite:</em> the notes in <code>first-order-differential-equations.ipynb</code>, especially direction fields and RK4.</p>
+<div id="01917150" class="cell" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">4.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"axes.grid"</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, t0, y0, h, n):</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># RK4 for y' = f(t, y). y0 may be a NumPy array to integrate many initial conditions at once.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> t0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.zeros((n <span class="op">+</span> <span class="dv">1</span>,) <span class="op">+</span> np.shape(y0))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    y[<span class="dv">0</span>] <span class="op">=</span> y0</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(t[i], y[i])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(t[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(t[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(t[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="autonomous-equations-and-the-phase-line" class="level2">
+<h2 class="anchored" data-anchor-id="autonomous-equations-and-the-phase-line">1. Autonomous equations and the phase line</h2>
+<p>An equation is <strong>autonomous</strong> if the right-hand side does not depend explicitly on <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[\frac{dy}{dt} = f(y).\]</span></p>
+<p>Its slope depends only on the current value of <span class="math inline">\(y\)</span>, so we can understand <em>every</em> solution without solving the equation, just by looking at the sign of <span class="math inline">\(f\)</span>.</p>
+<ul>
+<li><strong>Equilibria (fixed points):</strong> values <span class="math inline">\(y^*\)</span> with <span class="math inline">\(f(y^*) = 0\)</span>. The constant function <span class="math inline">\(y(t) = y^*\)</span> is a solution.</li>
+<li>Where <span class="math inline">\(f(y) &gt; 0\)</span>, <span class="math inline">\(y\)</span> increases; where <span class="math inline">\(f(y) &lt; 0\)</span>, <span class="math inline">\(y\)</span> decreases.</li>
+<li>A solution can never cross an equilibrium (by uniqueness), so it moves monotonically towards an equilibrium or off to <span class="math inline">\(\pm\infty\)</span>.</li>
+</ul>
+<p>The <strong>phase line</strong> summarises this: a <span class="math inline">\(y\)</span>-axis marked with the equilibria and arrows showing the direction of motion between them.</p>
+<section id="worked-example-1.1" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-1.1">Worked example 1.1</h3>
+<p><span class="math inline">\(y' = y(1 - y)(y - 3)\)</span>.</p>
+<ol type="1">
+<li>Equilibria: <span class="math inline">\(y^* = 0,\ 1,\ 3\)</span>.</li>
+<li>Sign of <span class="math inline">\(f\)</span> on each interval (test points):</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>interval</th>
+<th>test <span class="math inline">\(y\)</span></th>
+<th><span class="math inline">\(f(y)\)</span></th>
+<th>direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y &lt; 0\)</span></td>
+<td><span class="math inline">\(-1\)</span></td>
+<td><span class="math inline">\((-1)(2)(-4) = 8 &gt; 0\)</span></td>
+<td>↑ towards 0</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0 &lt; y &lt; 1\)</span></td>
+<td><span class="math inline">\(0.5\)</span></td>
+<td><span class="math inline">\((0.5)(0.5)(-2.5) = -0.625 &lt; 0\)</span></td>
+<td>↓ towards 0</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(1 &lt; y &lt; 3\)</span></td>
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\((2)(-1)(-1) = 2 &gt; 0\)</span></td>
+<td>↑ towards 3</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y &gt; 3\)</span></td>
+<td><span class="math inline">\(4\)</span></td>
+<td><span class="math inline">\((4)(-3)(1) = -12 &lt; 0\)</span></td>
+<td>↓ towards 3</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>Conclusion: <span class="math inline">\(y^* = 0\)</span> and <span class="math inline">\(y^* = 3\)</span> attract nearby solutions (<strong>stable</strong>); <span class="math inline">\(y^* = 1\)</span> repels them (<strong>unstable</strong>).</li>
+</ol>
+<div id="fba5f7a9" class="cell" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phase_line(f, ylim, ax<span class="op">=</span><span class="va">None</span>, title<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot f(y) against y, mark equilibria and flow arrows.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filled = stable, open = unstable, half-filled = semi-stable.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> ax <span class="kw">or</span> plt.gca()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.linspace(<span class="op">*</span>ylim, <span class="dv">2001</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    fy <span class="op">=</span> f(y)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(y, fy, <span class="st">"C0"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># equilibria: grid points where |f| has a local minimum within one grid step of zero</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> np.<span class="bu">abs</span>(fy)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>, <span class="bu">len</span>(y) <span class="op">-</span> <span class="dv">3</span>):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        step <span class="op">=</span> <span class="bu">max</span>(<span class="bu">abs</span>(fy[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> fy[i]), <span class="bu">abs</span>(fy[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> fy[i]))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> a[i] <span class="op">&lt;=</span> a[i <span class="op">-</span> <span class="dv">1</span>] <span class="kw">and</span> a[i] <span class="op">&lt;</span> a[i <span class="op">+</span> <span class="dv">1</span>] <span class="kw">and</span> a[i] <span class="op">&lt;=</span> step:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            left, right <span class="op">=</span> fy[i <span class="op">-</span> <span class="dv">3</span>], fy[i <span class="op">+</span> <span class="dv">3</span>]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> left <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">&gt;</span> right:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                style <span class="op">=</span> <span class="bu">dict</span>(mfc<span class="op">=</span><span class="st">"k"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> left <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">&lt;</span> right:</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                style <span class="op">=</span> <span class="bu">dict</span>(mfc<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                style <span class="op">=</span> <span class="bu">dict</span>(mfc<span class="op">=</span><span class="st">"k"</span>, fillstyle<span class="op">=</span><span class="st">"left"</span> <span class="cf">if</span> left <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"right"</span>, mfcalt<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            ax.plot(y[i], <span class="dv">0</span>, <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">10</span>, mec<span class="op">=</span><span class="st">"k"</span>, zorder<span class="op">=</span><span class="dv">3</span>, <span class="op">**</span>style)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># arrows along the axis</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ya <span class="kw">in</span> np.linspace(<span class="op">*</span>ylim, <span class="dv">13</span>)[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> np.sign(f(ya))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> s:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            ax.annotate(<span class="st">""</span>, (ya <span class="op">+</span> <span class="fl">0.12</span> <span class="op">*</span> s <span class="op">*</span> (ylim[<span class="dv">1</span>] <span class="op">-</span> ylim[<span class="dv">0</span>]) <span class="op">/</span> <span class="dv">6</span>, <span class="dv">0</span>), (ya, <span class="dv">0</span>),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                        arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>, color<span class="op">=</span><span class="st">"C3"</span>, lw<span class="op">=</span><span class="dv">2</span>))</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"y"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"f(y) = dy/dt"</span>)<span class="op">;</span> ax.set_title(title)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ax</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> y: y <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> y) <span class="op">*</span> (y <span class="op">-</span> <span class="dv">3</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>phase_line(f, (<span class="op">-</span><span class="dv">1</span>, <span class="dv">4</span>), ax<span class="op">=</span>axes[<span class="dv">0</span>], title<span class="op">=</span><span class="st">"Phase line: y' = y(1−y)(y−3)"</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>t, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: f(y), <span class="dv">0</span>, np.linspace(<span class="op">-</span><span class="fl">0.6</span>, <span class="fl">3.8</span>, <span class="dv">15</span>), <span class="fl">0.01</span>, <span class="dv">400</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(t, Y, <span class="st">"C0"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ys, c <span class="kw">in</span> [(<span class="dv">0</span>, <span class="st">"k"</span>), (<span class="dv">1</span>, <span class="st">"C3"</span>), (<span class="dv">3</span>, <span class="st">"k"</span>)]:</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].axhline(ys, color<span class="op">=</span>c, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">4</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_xlabel(<span class="st">"t"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"y"</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Solutions approach 0 or 3, and move away from 1"</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="stability-of-equilibria" class="level2">
+<h2 class="anchored" data-anchor-id="stability-of-equilibria">2. Stability of equilibria</h2>
+<p><strong>Linear stability test.</strong> Near an equilibrium, write <span class="math inline">\(y = y^* + \eta\)</span> with <span class="math inline">\(\eta\)</span> small. A Taylor expansion gives</p>
+<p><span class="math display">\[\eta' = f(y^* + \eta) \approx f(y^*) + f'(y^*)\,\eta = f'(y^*)\,\eta \quad\Longrightarrow\quad \eta(t) \approx \eta_0\, e^{f'(y^*)\,t}.\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(f'(y^*)\)</span></th>
+<th>small perturbations</th>
+<th>equilibrium is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(&lt; 0\)</span></td>
+<td>decay</td>
+<td><strong>stable</strong> (attracting)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(&gt; 0\)</span></td>
+<td>grow</td>
+<td><strong>unstable</strong> (repelling)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(= 0\)</span></td>
+<td>test is inconclusive</td>
+<td>look at higher-order terms or the phase line</td>
+</tr>
+</tbody>
+</table>
+<p>The value <span class="math inline">\(1/|f'(y^*)|\)</span> is the <strong>characteristic time</strong> of the approach to, or departure from, <span class="math inline">\(y^*\)</span>.</p>
+<section id="worked-example-2.1" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-2.1">Worked example 2.1</h3>
+<p>For <span class="math inline">\(f(y) = y(1-y)(y-3) = -y^3 + 4y^2 - 3y\)</span>, we have <span class="math inline">\(f'(y) = -3y^2 + 8y - 3\)</span>:</p>
+<ul>
+<li><span class="math inline">\(f'(0) = -3 &lt; 0\)</span>: stable, characteristic time <span class="math inline">\(1/3\)</span></li>
+<li><span class="math inline">\(f'(1) = -3 + 8 - 3 = 2 &gt; 0\)</span>: unstable</li>
+<li><span class="math inline">\(f'(3) = -27 + 24 - 3 = -6 &lt; 0\)</span>: stable, characteristic time <span class="math inline">\(1/6\)</span></li>
+</ul>
+<p>This agrees with the phase line.</p>
+</section>
+<section id="worked-example-2.2-when-the-test-fails" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-2.2-when-the-test-fails">Worked example 2.2: when the test fails</h3>
+<p><span class="math inline">\(y' = y^2\)</span> has <span class="math inline">\(y^* = 0\)</span> with <span class="math inline">\(f'(0) = 0\)</span>. Since <span class="math inline">\(y^2 \ge 0\)</span>, solutions below 0 move up towards 0, and solutions above 0 move up, away from it. The equilibrium is <strong>semi-stable</strong>: attracting from one side, repelling from the other. As we will see, this is exactly what an equilibrium looks like <em>at</em> a bifurcation.</p>
+<div id="adfa3085" class="cell" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fp <span class="op">=</span> <span class="kw">lambda</span> y: <span class="op">-</span><span class="dv">3</span> <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">8</span> <span class="op">*</span> y <span class="op">-</span> <span class="dv">3</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ys <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>]:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"y* = </span><span class="sc">{</span>ys<span class="sc">}</span><span class="ss">:  f'(y*) = </span><span class="sc">{</span>fp(ys)<span class="sc">:+d}</span><span class="ss">  -&gt;  </span><span class="sc">{</span><span class="st">'stable'</span> <span class="cf">if</span> fp(ys) <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'unstable'</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the exponential rate numerically: start near y* = 3 and fit the decay rate</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>t, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: f(y), <span class="dv">0</span>, <span class="fl">3.01</span>, <span class="fl">0.01</span>, <span class="dv">200</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> np.polyfit(t[:<span class="dv">100</span>], np.log(np.<span class="bu">abs</span>(Y[:<span class="dv">100</span>] <span class="op">-</span> <span class="dv">3</span>)), <span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">measured decay rate of |y - 3| ≈ </span><span class="sc">{</span>rate<span class="sc">:.3f}</span><span class="ss">   (theory f'(3) = -6)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>y* = 0:  f'(y*) = -3  -&gt;  stable
+y* = 1:  f'(y*) = +2  -&gt;  unstable
+y* = 3:  f'(y*) = -6  -&gt;  stable
+
+measured decay rate of |y - 3| ≈ -6.006   (theory f'(3) = -6)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="what-is-a-bifurcation" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-bifurcation">3. What is a bifurcation?</h2>
+<p>Now let the equation depend on a parameter <span class="math inline">\(r\)</span>:</p>
+<p><span class="math display">\[\frac{dy}{dt} = f(y, r).\]</span></p>
+<p>As <span class="math inline">\(r\)</span> changes, the graph of <span class="math inline">\(f\)</span> shifts and deforms. Usually the equilibria just move a little and keep their stability. A <strong>bifurcation</strong> occurs at a value <span class="math inline">\(r = r_c\)</span> where the <em>qualitative</em> picture changes: equilibria are created or destroyed, or their stability changes.</p>
+<p><strong>Necessary conditions at a bifurcation point <span class="math inline">\((y^*, r_c)\)</span>:</strong></p>
+<p><span class="math display">\[f(y^*, r_c) = 0 \qquad\text{and}\qquad \frac{\partial f}{\partial y}(y^*, r_c) = 0.\]</span></p>
+<p>The first says <span class="math inline">\(y^*\)</span> is an equilibrium. The second says the linear stability test is inconclusive there: the equilibrium is about to change stability, or two equilibria are merging.</p>
+<p>A <strong>bifurcation diagram</strong> plots the equilibria <span class="math inline">\(y^*\)</span> against <span class="math inline">\(r\)</span>, conventionally with <strong>solid lines for stable</strong> and <strong>dashed lines for unstable</strong> branches.</p>
+<p>Every one-dimensional bifurcation looks, near the bifurcation point, like one of a few <strong>normal forms</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Normal form</th>
+<th>What happens at <span class="math inline">\(r = 0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Saddle-node</td>
+<td><span class="math inline">\(y' = r + y^2\)</span></td>
+<td>two equilibria collide and disappear</td>
+</tr>
+<tr class="even">
+<td>Transcritical</td>
+<td><span class="math inline">\(y' = ry - y^2\)</span></td>
+<td>two equilibria exchange stability</td>
+</tr>
+<tr class="odd">
+<td>Supercritical pitchfork</td>
+<td><span class="math inline">\(y' = ry - y^3\)</span></td>
+<td>one stable equilibrium splits into two</td>
+</tr>
+<tr class="even">
+<td>Subcritical pitchfork</td>
+<td><span class="math inline">\(y' = ry + y^3\)</span></td>
+<td>two unstable equilibria merge into a stable one, which then becomes unstable</td>
+</tr>
+</tbody>
+</table>
+<div id="1925eddc" class="cell" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> branch(ax, r, y, stable, <span class="op">**</span>kw):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    ax.plot(r, y, <span class="st">"k-"</span> <span class="cf">if</span> stable <span class="cf">else</span> <span class="st">"k--"</span>, lw<span class="op">=</span><span class="fl">2.5</span> <span class="cf">if</span> stable <span class="cf">else</span> <span class="fl">1.8</span>, <span class="op">**</span>kw)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> phase_lines_row(f, rs, ylim, suptitle):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(rs), figsize<span class="op">=</span>(<span class="dv">4</span> <span class="op">*</span> <span class="bu">len</span>(rs), <span class="fl">3.2</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ax, r <span class="kw">in</span> <span class="bu">zip</span>(axes, rs):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        phase_line(<span class="kw">lambda</span> y: f(y, r), ylim, ax<span class="op">=</span>ax, title<span class="op">=</span><span class="ss">f"r = </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        ax.set_ylim(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(suptitle, y<span class="op">=</span><span class="fl">1.03</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="saddle-node-bifurcation" class="level2">
+<h2 class="anchored" data-anchor-id="saddle-node-bifurcation">4. Saddle-node bifurcation</h2>
+<p><strong>Normal form:</strong> <span class="math inline">\(\quad y' = r + y^2.\)</span></p>
+<ul>
+<li><strong>Equilibria:</strong> <span class="math inline">\(y^2 = -r\)</span>, so <span class="math inline">\(y^* = \pm\sqrt{-r}\)</span>. They exist only when <span class="math inline">\(r \le 0\)</span>.</li>
+<li><strong>Stability:</strong> <span class="math inline">\(f'(y) = 2y\)</span>.
+<ul>
+<li><span class="math inline">\(y^* = -\sqrt{-r}\)</span>: <span class="math inline">\(f' = -2\sqrt{-r} &lt; 0\)</span>, <strong>stable</strong></li>
+<li><span class="math inline">\(y^* = +\sqrt{-r}\)</span>: <span class="math inline">\(f' = +2\sqrt{-r} &gt; 0\)</span>, <strong>unstable</strong></li>
+</ul></li>
+<li><strong>Bifurcation conditions:</strong> <span class="math inline">\(f = r + y^2 = 0\)</span> and <span class="math inline">\(f_y = 2y = 0\)</span> give <span class="math inline">\((y^*, r_c) = (0, 0)\)</span>.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(r\)</span></th>
+<th>equilibria</th>
+<th>picture</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(r &lt; 0\)</span></td>
+<td>two: one stable, one unstable</td>
+<td>a stable state exists</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(r = 0\)</span></td>
+<td>one, semi-stable (<span class="math inline">\(y^* = 0\)</span>)</td>
+<td>the two have merged</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(r &gt; 0\)</span></td>
+<td>none</td>
+<td>every solution escapes to <span class="math inline">\(+\infty\)</span></td>
+</tr>
+</tbody>
+</table>
+<section id="worked-example-4.1" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-4.1">Worked example 4.1</h3>
+<p>For <span class="math inline">\(r = -4\)</span>: equilibria <span class="math inline">\(y^* = \pm 2\)</span>; <span class="math inline">\(f'(-2) = -4\)</span> (stable), <span class="math inline">\(f'(2) = 4\)</span> (unstable). A solution starting at <span class="math inline">\(y_0 = 1\)</span> lies between them, where <span class="math inline">\(f(1) = -4 + 1 = -3 &lt; 0\)</span>, so it decreases towards <span class="math inline">\(-2\)</span>.</p>
+</section>
+<section id="the-ghost-and-the-bottleneck" class="level3">
+<h3 class="anchored" data-anchor-id="the-ghost-and-the-bottleneck">The “ghost” and the bottleneck</h3>
+<p>Just past the bifurcation (<span class="math inline">\(r\)</span> small and positive) there is no equilibrium, but <span class="math inline">\(f\)</span> is still tiny near <span class="math inline">\(y = 0\)</span>, so solutions <strong>slow down dramatically</strong> there before escaping. The time to pass through is</p>
+<p><span class="math display">\[T = \int_{-\infty}^{\infty} \frac{dy}{r + y^2} = \frac{\pi}{\sqrt{r}},\]</span></p>
+<p>which becomes very long as <span class="math inline">\(r \to 0^{+}\)</span>. This <strong>bottleneck</strong> is an early-warning sign that a system is near a saddle-node.</p>
+<div id="bb40454c" class="cell" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">200</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>branch(ax, r, <span class="op">-</span>np.sqrt(<span class="op">-</span>r), <span class="va">True</span>, label<span class="op">=</span><span class="st">"stable"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>branch(ax, r, np.sqrt(<span class="op">-</span>r), <span class="va">False</span>, label<span class="op">=</span><span class="st">"unstable"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"ro"</span>, ms<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">"bifurcation point (0, 0)"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span><span class="dv">2</span>, <span class="dv">1</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">"r"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"equilibria y*"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Saddle-node bifurcation: y' = r + y²"</span>)<span class="op">;</span> ax.legend()<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>phase_lines_row(<span class="kw">lambda</span> y, r: r <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>, [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], (<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="st">"Phase lines of y' = r + y² before, at and after the bifurcation"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="df9c808d" class="cell" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bottleneck: time to travel from y = -10 to y = +10 for small r &gt; 0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> passage_time(r, h<span class="op">=</span><span class="fl">1e-3</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    y, t <span class="op">=</span> <span class="op">-</span><span class="fl">10.0</span>, <span class="fl">0.0</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="kw">lambda</span> t, y: r <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> y <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> g(t, y)<span class="op">;</span> k2 <span class="op">=</span> g(t, y <span class="op">+</span> h<span class="op">/</span><span class="dv">2</span><span class="op">*</span>k1)<span class="op">;</span> k3 <span class="op">=</span> g(t, y <span class="op">+</span> h<span class="op">/</span><span class="dv">2</span><span class="op">*</span>k2)<span class="op">;</span> k4 <span class="op">=</span> g(t, y <span class="op">+</span> h<span class="op">*</span>k3)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        y <span class="op">+=</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k3 <span class="op">+</span> k4)<span class="op">;</span> t <span class="op">+=</span> h</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'r'</span><span class="sc">:&gt;7}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'RK4 time'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'(2/√r)·arctan(10/√r)'</span><span class="sc">:&gt;22}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'π/√r'</span><span class="sc">:&gt;8}</span><span class="ss">"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> [<span class="fl">1.0</span>, <span class="fl">0.1</span>, <span class="fl">0.01</span>, <span class="fl">0.001</span>]:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    exact_T <span class="op">=</span> <span class="dv">2</span> <span class="op">/</span> np.sqrt(r) <span class="op">*</span> np.arctan(<span class="dv">10</span> <span class="op">/</span> np.sqrt(r))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>r<span class="sc">:7.3f}</span><span class="ss"> </span><span class="sc">{</span>passage_time(r)<span class="sc">:10.3f}</span><span class="ss"> </span><span class="sc">{</span>exact_T<span class="sc">:22.3f}</span><span class="ss"> </span><span class="sc">{</span>np<span class="sc">.</span>pi<span class="op">/</span>np<span class="sc">.</span>sqrt(r)<span class="sc">:8.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      r   RK4 time   (2/√r)·arctan(10/√r)     π/√r
+  1.000      2.943                  2.942    3.142
+  0.100      9.735                  9.735    9.935
+  0.010     31.216                 31.216   31.416
+  0.001     99.146                 99.146   99.346</code></pre>
+</div>
+</div>
+<p>The passage time grows like <span class="math inline">\(1/\sqrt{r}\)</span>: at <span class="math inline">\(r = 0.001\)</span> the solution lingers near <span class="math inline">\(y = 0\)</span> for about 99 time units, even though no equilibrium exists there.</p>
+<div id="eb8fbb05" class="cell" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>t, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: <span class="fl">0.01</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="op">-</span><span class="fl">3.0</span>, <span class="fl">0.01</span>, <span class="dv">3100</span>)   <span class="co"># stop at t = 31, just before blow-up</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.<span class="bu">abs</span>(Y) <span class="op">&lt;</span> <span class="dv">6</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>plt.plot(t[mask], Y[mask], lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.axhspan(<span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, color<span class="op">=</span><span class="st">"C1"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"bottleneck near the ghost at y = 0"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"t"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.title(<span class="st">"r = 0.01: a long pause near y = 0, then escape"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="transcritical-bifurcation" class="level2">
+<h2 class="anchored" data-anchor-id="transcritical-bifurcation">5. Transcritical bifurcation</h2>
+<p><strong>Normal form:</strong> <span class="math inline">\(\quad y' = ry - y^2 = y(r - y).\)</span></p>
+<ul>
+<li><strong>Equilibria:</strong> <span class="math inline">\(y^* = 0\)</span> and <span class="math inline">\(y^* = r\)</span>. They exist for <strong>all</strong> <span class="math inline">\(r\)</span> and cross at <span class="math inline">\(r = 0\)</span>.</li>
+<li><strong>Stability:</strong> <span class="math inline">\(f'(y) = r - 2y\)</span>.
+<ul>
+<li>at <span class="math inline">\(y^* = 0\)</span>: <span class="math inline">\(f' = r\)</span>, stable for <span class="math inline">\(r &lt; 0\)</span>, unstable for <span class="math inline">\(r &gt; 0\)</span></li>
+<li>at <span class="math inline">\(y^* = r\)</span>: <span class="math inline">\(f' = r - 2r = -r\)</span>, unstable for <span class="math inline">\(r &lt; 0\)</span>, stable for <span class="math inline">\(r &gt; 0\)</span></li>
+</ul></li>
+</ul>
+<p>At <span class="math inline">\(r = 0\)</span> the two equilibria pass through each other and <strong>exchange stability</strong>.</p>
+<section id="worked-example-5.1" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-5.1">Worked example 5.1</h3>
+<p>Take <span class="math inline">\(r = 2\)</span>. The equilibria are <span class="math inline">\(0\)</span> (since <span class="math inline">\(f'(0) = 2\)</span>, unstable) and <span class="math inline">\(2\)</span> (since <span class="math inline">\(f'(2) = -2\)</span>, stable). This is the logistic equation: a small population starting at <span class="math inline">\(y_0 = 0.1\)</span> grows to the carrying capacity <span class="math inline">\(2\)</span>. If instead <span class="math inline">\(r = -1\)</span>, the only stable state is <span class="math inline">\(y^* = 0\)</span>: the population dies out.</p>
+<p><strong>Typical setting:</strong> whenever <span class="math inline">\(y = 0\)</span> is an equilibrium for every <span class="math inline">\(r\)</span> (zero population, zero laser output, zero infection), a transcritical bifurcation marks the <strong>threshold</strong> where the non-zero state takes over. In epidemics this is the condition <span class="math inline">\(R_0 = 1\)</span>.</p>
+<div id="5358a4c1" class="cell" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>rn, rp <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">100</span>), np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">100</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>branch(ax, rn, <span class="dv">0</span> <span class="op">*</span> rn, <span class="va">True</span>, label<span class="op">=</span><span class="st">"stable"</span>)<span class="op">;</span> branch(ax, rp, <span class="dv">0</span> <span class="op">*</span> rp, <span class="va">False</span>, label<span class="op">=</span><span class="st">"unstable"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>branch(ax, rn, rn, <span class="va">False</span>)<span class="op">;</span> branch(ax, rp, rp, <span class="va">True</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"ro"</span>, ms<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"r"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"equilibria y*"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Transcritical bifurcation: y' = ry − y²"</span>)<span class="op">;</span> ax.legend()<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>phase_lines_row(<span class="kw">lambda</span> y, r: r <span class="op">*</span> y <span class="op">-</span> y<span class="op">**</span><span class="dv">2</span>, [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], (<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>), <span class="st">"Phase lines of y' = ry − y²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pitchfork-bifurcations" class="level2">
+<h2 class="anchored" data-anchor-id="pitchfork-bifurcations">6. Pitchfork bifurcations</h2>
+<p>These occur in systems with a <strong>symmetry</strong> <span class="math inline">\(y \to -y\)</span>, meaning <span class="math inline">\(f(-y) = -f(y)\)</span>, so equilibria appear in symmetric pairs.</p>
+<section id="supercritical-pitchfork" class="level3">
+<h3 class="anchored" data-anchor-id="supercritical-pitchfork">6.1 Supercritical pitchfork</h3>
+<p><strong>Normal form:</strong> <span class="math inline">\(\quad y' = ry - y^3.\)</span></p>
+<ul>
+<li><strong>Equilibria:</strong> <span class="math inline">\(y(r - y^2) = 0\)</span>, so <span class="math inline">\(y^* = 0\)</span> always, and <span class="math inline">\(y^* = \pm\sqrt{r}\)</span> when <span class="math inline">\(r &gt; 0\)</span>.</li>
+<li><strong>Stability:</strong> <span class="math inline">\(f'(y) = r - 3y^2\)</span>.
+<ul>
+<li>at <span class="math inline">\(y^* = 0\)</span>: <span class="math inline">\(f' = r\)</span>, stable for <span class="math inline">\(r &lt; 0\)</span>, unstable for <span class="math inline">\(r &gt; 0\)</span></li>
+<li>at <span class="math inline">\(y^* = \pm\sqrt{r}\)</span>: <span class="math inline">\(f' = r - 3r = -2r &lt; 0\)</span>, <strong>stable</strong></li>
+</ul></li>
+</ul>
+<p>As <span class="math inline">\(r\)</span> passes 0, the single stable state at <span class="math inline">\(0\)</span> becomes unstable and two new stable states branch off <strong>smoothly</strong>. The system must “choose” one: this is <strong>symmetry breaking</strong>, as in a buckling beam, which bends either left or right.</p>
+<p><strong>Worked example 6.1.</strong> At <span class="math inline">\(r = 4\)</span> the equilibria are <span class="math inline">\(0\)</span> (since <span class="math inline">\(f'(0) = 4\)</span>, unstable) and <span class="math inline">\(\pm 2\)</span> (since <span class="math inline">\(f'(\pm 2) = 4 - 12 = -8\)</span>, stable). Starting at <span class="math inline">\(y_0 = 0.01\)</span> the solution goes to <span class="math inline">\(+2\)</span>; starting at <span class="math inline">\(y_0 = -0.01\)</span> it goes to <span class="math inline">\(-2\)</span>.</p>
+</section>
+<section id="subcritical-pitchfork" class="level3">
+<h3 class="anchored" data-anchor-id="subcritical-pitchfork">6.2 Subcritical pitchfork</h3>
+<p><strong>Normal form:</strong> <span class="math inline">\(\quad y' = ry + y^3.\)</span></p>
+<ul>
+<li><strong>Equilibria:</strong> <span class="math inline">\(y^* = 0\)</span> always, and <span class="math inline">\(y^* = \pm\sqrt{-r}\)</span> when <span class="math inline">\(r &lt; 0\)</span>.</li>
+<li><strong>Stability:</strong> <span class="math inline">\(f'(y) = r + 3y^2\)</span>.
+<ul>
+<li>at <span class="math inline">\(y^* = 0\)</span>: <span class="math inline">\(f' = r\)</span>, stable for <span class="math inline">\(r &lt; 0\)</span>, unstable for <span class="math inline">\(r &gt; 0\)</span></li>
+<li>at <span class="math inline">\(y^* = \pm\sqrt{-r}\)</span>: <span class="math inline">\(f' = r - 3r = -2r &gt; 0\)</span> for <span class="math inline">\(r &lt; 0\)</span>, <strong>unstable</strong></li>
+</ul></li>
+</ul>
+<p>Now the side branches are unstable and exist <em>before</em> the bifurcation. For <span class="math inline">\(r &lt; 0\)</span>, the origin is stable only for perturbations smaller than <span class="math inline">\(\sqrt{-r}\)</span>. For <span class="math inline">\(r &gt; 0\)</span> there is nothing nearby to go to and solutions <strong>blow up</strong>. The change is sudden and dangerous, with no gradual warning in the equilibrium value itself.</p>
+<div id="e293b080" class="cell" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.2</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>rn, rp <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">100</span>), np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">100</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>branch(ax, rn, <span class="dv">0</span> <span class="op">*</span> rn, <span class="va">True</span>, label<span class="op">=</span><span class="st">"stable"</span>)<span class="op">;</span> branch(ax, rp, <span class="dv">0</span> <span class="op">*</span> rp, <span class="va">False</span>, label<span class="op">=</span><span class="st">"unstable"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>branch(ax, rp, np.sqrt(rp), <span class="va">True</span>)<span class="op">;</span> branch(ax, rp, <span class="op">-</span>np.sqrt(rp), <span class="va">True</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"ro"</span>, ms<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Supercritical pitchfork: y' = ry − y³"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>branch(ax, rn, <span class="dv">0</span> <span class="op">*</span> rn, <span class="va">True</span>, label<span class="op">=</span><span class="st">"stable"</span>)<span class="op">;</span> branch(ax, rp, <span class="dv">0</span> <span class="op">*</span> rp, <span class="va">False</span>, label<span class="op">=</span><span class="st">"unstable"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>branch(ax, rn, np.sqrt(<span class="op">-</span>rn), <span class="va">False</span>)<span class="op">;</span> branch(ax, rn, <span class="op">-</span>np.sqrt(<span class="op">-</span>rn), <span class="va">False</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="dv">0</span>, <span class="dv">0</span>, <span class="st">"ro"</span>, ms<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Subcritical pitchfork: y' = ry + y³"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"r"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"equilibria y*"</span>)<span class="op">;</span> ax.set_ylim(<span class="op">-</span><span class="fl">1.6</span>, <span class="fl">1.6</span>)<span class="op">;</span> ax.legend()</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9a3afac1" class="cell" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Symmetry breaking at r = 4: tiny differences in the initial condition decide the final state</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>t, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: <span class="dv">4</span> <span class="op">*</span> y <span class="op">-</span> y<span class="op">**</span><span class="dv">3</span>, <span class="dv">0</span>, np.array([<span class="op">-</span><span class="fl">0.01</span>, <span class="op">-</span><span class="fl">0.001</span>, <span class="fl">0.001</span>, <span class="fl">0.01</span>, <span class="fl">3.0</span>, <span class="op">-</span><span class="fl">3.0</span>]), <span class="fl">0.005</span>, <span class="dv">800</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.plot(t, Y, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ys <span class="kw">in</span> [<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>]:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    plt.axhline(ys, color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"C3"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"t"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.title(<span class="st">"y' = 4y − y³: solutions settle on +2 or −2"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"final values:"</span>, np.<span class="bu">round</span>(Y[<span class="op">-</span><span class="dv">1</span>], <span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>final values: [-2. -2.  2.  2.  2. -2.]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="hysteresis" class="level2">
+<h2 class="anchored" data-anchor-id="hysteresis">7. Hysteresis</h2>
+<p>Real systems usually have higher-order terms that stop the blow-up of a subcritical pitchfork. A standard example is</p>
+<p><span class="math display">\[y' = r + y - y^3.\]</span></p>
+<p>For a range of <span class="math inline">\(r\)</span> there are <strong>three</strong> equilibria (two stable, one unstable); outside it there is only one. The edges of that range are two <strong>saddle-node</strong> bifurcations.</p>
+<section id="worked-example-7.1-locating-the-bifurcation-points" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-7.1-locating-the-bifurcation-points">Worked example 7.1: locating the bifurcation points</h3>
+<p>Solve <span class="math inline">\(f = 0\)</span> and <span class="math inline">\(f_y = 0\)</span> simultaneously:</p>
+<p><span class="math display">\[f_y = 1 - 3y^2 = 0 \;\Rightarrow\; y^* = \pm\frac{1}{\sqrt{3}}, \qquad r_c = y^3 - y = \mp\frac{1}{\sqrt{3}}\left(1 - \frac{1}{3}\right) = \mp\frac{2}{3\sqrt{3}} \approx \mp 0.3849.\]</span></p>
+<p>So for <span class="math inline">\(-0.3849 &lt; r &lt; 0.3849\)</span> the system is <strong>bistable</strong>.</p>
+<p><strong>Hysteresis.</strong> Increase <span class="math inline">\(r\)</span> slowly from <span class="math inline">\(-1\)</span>. The system follows the lower stable branch until that branch disappears at <span class="math inline">\(r \approx +0.385\)</span>, then <strong>jumps</strong> to the upper branch. Now decrease <span class="math inline">\(r\)</span>: the system stays on the upper branch until <span class="math inline">\(r \approx -0.385\)</span> and only then jumps back down. The state depends on the <em>history</em> of <span class="math inline">\(r\)</span>, not just its current value. Examples include magnets, switches in cells and lake eutrophication.</p>
+<div id="e099e4be" class="cell" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equilibria for each r from the cubic  -y^3 + y + r = 0</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rs <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">801</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>stab_r, stab_y, unst_r, unst_y <span class="op">=</span> [], [], [], []</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> rs:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> y <span class="kw">in</span> np.roots([<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, r]):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(y.imag) <span class="op">&lt;</span> <span class="fl">1e-9</span>:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y.real</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            (stab_r <span class="cf">if</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> unst_r).append(r)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            (stab_y <span class="cf">if</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> unst_y).append(y)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Slow sweep of r up and then down while integrating y' = r(t) + y - y^3</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> <span class="fl">2000.0</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>r_of_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="op">-</span><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> t <span class="op">/</span> (T <span class="op">/</span> <span class="dv">2</span>) <span class="cf">if</span> t <span class="op">&lt;</span> T <span class="op">/</span> <span class="dv">2</span> <span class="cf">else</span> <span class="dv">1</span> <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> (t <span class="op">-</span> T <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> (T <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>t, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: r_of_t(t) <span class="op">+</span> y <span class="op">-</span> y<span class="op">**</span><span class="dv">3</span>, <span class="dv">0</span>, <span class="op">-</span><span class="fl">1.3</span>, <span class="fl">0.05</span>, <span class="bu">int</span>(T <span class="op">/</span> <span class="fl">0.05</span>))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>r_path <span class="op">=</span> np.array([r_of_t(ti) <span class="cf">for</span> ti <span class="kw">in</span> t])</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>up <span class="op">=</span> t <span class="op">&lt;</span> T <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.plot(stab_r, stab_y, <span class="st">"k."</span>, ms<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"stable equilibria"</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>plt.plot(unst_r, unst_y, <span class="st">"."</span>, color<span class="op">=</span><span class="st">"gray"</span>, ms<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"unstable equilibria"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.plot(r_path[up], Y[up], <span class="st">"C0"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"r increasing"</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>plt.plot(r_path[<span class="op">~</span>up], Y[<span class="op">~</span>up], <span class="st">"C3"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"r decreasing"</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>rc <span class="op">=</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">3</span> <span class="op">*</span> np.sqrt(<span class="dv">3</span>))</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> [<span class="op">-</span>rc, rc]:</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"r"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.title(<span class="st">"Hysteresis loop for y' = r + y − y³"</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>jump_up <span class="op">=</span> r_path[up][np.argmax(Y[up] <span class="op">&gt;</span> <span class="dv">0</span>)]</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>jump_down <span class="op">=</span> r_path[<span class="op">~</span>up][np.argmax(Y[<span class="op">~</span>up] <span class="op">&lt;</span> <span class="dv">0</span>)]</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"theory: saddle-nodes at r = ±</span><span class="sc">{</span>rc<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"simulation: jumps up near r = </span><span class="sc">{</span>jump_up<span class="sc">:.3f}</span><span class="ss">, down near r = </span><span class="sc">{</span>jump_down<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>theory: saddle-nodes at r = ±0.3849
+simulation: jumps up near r = 0.415, down near r = -0.415</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the simulation the jumps happen a little <em>after</em> <span class="math inline">\(\pm 0.385\)</span>, because <span class="math inline">\(r\)</span> is changing at a finite rate and the solution needs time to leave the bottleneck. This delay is the “ghost” effect from Section 4.</p>
+</section>
+</section>
+<section id="application-harvesting-and-sudden-collapse" class="level2">
+<h2 class="anchored" data-anchor-id="application-harvesting-and-sudden-collapse">8. Application: harvesting and sudden collapse</h2>
+<p>A fish population grows logistically and is harvested at a constant rate <span class="math inline">\(H\)</span> (fish per year):</p>
+<p><span class="math display">\[\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right) - H.\]</span></p>
+<p><strong>Equilibria:</strong> <span class="math inline">\(rP - \dfrac{r}{K}P^2 - H = 0\)</span>, so</p>
+<p><span class="math display">\[P^* = \frac{K}{2}\left(1 \pm \sqrt{1 - \frac{4H}{rK}}\right).\]</span></p>
+<p>They exist only when <span class="math inline">\(H \le \dfrac{rK}{4}\)</span>. The larger root is stable (a healthy population); the smaller root is unstable (a threshold below which the population crashes). At the <strong>maximum sustainable yield</strong> <span class="math inline">\(H_c = rK/4\)</span> they merge in a <strong>saddle-node</strong> bifurcation.</p>
+<section id="worked-example-8.1" class="level3">
+<h3 class="anchored" data-anchor-id="worked-example-8.1">Worked example 8.1</h3>
+<p>Take <span class="math inline">\(r = 0.5\)</span> per year and <span class="math inline">\(K = 1000\)</span>, so <span class="math inline">\(H_c = 0.5 \times 1000 / 4 = 125\)</span> fish per year.</p>
+<ul>
+<li><strong><span class="math inline">\(H = 100\)</span>:</strong> <span class="math inline">\(P^2 - 1000P + 200\,000 = 0\)</span>, so <span class="math inline">\(P^* = 500 \pm \sqrt{50\,000} = 500 \pm 223.6\)</span>, giving <span class="math inline">\(P^* = 723.6\)</span> (stable) and <span class="math inline">\(P^* = 276.4\)</span> (unstable).</li>
+<li><strong><span class="math inline">\(H = 120\)</span>:</strong> <span class="math inline">\(P^* = 500 \pm \sqrt{10\,000} = 600\)</span> (stable) and <span class="math inline">\(400\)</span> (unstable). The safety margin has shrunk.</li>
+<li><strong><span class="math inline">\(H = 125\)</span>:</strong> <span class="math inline">\(P^* = 500\)</span> (semi-stable). This is the tipping point.</li>
+<li><strong><span class="math inline">\(H = 130\)</span>:</strong> no equilibria. Every population eventually collapses to zero.</li>
+</ul>
+<p><strong>The danger:</strong> as <span class="math inline">\(H\)</span> increases towards 125, the stable population falls only gradually, from 1000 to about 724, then 600, then 500. Nothing in the equilibrium value warns of the collapse. Just past <span class="math inline">\(H_c\)</span> the fishery is gone. Because of the bottleneck, the decline is slow at first, which makes it easy to miss.</p>
+<div id="94de7910" class="cell" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, K <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1000.0</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Hc <span class="op">=</span> r <span class="op">*</span> K <span class="op">/</span> <span class="dv">4</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>H <span class="op">=</span> np.linspace(<span class="dv">0</span>, Hc, <span class="dv">300</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>disc <span class="op">=</span> np.sqrt(<span class="dv">1</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> H <span class="op">/</span> (r <span class="op">*</span> K))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.2</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>branch(ax, H, K <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> disc), <span class="va">True</span>, label<span class="op">=</span><span class="st">"stable (healthy population)"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>branch(ax, H, K <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> disc), <span class="va">False</span>, label<span class="op">=</span><span class="st">"unstable (collapse threshold)"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>ax.plot(Hc, K <span class="op">/</span> <span class="dv">2</span>, <span class="st">"ro"</span>, ms<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="ss">f"saddle-node, H = </span><span class="sc">{</span>Hc<span class="sc">:.0f}</span><span class="ss">"</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">150</span>)<span class="op">;</span> ax.set_xlabel(<span class="st">"harvest rate H"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"equilibrium P*"</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Bifurcation diagram for harvesting"</span>)<span class="op">;</span> ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> Hval <span class="kw">in</span> [<span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">125</span>, <span class="dv">126</span>, <span class="dv">130</span>, <span class="dv">150</span>]:</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    rhs <span class="op">=</span> <span class="kw">lambda</span> t, P: r <span class="op">*</span> P <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P <span class="op">/</span> K) <span class="op">-</span> Hval <span class="cf">if</span> P <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="fl">0.0</span>   <span class="co"># freeze once extinct</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    t, P <span class="op">=</span> rk4(rhs, <span class="dv">0</span>, <span class="fl">1000.0</span>, <span class="fl">0.05</span>, <span class="dv">2400</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    P <span class="op">=</span> np.where(P <span class="op">&lt;=</span> <span class="dv">0</span>, np.nan, P)           <span class="co"># stop plotting once the population is gone</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    ax.plot(t, P, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"H = </span><span class="sc">{</span>Hval<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"t (years)"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"P"</span>)<span class="op">;</span> ax.set_ylim(<span class="dv">0</span>, <span class="dv">1050</span>)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Starting from P = 1000"</span>)<span class="op">;</span> ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'H'</span><span class="sc">:&gt;5}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'stable P*'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'unstable P*'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> Hval <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">120</span>, <span class="dv">125</span>]:</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> np.sqrt(<span class="bu">max</span>(<span class="fl">0.0</span>, <span class="dv">1</span> <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> Hval <span class="op">/</span> (r <span class="op">*</span> K)))</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>Hval<span class="sc">:5d}</span><span class="ss"> </span><span class="sc">{</span>K<span class="op">/</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>d)<span class="sc">:10.1f}</span><span class="ss"> </span><span class="sc">{</span>K<span class="op">/</span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>d)<span class="sc">:12.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    H  stable P*  unstable P*
+    0     1000.0          0.0
+   50      887.3        112.7
+  100      723.6        276.4
+  120      600.0        400.0
+  125      500.0        500.0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="5021d873" class="cell" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How long until collapse just beyond the tipping point?  (bottleneck time ~ 1/sqrt(H - Hc))</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> collapse_time(Hval, h<span class="op">=</span><span class="fl">0.01</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    P, t <span class="op">=</span> <span class="fl">1000.0</span>, <span class="fl">0.0</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> <span class="kw">lambda</span> P: r <span class="op">*</span> P <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P <span class="op">/</span> K) <span class="op">-</span> Hval</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> P <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> g(P)<span class="op">;</span> k2 <span class="op">=</span> g(P <span class="op">+</span> h<span class="op">/</span><span class="dv">2</span><span class="op">*</span>k1)<span class="op">;</span> k3 <span class="op">=</span> g(P <span class="op">+</span> h<span class="op">/</span><span class="dv">2</span><span class="op">*</span>k2)<span class="op">;</span> k4 <span class="op">=</span> g(P <span class="op">+</span> h<span class="op">*</span>k3)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        P <span class="op">+=</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k2 <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>k3 <span class="op">+</span> k4)<span class="op">;</span> t <span class="op">+=</span> h</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'H'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'years to collapse'</span><span class="sc">:&gt;18}</span><span class="ss">"</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> Hval <span class="kw">in</span> [<span class="dv">126</span>, <span class="dv">130</span>, <span class="dv">140</span>, <span class="dv">150</span>, <span class="dv">200</span>]:</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>Hval<span class="sc">:6d}</span><span class="ss"> </span><span class="sc">{</span>collapse_time(Hval)<span class="sc">:18.1f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     H  years to collapse
+   126              132.5
+   130               54.9
+   140               28.6
+   150               20.6
+   200                9.4</code></pre>
+</div>
+</div>
+<p>Overshooting the maximum sustainable yield by just 1 fish per year (126 instead of 125) still destroys the population; it only takes longer.</p>
+</section>
+</section>
+<section id="computing-bifurcation-diagrams-numerically" class="level2">
+<h2 class="anchored" data-anchor-id="computing-bifurcation-diagrams-numerically">9. Computing bifurcation diagrams numerically</h2>
+<p>For realistic models, <span class="math inline">\(f(y, r) = 0\)</span> usually cannot be solved by hand. There are three standard numerical approaches.</p>
+<section id="root-finding-over-a-grid-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="root-finding-over-a-grid-of-r">9.1 Root finding over a grid of <span class="math inline">\(r\)</span></h3>
+<p>For each <span class="math inline">\(r\)</span>, find all roots of <span class="math inline">\(f(\cdot, r)\)</span> and classify each one by the sign of <span class="math inline">\(f_y\)</span>. We did this in Section 7 with <code>np.roots</code>, because <span class="math inline">\(f\)</span> was a polynomial. For a general <span class="math inline">\(f\)</span>, scan for sign changes, then refine each root with Newton’s method:</p>
+<p><span class="math display">\[y_{k+1} = y_k - \frac{f(y_k, r)}{f_y(y_k, r)}.\]</span></p>
+</section>
+<section id="brute-force-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="brute-force-simulation">9.2 Brute-force simulation</h3>
+<p>Integrate from many initial conditions for a long time and plot the final values. This finds only the <strong>stable</strong> equilibria, but it needs nothing except a simulator, and it also works when equilibria are not the whole story.</p>
+</section>
+<section id="solving-directly-for-the-bifurcation-point" class="level3">
+<h3 class="anchored" data-anchor-id="solving-directly-for-the-bifurcation-point">9.3 Solving directly for the bifurcation point</h3>
+<p>Treat <span class="math inline">\((y, r)\)</span> as two unknowns and solve the <span class="math inline">\(2 \times 2\)</span> system <span class="math inline">\(f = 0\)</span>, <span class="math inline">\(f_y = 0\)</span> with Newton’s method. Below, all three are applied to examples from these notes.</p>
+<div id="f5b0ec09" class="cell" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9.1  Grid scan + Newton for a non-polynomial model: y' = r - y - exp(-y)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>F  <span class="op">=</span> <span class="kw">lambda</span> y, r: r <span class="op">-</span> y <span class="op">-</span> np.exp(<span class="op">-</span>y)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Fy <span class="op">=</span> <span class="kw">lambda</span> y, r: <span class="op">-</span><span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>y)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> equilibria(F, Fy, r, ygrid):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> F(ygrid, r)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    roots <span class="op">=</span> []</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.where(np.sign(vals[:<span class="op">-</span><span class="dv">1</span>]) <span class="op">*</span> np.sign(vals[<span class="dv">1</span>:]) <span class="op">&lt;</span> <span class="dv">0</span>)[<span class="dv">0</span>]:</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (ygrid[i] <span class="op">+</span> ygrid[i <span class="op">+</span> <span class="dv">1</span>])</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">30</span>):                       <span class="co"># Newton refinement</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>            y <span class="op">-=</span> F(y, r) <span class="op">/</span> Fy(y, r)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        roots.append(y)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> roots</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>ygrid <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4001</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> np.linspace(<span class="fl">0.6</span>, <span class="dv">4</span>, <span class="dv">400</span>):</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> y <span class="kw">in</span> equilibria(F, Fy, r, ygrid):</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        plt.plot(r, y, <span class="st">"k."</span> <span class="cf">if</span> Fy(y, r) <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">"r."</span>, ms<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>plt.plot([], [], <span class="st">"k."</span>, label<span class="op">=</span><span class="st">"stable"</span>)<span class="op">;</span> plt.plot([], [], <span class="st">"r."</span>, label<span class="op">=</span><span class="st">"unstable"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"r"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y*"</span>)<span class="op">;</span> plt.title(<span class="st">"Numerical bifurcation diagram: y' = r − y − e^(−y)"</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The diagram shows a saddle-node bifurcation at <span class="math inline">\(r = 1\)</span>. <em>Check by hand:</em> <span class="math inline">\(F_y = 0\)</span> gives <span class="math inline">\(e^{-y} = 1\)</span>, so <span class="math inline">\(y^* = 0\)</span>; then <span class="math inline">\(F = 0\)</span> gives <span class="math inline">\(r_c = 0 + e^{0} = 1\)</span>. ✓</p>
+<div id="9c38a502" class="cell" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9.2  Brute force for the supercritical pitchfork y' = ry - y^3</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rs <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">81</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y0s <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="dv">12</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> rs:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    _, Y <span class="op">=</span> rk4(<span class="kw">lambda</span> t, y: r <span class="op">*</span> y <span class="op">-</span> y<span class="op">**</span><span class="dv">3</span>, <span class="dv">0</span>, y0s, <span class="fl">0.02</span>, <span class="dv">2500</span>)   <span class="co"># integrate to t = 50</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.full(<span class="bu">len</span>(y0s), r), Y[<span class="op">-</span><span class="dv">1</span>], <span class="st">"C0."</span>, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rp <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.plot(rp, np.sqrt(rp), <span class="st">"k-"</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"theory ±√r"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.plot(rp, <span class="op">-</span>np.sqrt(rp), <span class="st">"k-"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"r"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y(t = 50)"</span>)<span class="op">;</span> plt.title(<span class="st">"Brute force: final states from 12 initial conditions"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="bifurcations-first-order-differential-equations_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Only the stable branches appear, and the unstable <span class="math inline">\(y = 0\)</span> for <span class="math inline">\(r &gt; 0\)</span> is invisible. Notice the spread near <span class="math inline">\(r = 0\)</span>. There <span class="math inline">\(f'(0) \approx 0\)</span>, so the approach to equilibrium is extremely slow (for <span class="math inline">\(r = 0\)</span>, <span class="math inline">\(y' = -y^3\)</span> decays only like <span class="math inline">\(1/\sqrt{2t}\)</span>). This <strong>critical slowing down</strong> is another warning sign that a bifurcation is near.</p>
+<div id="37d10ce6" class="cell" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 9.3  Newton's method on the 2x2 system  f = 0, f_y = 0  for the hysteresis model y' = r + y - y^3</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bifurcation_point(y, r, steps<span class="op">=</span><span class="dv">8</span>):</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'k'</span><span class="sc">:&gt;2}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'r'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'|f|+|f_y|'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        Fv <span class="op">=</span> np.array([r <span class="op">+</span> y <span class="op">-</span> y<span class="op">**</span><span class="dv">3</span>, <span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span>])</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">:2d}</span><span class="ss"> </span><span class="sc">{</span>y<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>r<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">abs</span>(Fv)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:12.2e}</span><span class="ss">"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        J <span class="op">=</span> np.array([[<span class="dv">1</span> <span class="op">-</span> <span class="dv">3</span> <span class="op">*</span> y<span class="op">**</span><span class="dv">2</span>, <span class="fl">1.0</span>],      <span class="co"># d/dy, d/dr of f</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                      [<span class="op">-</span><span class="dv">6</span> <span class="op">*</span> y,       <span class="fl">0.0</span>]])     <span class="co"># d/dy, d/dr of f_y</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        dy, dr <span class="op">=</span> np.linalg.solve(J, <span class="op">-</span>Fv)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        y, r <span class="op">=</span> y <span class="op">+</span> dy, r <span class="op">+</span> dr</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y, r</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>y_c, r_c <span class="op">=</span> bifurcation_point(<span class="fl">0.8</span>, <span class="fl">0.0</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Newton:  y* = </span><span class="sc">{</span>y_c<span class="sc">:.8f}</span><span class="ss">,  r_c = </span><span class="sc">{</span>r_c<span class="sc">:.8f}</span><span class="ss">"</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact:   y* = </span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span>np<span class="sc">.</span>sqrt(<span class="dv">3</span>)<span class="sc">:.8f}</span><span class="ss">,  r_c = </span><span class="sc">{</span><span class="op">-</span><span class="dv">2</span><span class="op">/</span>(<span class="dv">3</span><span class="op">*</span>np.sqrt(<span class="dv">3</span>))<span class="sc">:.8f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> k            y            r    |f|+|f_y|
+ 0   0.80000000   0.00000000     1.21e+00
+ 1   0.60833333  -0.46433333     1.91e-01
+ 2   0.57813927  -0.38653539     4.37e-03
+ 3   0.57735081  -0.38490126     2.94e-06
+ 4   0.57735027  -0.38490018     1.37e-12
+ 5   0.57735027  -0.38490018     2.78e-17
+ 6   0.57735027  -0.38490018     2.78e-17
+ 7   0.57735027  -0.38490018     2.78e-17
+
+Newton:  y* = 0.57735027,  r_c = -0.38490018
+Exact:   y* = 0.57735027,  r_c = -0.38490018</code></pre>
+</div>
+</div>
+<p>Newton converges quadratically: the number of correct digits roughly doubles each iteration. This is how software such as AUTO, MatCont or Julia’s BifurcationKit.jl locates bifurcation points, combined with <strong>continuation</strong>, which follows a branch of equilibria step by step in <span class="math inline">\(r\)</span>.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">10. Summary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Normal form</th>
+<th>Equilibria</th>
+<th>Bifurcation diagram</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Saddle-node</td>
+<td><span class="math inline">\(y' = r + y^2\)</span></td>
+<td><span class="math inline">\(\pm\sqrt{-r}\)</span> for <span class="math inline">\(r&lt;0\)</span></td>
+<td>a parabola that ends at the bifurcation point</td>
+<td>equilibria created or destroyed; tipping points</td>
+</tr>
+<tr class="even">
+<td>Transcritical</td>
+<td><span class="math inline">\(y' = ry - y^2\)</span></td>
+<td><span class="math inline">\(0\)</span> and <span class="math inline">\(r\)</span></td>
+<td>two crossing lines</td>
+<td>exchange of stability; thresholds</td>
+</tr>
+<tr class="odd">
+<td>Supercritical pitchfork</td>
+<td><span class="math inline">\(y' = ry - y^3\)</span></td>
+<td><span class="math inline">\(0\)</span>; <span class="math inline">\(\pm\sqrt{r}\)</span> for <span class="math inline">\(r&gt;0\)</span></td>
+<td>stable branches open after <span class="math inline">\(r_c\)</span></td>
+<td>smooth symmetry breaking</td>
+</tr>
+<tr class="even">
+<td>Subcritical pitchfork</td>
+<td><span class="math inline">\(y' = ry + y^3\)</span></td>
+<td><span class="math inline">\(0\)</span>; <span class="math inline">\(\pm\sqrt{-r}\)</span> for <span class="math inline">\(r&lt;0\)</span></td>
+<td>unstable branches before <span class="math inline">\(r_c\)</span></td>
+<td>sudden jump or blow-up</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recipe for analysing <span class="math inline">\(y' = f(y, r)\)</span></strong> 1. Find the equilibria: solve <span class="math inline">\(f(y, r) = 0\)</span>. 2. Classify each one by the sign of <span class="math inline">\(f_y(y^*, r)\)</span>. 3. Find the bifurcation points: solve <span class="math inline">\(f = 0\)</span> and <span class="math inline">\(f_y = 0\)</span> together. 4. Draw the bifurcation diagram (solid = stable, dashed = unstable) and phase lines on either side of each <span class="math inline">\(r_c\)</span>. 5. Confirm with simulations.</p>
+<p><strong>Warning signs near a bifurcation:</strong> slow recovery from perturbations (critical slowing down), long pauses (bottlenecks), and a shrinking distance between the stable and unstable equilibria.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">11. Exercises</h2>
+<ol type="1">
+<li><span class="math inline">\(y' = r - y^2\)</span>. Find the equilibria, their stability and the bifurcation type.</li>
+<li><span class="math inline">\(y' = ry + y^2\)</span>. Find the equilibria and their stability, and identify the bifurcation.</li>
+<li><span class="math inline">\(y' = ry - \sin y\)</span>. Show that <span class="math inline">\(y^* = 0\)</span> changes stability at <span class="math inline">\(r = 1\)</span>. Use <span class="math inline">\(\sin y \approx y - y^3/6\)</span> to decide whether the pitchfork is super- or subcritical.</li>
+<li>In the harvesting model with <span class="math inline">\(r = 0.5\)</span> and <span class="math inline">\(K = 1000\)</span>, find the equilibria for <span class="math inline">\(H = 120\)</span>. What is the smallest population that recovers?</li>
+<li>Find the bifurcation point of <span class="math inline">\(y' = r + y - \ln(1 + y)\)</span> for <span class="math inline">\(y &gt; -1\)</span>.</li>
+</ol>
+<p><strong>Answers</strong></p>
+<ol type="1">
+<li><span class="math inline">\(y^* = \pm\sqrt{r}\)</span> for <span class="math inline">\(r &gt; 0\)</span>, with <span class="math inline">\(f' = -2y\)</span>: <span class="math inline">\(+\sqrt{r}\)</span> is stable and <span class="math inline">\(-\sqrt{r}\)</span> unstable. A saddle-node at <span class="math inline">\(r = 0\)</span>, with the branches opening to the right.</li>
+<li><span class="math inline">\(y^* = 0\)</span> and <span class="math inline">\(y^* = -r\)</span>, with <span class="math inline">\(f' = r + 2y\)</span>: <span class="math inline">\(f'(0) = r\)</span> and <span class="math inline">\(f'(-r) = -r\)</span>. A transcritical bifurcation at <span class="math inline">\(r = 0\)</span>: <span class="math inline">\(y^* = 0\)</span> is stable for <span class="math inline">\(r &lt; 0\)</span> and <span class="math inline">\(y^* = -r\)</span> is stable for <span class="math inline">\(r &gt; 0\)</span>.</li>
+<li><span class="math inline">\(f'(0) = r - \cos 0 = r - 1\)</span>, which changes sign at <span class="math inline">\(r = 1\)</span>. Near <span class="math inline">\(0\)</span>, <span class="math inline">\(f \approx (r - 1)y + y^3/6\)</span>. The cubic term has a <strong>plus</strong> sign, so the pitchfork is <strong>subcritical</strong>.</li>
+<li><span class="math inline">\(P^* = 600\)</span> (stable) and <span class="math inline">\(P^* = 400\)</span> (unstable). Any population above 400 recovers to 600.</li>
+<li><span class="math inline">\(f_y = 1 - \dfrac{1}{1+y} = 0 \Rightarrow y^* = 0\)</span>, and then <span class="math inline">\(f = r + 0 - 0 = 0 \Rightarrow r_c = 0\)</span>. For <span class="math inline">\(r &lt; 0\)</span> there are two equilibria (one on each side of 0) and for <span class="math inline">\(r &gt; 0\)</span> none: a saddle-node. Check it numerically below.</li>
+</ol>
+<div id="9833d937" class="cell" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exercise 5 check: count equilibria of y' = r + y - ln(1+y) for a few r</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>F5  <span class="op">=</span> <span class="kw">lambda</span> y, r: r <span class="op">+</span> y <span class="op">-</span> np.log1p(y)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>F5y <span class="op">=</span> <span class="kw">lambda</span> y, r: <span class="dv">1</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> y)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ygrid <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">0.999</span>, <span class="dv">5</span>, <span class="dv">20001</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> [<span class="op">-</span><span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>]:</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    eq <span class="op">=</span> equilibria(F5, F5y, r, ygrid)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    desc <span class="op">=</span> <span class="st">", "</span>.join(<span class="ss">f"</span><span class="sc">{</span>y<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span><span class="st">'stable'</span> <span class="cf">if</span> F5y(y, r) <span class="op">&lt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'unstable'</span><span class="sc">}</span><span class="ss">)"</span> <span class="cf">for</span> y <span class="kw">in</span> eq) <span class="kw">or</span> <span class="st">"none"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>r<span class="sc">:5.2f}</span><span class="ss">: equilibria </span><span class="sc">{</span>desc<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>r = -0.50: equilibria -0.6983 (stable), 1.3577 (unstable)
+r = -0.10: equilibria -0.3832 (stable), 0.5162 (unstable)
+r =  0.10: equilibria none</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
