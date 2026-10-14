@@ -5,6 +5,7 @@ project:
     - index.qmd
     - first-order-differential-equations.ipynb
     - bifurcations-first-order-differential-equations.ipynb
+    - numerical-methods/*.ipynb
 
 website:
   title: "Differential Equations"
@@ -16,6 +17,21 @@ website:
         text: First-Order ODEs
       - href: bifurcations-first-order-differential-equations.ipynb
         text: Bifurcations
+      - href: numerical-methods/index.ipynb
+        text: Numerical Methods
+  sidebar:
+    - title: "Numerical Methods"
+      style: docked
+      contents:
+        - numerical-methods/index.ipynb
+        - numerical-methods/01-eulers-method.ipynb
+        - numerical-methods/02-second-order-runge-kutta.ipynb
+        - numerical-methods/03-runge-kutta-4.ipynb
+        - numerical-methods/04-error-order-efficiency.ipynb
+        - numerical-methods/05-stability-and-stiffness.ipynb
+        - numerical-methods/06-adaptive-step-size.ipynb
+        - numerical-methods/07-multistep-methods.ipynb
+        - numerical-methods/08-systems-and-higher-order.ipynb
 
 format:
   html:

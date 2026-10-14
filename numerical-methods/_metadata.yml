@@ -1,0 +1,11 @@
+# Shared settings for every notebook in the Numerical Methods chapter
+author: "Miraj Samarakkody"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: show
+  pdf:
+    toc: true
+    documentclass: article
+    geometry: margin=2.5cm
