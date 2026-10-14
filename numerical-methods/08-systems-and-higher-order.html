@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Miraj Samarakkody">
+<meta name="dcterms.date" content="2026-10-14">
+
+<title>8. Systems and Higher-Order Equations – Differential Equations</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bda23ef02b1613632e48409ff51ea9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Differential Equations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../first-order-differential-equations.html"> 
+<span class="menu-text">First-Order ODEs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bifurcations-first-order-differential-equations.html"> 
+<span class="menu-text">Bifurcations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../numerical-methods/index.html" aria-current="page"> 
+<span class="menu-text">Numerical Methods</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-methods/08-systems-and-higher-order.html">8. Systems and Higher-Order Equations</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical Methods for First-Order ODEs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/01-eulers-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Euler’s Method</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/02-second-order-runge-kutta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Second-Order Runge–Kutta Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/03-runge-kutta-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. The Classical Runge–Kutta Method (RK4)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/04-error-order-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Error, Order and Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/05-stability-and-stiffness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Stability and Stiff Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/06-adaptive-step-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Adaptive Step Size</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/07-multistep-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Multistep Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/08-systems-and-higher-order.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">8. Systems and Higher-Order Equations</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#systems-of-first-order-equations" id="toc-systems-of-first-order-equations" class="nav-link active" data-scroll-target="#systems-of-first-order-equations">8.1 Systems of first-order equations</a></li>
+  <li><a href="#higher-order-equations-as-systems" id="toc-higher-order-equations-as-systems" class="nav-link" data-scroll-target="#higher-order-equations-as-systems">8.2 Higher-order equations as systems</a></li>
+  <li><a href="#long-simulations-and-conserved-quantities" id="toc-long-simulations-and-conserved-quantities" class="nav-link" data-scroll-target="#long-simulations-and-conserved-quantities">8.3 Long simulations and conserved quantities</a></li>
+  <li><a href="#the-nonlinear-pendulum" id="toc-the-nonlinear-pendulum" class="nav-link" data-scroll-target="#the-nonlinear-pendulum">8.4 The nonlinear pendulum</a></li>
+  <li><a href="#predatorprey-the-lotkavolterra-equations" id="toc-predatorprey-the-lotkavolterra-equations" class="nav-link" data-scroll-target="#predatorprey-the-lotkavolterra-equations">8.5 Predator–prey: the Lotka–Volterra equations</a></li>
+  <li><a href="#stiff-systems" id="toc-stiff-systems" class="nav-link" data-scroll-target="#stiff-systems">8.6 Stiff systems</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">8.7 Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="08-systems-and-higher-order.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">8. Systems and Higher-Order Equations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Miraj Samarakkody </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Most models involve more than one unknown: positions <strong>and</strong> velocities, predators <strong>and</strong> prey, several chemical concentrations. This section shows that every method in the chapter applies unchanged to systems, how higher-order equations are rewritten as systems, and what can go wrong over long simulations of oscillating systems.</p>
+<div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:15.983326Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:15.983105Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.143643Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.142960Z&quot;}}" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">4.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"axes.grid"</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.set_printoptions(precision<span class="op">=</span><span class="dv">6</span>, suppress<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="systems-of-first-order-equations" class="level2">
+<h2 class="anchored" data-anchor-id="systems-of-first-order-equations">8.1 Systems of first-order equations</h2>
+<p>A system of <span class="math inline">\(m\)</span> first-order equations</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_1' &amp;= f_1(x, y_1, \dots, y_m)\\
+&amp;\ \ \vdots\\
+y_m' &amp;= f_m(x, y_1, \dots, y_m)
+\end{aligned}
+\]</span></p>
+<p>is written in vector form as</p>
+<p><span class="math display">\[\mathbf{y}' = \mathbf{f}(x, \mathbf{y}), \qquad \mathbf{y}(x_0) = \mathbf{y}_0, \qquad \mathbf{y} \in \mathbb{R}^m.\]</span></p>
+<p><strong>Every method carries over word for word</strong>: the slopes <span class="math inline">\(k_i\)</span> simply become vectors. For example, Euler is <span class="math inline">\(\mathbf{y}_{n+1} = \mathbf{y}_n + h\,\mathbf{f}(x_n, \mathbf{y}_n)\)</span>, and RK4 uses four vector stages. The theory carries over too, with <span class="math inline">\(|\cdot|\)</span> replaced by a vector norm and <span class="math inline">\(\partial f/\partial y\)</span> replaced by the <strong>Jacobian matrix</strong> <span class="math inline">\(J = (\partial f_i/\partial y_j)\)</span>.</p>
+<p>With NumPy the code hardly changes: store the solution as an array of shape <span class="math inline">\((n+1, m)\)</span>. The functions below also work for scalar equations.</p>
+<div id="c003" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.145025Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.144924Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.148654Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.148223Z&quot;}}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, x0, y0, h, n):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    y0 <span class="op">=</span> np.asarray(y0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> x0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>), np.zeros((n <span class="op">+</span> <span class="dv">1</span>,) <span class="op">+</span> y0.shape)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    y[<span class="dv">0</span>] <span class="op">=</span> y0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> f(x[i], y[i])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, x0, y0, h, n):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    y0 <span class="op">=</span> np.asarray(y0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> x0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>), np.zeros((n <span class="op">+</span> <span class="dv">1</span>,) <span class="op">+</span> y0.shape)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    y[<span class="dv">0</span>] <span class="op">=</span> y0</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="higher-order-equations-as-systems" class="level2">
+<h2 class="anchored" data-anchor-id="higher-order-equations-as-systems">8.2 Higher-order equations as systems</h2>
+<p>An equation of order <span class="math inline">\(m\)</span>,</p>
+<p><span class="math display">\[y^{(m)} = g\big(x, y, y', \dots, y^{(m-1)}\big),\]</span></p>
+<p>becomes a first-order system by introducing the unknowns <span class="math inline">\(u_1 = y\)</span>, <span class="math inline">\(u_2 = y'\)</span>, …, <span class="math inline">\(u_m = y^{(m-1)}\)</span>:</p>
+<p><span class="math display">\[u_1' = u_2, \qquad u_2' = u_3, \qquad \dots, \qquad u_m' = g(x, u_1, u_2, \dots, u_m).\]</span></p>
+<p>The initial conditions <span class="math inline">\(y(x_0), y'(x_0), \dots, y^{(m-1)}(x_0)\)</span> become the initial vector <span class="math inline">\(\mathbf{u}_0\)</span>.</p>
+<p><strong>Example: a damped oscillator.</strong></p>
+<p><span class="math display">\[y'' + 0.4\,y' + 4y = 0, \qquad y(0) = 1, \quad y'(0) = 0.\]</span></p>
+<p>With <span class="math inline">\(u_1 = y\)</span> and <span class="math inline">\(u_2 = y'\)</span>:</p>
+<p><span class="math display">\[u_1' = u_2, \qquad u_2' = -4u_1 - 0.4u_2, \qquad \mathbf{u}(0) = (1, 0).\]</span></p>
+<p>The characteristic equation <span class="math inline">\(r^2 + 0.4r + 4 = 0\)</span> gives <span class="math inline">\(r = -0.2 \pm i\omega_d\)</span> with <span class="math inline">\(\omega_d = \sqrt{3.96}\)</span>, so the exact solution is</p>
+<p><span class="math display">\[y = e^{-0.2x}\left(\cos\omega_d x + \frac{0.2}{\omega_d}\sin\omega_d x\right).\]</span></p>
+<div id="c005" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.149861Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.149808Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.257372Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.256880Z&quot;}}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>damped <span class="op">=</span> <span class="kw">lambda</span> x, u: np.array([u[<span class="dv">1</span>], <span class="op">-</span><span class="dv">4</span> <span class="op">*</span> u[<span class="dv">0</span>] <span class="op">-</span> <span class="fl">0.4</span> <span class="op">*</span> u[<span class="dv">1</span>]])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>wd <span class="op">=</span> np.sqrt(<span class="fl">3.96</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>damped_exact <span class="op">=</span> <span class="kw">lambda</span> x: np.exp(<span class="op">-</span><span class="fl">0.2</span> <span class="op">*</span> x) <span class="op">*</span> (np.cos(wd <span class="op">*</span> x) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">/</span> wd <span class="op">*</span> np.sin(wd <span class="op">*</span> x))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>x, u <span class="op">=</span> rk4(damped, <span class="dv">0</span>, [<span class="dv">1</span>, <span class="dv">0</span>], <span class="fl">0.1</span>, <span class="dv">150</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">600</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(xf, damped_exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x, u[:, <span class="dv">0</span>], <span class="st">"."</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"RK4, h = 0.1"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"y"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"y'' + 0.4y' + 4y = 0"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(u[:, <span class="dv">0</span>], u[:, <span class="dv">1</span>], <span class="st">"C1"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"y"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"y'"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_title(<span class="st">"Phase plane: spiral into the origin"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"max |error| in y over [0, 15]: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(np.<span class="bu">abs</span>(u[:, <span class="dv">0</span>] <span class="op">-</span> damped_exact(x)))<span class="sc">:.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>max |error| in y over [0, 15]: 5.00e-05</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-systems-and-higher-order_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="long-simulations-and-conserved-quantities" class="level2">
+<h2 class="anchored" data-anchor-id="long-simulations-and-conserved-quantities">8.3 Long simulations and conserved quantities</h2>
+<p>The undamped oscillator <span class="math inline">\(y'' = -y\)</span>, as the system</p>
+<p><span class="math display">\[u' = v, \qquad v' = -u,\]</span></p>
+<p>has solutions that move round circles in the <span class="math inline">\((u, v)\)</span> plane forever. The <strong>energy</strong> <span class="math inline">\(E = \tfrac12(u^2 + v^2)\)</span> is conserved exactly. The eigenvalues of the system matrix are <span class="math inline">\(\pm i\)</span>, so this is the imaginary-axis case of <a href="../numerical-methods/05-stability-and-stiffness.html">Section 5.3</a>.</p>
+<ul>
+<li><strong>Euler:</strong> <span class="math inline">\((u_{n+1}, v_{n+1}) = (u_n + hv_n,\ v_n - hu_n)\)</span>, so <span class="math inline">\(u_{n+1}^2 + v_{n+1}^2 = (1 + h^2)(u_n^2 + v_n^2)\)</span>. The energy grows by the factor <span class="math inline">\(1 + h^2\)</span> <strong>every step</strong>: the orbit spirals outwards.</li>
+<li><strong>RK4:</strong> the energy is multiplied by <span class="math inline">\(|R(ih)|^2 = 1 - \frac{h^6}{72} + \frac{h^8}{576}\)</span> per step: a very slow inward drift.</li>
+<li><strong>Symplectic (semi-implicit) Euler:</strong> update the velocity first and use the <em>new</em> velocity for the position:</li>
+</ul>
+<p><span class="math display">\[v_{n+1} = v_n - h\,u_n, \qquad u_{n+1} = u_n + h\,v_{n+1}.\]</span></p>
+<p>It is still only order 1 and costs the same as Euler, but it preserves areas in the phase plane (the update matrix has determinant 1). As a result its energy error stays <strong>bounded</strong>: it oscillates but never drifts, however long the simulation.</p>
+<div id="c007" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.258504Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.258407Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.442377Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.441938Z&quot;}}" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>osc <span class="op">=</span> <span class="kw">lambda</span> x, u: np.array([u[<span class="dv">1</span>], <span class="op">-</span>u[<span class="dv">0</span>]])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> symplectic_euler(h, n, u0, v0):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    u, v <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    u[<span class="dv">0</span>], v[<span class="dv">0</span>] <span class="op">=</span> u0, v0</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        v[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> v[i] <span class="op">-</span> h <span class="op">*</span> u[i]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        u[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> u[i] <span class="op">+</span> h <span class="op">*</span> v[i <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> u, v</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>h, n <span class="op">=</span> <span class="fl">0.1</span>, <span class="dv">1000</span>                                    <span class="co"># x up to 100, about 16 periods</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>_, ue <span class="op">=</span> euler(osc, <span class="dv">0</span>, [<span class="dv">1</span>, <span class="dv">0</span>], h, n)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>_, ur <span class="op">=</span> rk4(osc, <span class="dv">0</span>, [<span class="dv">1</span>, <span class="dv">0</span>], h, n)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>us, vs <span class="op">=</span> symplectic_euler(h, n, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> {<span class="st">"Euler"</span>: (ue[:, <span class="dv">0</span>], ue[:, <span class="dv">1</span>]), <span class="st">"RK4"</span>: (ur[:, <span class="dv">0</span>], ur[:, <span class="dv">1</span>]), <span class="st">"Symplectic Euler"</span>: (us, vs)}</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">4.8</span>))</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, (u, v) <span class="kw">in</span> results.items():</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(u, v, lw<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span>name)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    energy <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (u<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> v<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].semilogy(t, np.<span class="bu">abs</span>(energy <span class="op">/</span> <span class="fl">0.5</span> <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> <span class="fl">1e-16</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span>name)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:17s}</span><span class="ss">: relative energy error at x = 100: </span><span class="sc">{</span>energy[<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> <span class="fl">0.5</span> <span class="op">-</span> <span class="dv">1</span><span class="sc">:+.2e}</span><span class="ss">"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"u = y"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"v = y'"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Phase plane, h = 0.1"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"|E / E₀ − 1|"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_title(<span class="st">"Energy error"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Euler            : relative energy error at x = 100: +2.10e+04
+RK4              : relative energy error at x = 100: -1.39e-05
+Symplectic Euler : relative energy error at x = 100: +4.26e-02</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-systems-and-higher-order_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Euler’s energy has grown by a factor <span class="math inline">\((1.01)^{1000} \approx 2 \times 10^4\)</span>: the “oscillator” is flying apart.</li>
+<li>RK4’s energy error is tiny but grows steadily with time.</li>
+<li>Symplectic Euler’s energy error is much larger than RK4’s (order 1 against order 4), but it <strong>does not grow</strong>: it oscillates within a fixed band for as long as the simulation runs. RK4’s error keeps growing linearly, so over a long enough run (here, hundreds of thousands of time units) it would eventually overtake. Higher-order symplectic methods get both benefits.</li>
+</ul>
+<p>For long simulations of conservative systems (planetary orbits, molecular dynamics, particle accelerators) the qualitative behaviour matters more than the local error, so <strong>geometric integrators</strong> are used: symplectic Euler, the Störmer–Verlet (leapfrog) method, and higher-order symplectic methods.</p>
+</section>
+<section id="the-nonlinear-pendulum" class="level2">
+<h2 class="anchored" data-anchor-id="the-nonlinear-pendulum">8.4 The nonlinear pendulum</h2>
+<p>A pendulum of length <span class="math inline">\(L\)</span> obeys</p>
+<p><span class="math display">\[\theta'' = -\frac{g}{L}\sin\theta.\]</span></p>
+<p>For small angles <span class="math inline">\(\sin\theta \approx \theta\)</span>, which gives simple harmonic motion with period <span class="math inline">\(T_0 = 2\pi\sqrt{L/g}\)</span> independent of the amplitude. For large swings the period <strong>increases</strong>. The exact period for a release from rest at angle <span class="math inline">\(\theta_0\)</span> is</p>
+<p><span class="math display">\[T = 4\sqrt{\frac{L}{g}}\;K\!\left(\sin\frac{\theta_0}{2}\right),\]</span></p>
+<p>where <span class="math inline">\(K(k)\)</span> is the complete elliptic integral of the first kind. It can be computed very accurately with the arithmetic–geometric mean: <span class="math inline">\(K(k) = \dfrac{\pi}{2\,\operatorname{AGM}\big(1, \sqrt{1 - k^2}\big)}\)</span>.</p>
+<p>We take <span class="math inline">\(g/L = 1\)</span> (so <span class="math inline">\(T_0 = 2\pi\)</span>), integrate with RK4, and measure the period from the time of the first zero crossing of <span class="math inline">\(\theta\)</span>, which is <span class="math inline">\(T/4\)</span>.</p>
+<div id="c009" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.443681Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.443588Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.553858Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.553437Z&quot;}}" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pend <span class="op">=</span> <span class="kw">lambda</span> t, s: np.array([s[<span class="dv">1</span>], <span class="op">-</span>np.sin(s[<span class="dv">0</span>])])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> agm(a, b):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="bu">abs</span>(a <span class="op">-</span> b) <span class="op">&gt;</span> <span class="fl">1e-15</span>:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        a, b <span class="op">=</span> (a <span class="op">+</span> b) <span class="op">/</span> <span class="dv">2</span>, np.sqrt(a <span class="op">*</span> b)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> k: np.pi <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> agm(<span class="fl">1.0</span>, np.sqrt(<span class="dv">1</span> <span class="op">-</span> k<span class="op">**</span><span class="dv">2</span>)))</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>h, n <span class="op">=</span> <span class="fl">0.01</span>, <span class="dv">2500</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'θ0'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'RK4 period'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'exact period'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'difference'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'small-angle 2π'</span><span class="sc">:&gt;15}</span><span class="ss">"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> deg <span class="kw">in</span> [<span class="dv">10</span>, <span class="dv">45</span>, <span class="dv">90</span>, <span class="dv">135</span>, <span class="dv">170</span>]:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    th0 <span class="op">=</span> np.radians(deg)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    t, s <span class="op">=</span> rk4(pend, <span class="dv">0</span>, [th0, <span class="dv">0</span>], h, n)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> np.argmax(s[:, <span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">0</span>)                                      <span class="co"># first step with θ &lt; 0</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    t_cross <span class="op">=</span> t[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> h <span class="op">*</span> s[i <span class="op">-</span> <span class="dv">1</span>, <span class="dv">0</span>] <span class="op">/</span> (s[i <span class="op">-</span> <span class="dv">1</span>, <span class="dv">0</span>] <span class="op">-</span> s[i, <span class="dv">0</span>])  <span class="co"># linear interpolation</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    T_num, T_exact <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> t_cross, <span class="dv">4</span> <span class="op">*</span> K(np.sin(th0 <span class="op">/</span> <span class="dv">2</span>))</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>deg<span class="sc">:5d}</span><span class="ss">° </span><span class="sc">{</span>T_num<span class="sc">:12.5f}</span><span class="ss"> </span><span class="sc">{</span>T_exact<span class="sc">:13.5f}</span><span class="ss"> </span><span class="sc">{</span>T_num <span class="op">-</span> T_exact<span class="sc">:11.1e}</span><span class="ss"> </span><span class="sc">{</span><span class="dv">2</span> <span class="op">*</span> np<span class="sc">.</span>pi<span class="sc">:15.5f}</span><span class="ss">"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    ax.plot(t, np.degrees(s[:, <span class="dv">0</span>]), label<span class="op">=</span><span class="ss">f"θ0 = </span><span class="sc">{</span>deg<span class="sc">}</span><span class="ss">°"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"t"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"θ (degrees)"</span>)<span class="op">;</span> ax.set_title(<span class="st">"Pendulum, g/L = 1"</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"lower left"</span>, fontsize<span class="op">=</span><span class="dv">8</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    θ0   RK4 period  exact period  difference  small-angle 2π
+   10°      6.29517       6.29517     3.8e-08         6.28319
+   45°      6.53435       6.53435     4.4e-08         6.28319
+   90°      7.41630       7.41630     3.0e-08         6.28319
+  135°      9.60038       9.60038     6.5e-09         6.28319
+  170°     15.32697      15.32697     6.3e-08         6.28319</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-systems-and-higher-order_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The RK4 periods agree with the elliptic-integral formula to about 7–8 significant figures. (Linear interpolation is enough to locate the zero crossing this accurately because <span class="math inline">\(\theta'' = -\sin\theta \approx 0\)</span> there, so <span class="math inline">\(\theta\)</span> is almost exactly linear near the crossing.) At <span class="math inline">\(170^\circ\)</span> the period is more than twice the small-angle value, and the motion is visibly not sinusoidal: the pendulum lingers near the top of its swing.</p>
+</section>
+<section id="predatorprey-the-lotkavolterra-equations" class="level2">
+<h2 class="anchored" data-anchor-id="predatorprey-the-lotkavolterra-equations">8.5 Predator–prey: the Lotka–Volterra equations</h2>
+<p>Let <span class="math inline">\(x\)</span> be a prey population and <span class="math inline">\(y\)</span> a predator population:</p>
+<p><span class="math display">\[x' = \alpha x - \beta xy, \qquad y' = \delta xy - \gamma y.\]</span></p>
+<p>Prey grow at rate <span class="math inline">\(\alpha\)</span> and are eaten at a rate proportional to encounters <span class="math inline">\(xy\)</span>; predators grow by eating and die at rate <span class="math inline">\(\gamma\)</span>. The populations cycle around the equilibrium <span class="math inline">\((\gamma/\delta,\ \alpha/\beta)\)</span>, and the quantity</p>
+<p><span class="math display">\[V(x, y) = \delta x - \gamma\ln x + \beta y - \alpha\ln y\]</span></p>
+<p>is <strong>conserved</strong> (Exercise 4), so every exact orbit is a closed curve. A good method should keep <span class="math inline">\(V\)</span> nearly constant.</p>
+<p>We use <span class="math inline">\(\alpha = 1.1\)</span>, <span class="math inline">\(\beta = 0.4\)</span>, <span class="math inline">\(\gamma = 0.4\)</span>, <span class="math inline">\(\delta = 0.1\)</span> and start from <span class="math inline">\(x = y = 10\)</span>.</p>
+<div id="c011" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.554976Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.554912Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.658549Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.658100Z&quot;}}" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>al, be, ga, de <span class="op">=</span> <span class="fl">1.1</span>, <span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>lv <span class="op">=</span> <span class="kw">lambda</span> t, z: np.array([al <span class="op">*</span> z[<span class="dv">0</span>] <span class="op">-</span> be <span class="op">*</span> z[<span class="dv">0</span>] <span class="op">*</span> z[<span class="dv">1</span>], de <span class="op">*</span> z[<span class="dv">0</span>] <span class="op">*</span> z[<span class="dv">1</span>] <span class="op">-</span> ga <span class="op">*</span> z[<span class="dv">1</span>]])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> <span class="kw">lambda</span> z: de <span class="op">*</span> z[..., <span class="dv">0</span>] <span class="op">-</span> ga <span class="op">*</span> np.log(z[..., <span class="dv">0</span>]) <span class="op">+</span> be <span class="op">*</span> z[..., <span class="dv">1</span>] <span class="op">-</span> al <span class="op">*</span> np.log(z[..., <span class="dv">1</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>h, n <span class="op">=</span> <span class="fl">0.05</span>, <span class="dv">1000</span>                                    <span class="co"># t up to 50</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>t, ze <span class="op">=</span> euler(lv, <span class="dv">0</span>, [<span class="dv">10</span>, <span class="dv">10</span>], h, n)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>_, zr <span class="op">=</span> rk4(lv, <span class="dv">0</span>, [<span class="dv">10</span>, <span class="dv">10</span>], h, n)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="fl">4.5</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(t, zr[:, <span class="dv">0</span>], label<span class="op">=</span><span class="st">"prey x (RK4)"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(t, zr[:, <span class="dv">1</span>], label<span class="op">=</span><span class="st">"predators y (RK4)"</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"t"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Populations"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend()</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(ze[:, <span class="dv">0</span>], ze[:, <span class="dv">1</span>], lw<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"Euler"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(zr[:, <span class="dv">0</span>], zr[:, <span class="dv">1</span>], lw<span class="op">=</span><span class="fl">1.5</span>, label<span class="op">=</span><span class="st">"RK4"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(ga <span class="op">/</span> de, al <span class="op">/</span> be, <span class="st">"k+"</span>, ms<span class="op">=</span><span class="dv">12</span>, label<span class="op">=</span><span class="st">"equilibrium"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"prey x"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"predators y"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_title(<span class="st">"Phase plane, h = 0.05"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, z <span class="kw">in</span> [(<span class="st">"Euler"</span>, ze), (<span class="st">"RK4"</span>, zr)]:</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:5s}</span><span class="ss">: V changes by </span><span class="sc">{</span>V(z[<span class="op">-</span><span class="dv">1</span>]) <span class="op">-</span> V(z[<span class="dv">0</span>])<span class="sc">:+.2e}</span><span class="ss"> over t ∈ [0, 50]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Euler: V changes by +2.11e+00 over t ∈ [0, 50]
+RK4  : V changes by -1.70e-05 over t ∈ [0, 50]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="08-systems-and-higher-order_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>RK4’s orbit closes on itself and <span class="math inline">\(V\)</span> is conserved to many digits. Euler’s orbit spirals outwards, so its populations swing more and more wildly: a qualitatively wrong prediction, caused only by the numerical method.</p>
+</section>
+<section id="stiff-systems" class="level2">
+<h2 class="anchored" data-anchor-id="stiff-systems">8.6 Stiff systems</h2>
+<p>For a linear system <span class="math inline">\(\mathbf{y}' = A\mathbf{y}\)</span>, each eigenvalue <span class="math inline">\(\lambda_i\)</span> of <span class="math inline">\(A\)</span> behaves like its own test equation <span class="math inline">\(y' = \lambda_i y\)</span>. An explicit method is stable only if <span class="math inline">\(h\lambda_i\)</span> lies in its stability region for <strong>every</strong> eigenvalue. For nonlinear systems the same applies to the eigenvalues of the Jacobian <span class="math inline">\(J\)</span>.</p>
+<p>A system is stiff when its eigenvalues have very different sizes: the fast ones force a tiny step even after their components have decayed, while the solution is governed by the slow ones. The <strong>stiffness ratio</strong> <span class="math inline">\(\max|\operatorname{Re}\lambda_i| / \min|\operatorname{Re}\lambda_i|\)</span> measures this.</p>
+<div id="c013" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.659645Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.659586Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.661776Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.661459Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">500.5</span>, <span class="fl">499.5</span>],</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>              [<span class="fl">499.5</span>, <span class="op">-</span><span class="fl">500.5</span>]])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>lams <span class="op">=</span> np.linalg.eigvals(A)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"eigenvalues: </span><span class="sc">{</span>np<span class="sc">.</span>sort(lams)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"stiffness ratio: </span><span class="sc">{</span><span class="bu">max</span>(<span class="bu">abs</span>(lams)) <span class="op">/</span> <span class="bu">min</span>(<span class="bu">abs</span>(lams))<span class="sc">:.0f}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RK4 stability limit: h &lt; 2.785 / </span><span class="sc">{</span><span class="bu">max</span>(<span class="bu">abs</span>(lams))<span class="sc">:.0f}</span><span class="ss"> = </span><span class="sc">{</span><span class="fl">2.785</span> <span class="op">/</span> <span class="bu">max</span>(<span class="bu">abs</span>(lams))<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"steps RK4 needs to reach x = 10 (the slow mode e^(−x) needs x ≈ 10 to decay): </span><span class="sc">{</span><span class="dv">10</span> <span class="op">/</span> (<span class="fl">2.785</span> <span class="op">/</span> <span class="bu">max</span>(<span class="bu">abs</span>(lams)))<span class="sc">:,.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>eigenvalues: [-1000.+0.j    -1.+0.j]
+stiffness ratio: 1000
+RK4 stability limit: h &lt; 2.785 / 1000 = 0.00279
+steps RK4 needs to reach x = 10 (the slow mode e^(−x) needs x ≈ 10 to decay): 3,591</code></pre>
+</div>
+</div>
+<p>The slow component <span class="math inline">\(e^{-x}\)</span> needs an interval of length about 10 to decay, but stability limits RK4 to <span class="math inline">\(h &lt; 0.0028\)</span>: more than 3,500 steps, nearly all of them dictated by a component that vanished after <span class="math inline">\(x \approx 0.01\)</span>. An implicit method could take steps of <span class="math inline">\(0.1\)</span> or more. Systems like this are typical in chemical kinetics and in heat-flow problems discretised in space.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">8.7 Summary</h2>
+<ul>
+<li>Every method applies to systems <span class="math inline">\(\mathbf{y}' = \mathbf{f}(x, \mathbf{y})\)</span> unchanged; in NumPy, just use arrays.</li>
+<li>An equation of order <span class="math inline">\(m\)</span> becomes a system of <span class="math inline">\(m\)</span> first-order equations for <span class="math inline">\(y, y', \dots, y^{(m-1)}\)</span>.</li>
+<li>For oscillating and conservative systems, watch the conserved quantities: Euler adds energy, RK4 loses it very slowly, symplectic methods keep it bounded forever.</li>
+<li>Stability for systems is governed by the eigenvalues of the Jacobian; widely spread eigenvalues mean stiffness.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>Write <span class="math inline">\(y^{\prime\prime\prime} - xy' + y = 0\)</span> as a first-order system.</li>
+<li>Show that Euler applied to <span class="math inline">\(u' = v\)</span>, <span class="math inline">\(v' = -u\)</span> multiplies <span class="math inline">\(u^2 + v^2\)</span> by exactly <span class="math inline">\(1 + h^2\)</span> each step.</li>
+<li>Use the pendulum code to find the period for <span class="math inline">\(\theta_0 = 179^\circ\)</span>. How many times longer is it than the small-angle period?</li>
+<li>Show that <span class="math inline">\(V = \delta x - \gamma\ln x + \beta y - \alpha\ln y\)</span> is constant along solutions of the Lotka–Volterra equations.</li>
+</ol>
+<p><strong>Answers</strong></p>
+<ol type="1">
+<li><span class="math inline">\(u_1 = y\)</span>, <span class="math inline">\(u_2 = y'\)</span>, <span class="math inline">\(u_3 = y''\)</span>: <span class="math inline">\(\ u_1' = u_2\)</span>, <span class="math inline">\(\ u_2' = u_3\)</span>, <span class="math inline">\(\ u_3' = x\,u_2 - u_1\)</span>.</li>
+<li><span class="math inline">\((u + hv)^2 + (v - hu)^2 = u^2 + v^2 + h^2(u^2 + v^2)\)</span>; the cross terms <span class="math inline">\(2huv\)</span> cancel.</li>
+<li>See the cell below.</li>
+<li><span class="math inline">\(\dfrac{dV}{dt} = \Big(\delta - \dfrac{\gamma}{x}\Big)(\alpha x - \beta xy) + \Big(\beta - \dfrac{\alpha}{y}\Big)(\delta xy - \gamma y) = (\delta x - \gamma)(\alpha - \beta y) + (\beta y - \alpha)(\delta x - \gamma) = 0.\)</span></li>
+</ol>
+<div id="c015" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:16.662816Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:16.662761Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:16.676233Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:16.675957Z&quot;}}" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>th0 <span class="op">=</span> np.radians(<span class="dv">179</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>t, s <span class="op">=</span> rk4(pend, <span class="dv">0</span>, [th0, <span class="dv">0</span>], <span class="fl">0.01</span>, <span class="dv">3000</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> np.argmax(s[:, <span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>T_num <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> (t[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> <span class="fl">0.01</span> <span class="op">*</span> s[i <span class="op">-</span> <span class="dv">1</span>, <span class="dv">0</span>] <span class="op">/</span> (s[i <span class="op">-</span> <span class="dv">1</span>, <span class="dv">0</span>] <span class="op">-</span> s[i, <span class="dv">0</span>]))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"3.  T(179°) ≈ </span><span class="sc">{</span>T_num<span class="sc">:.4f}</span><span class="ss"> (exact </span><span class="sc">{</span><span class="dv">4</span> <span class="op">*</span> K(np.sin(th0 <span class="op">/</span> <span class="dv">2</span>))<span class="sc">:.4f}</span><span class="ss">), which is </span><span class="sc">{</span>T_num <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> np.pi)<span class="sc">:.2f}</span><span class="ss"> × the small-angle period"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>3.  T(179°) ≈ 24.5111 (exact 24.5111), which is 3.90 × the small-angle period</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mirajcs\.github\.io\/differential_equations_examples_Julia\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

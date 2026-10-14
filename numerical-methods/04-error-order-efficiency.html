@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Miraj Samarakkody">
+<meta name="dcterms.date" content="2026-10-14">
+
+<title>4. Error, Order and Efficiency – Differential Equations</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bda23ef02b1613632e48409ff51ea9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Differential Equations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../first-order-differential-equations.html"> 
+<span class="menu-text">First-Order ODEs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bifurcations-first-order-differential-equations.html"> 
+<span class="menu-text">Bifurcations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../numerical-methods/index.html" aria-current="page"> 
+<span class="menu-text">Numerical Methods</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-methods/04-error-order-efficiency.html">4. Error, Order and Efficiency</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical Methods for First-Order ODEs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/01-eulers-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Euler’s Method</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/02-second-order-runge-kutta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Second-Order Runge–Kutta Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/03-runge-kutta-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. The Classical Runge–Kutta Method (RK4)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/04-error-order-efficiency.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">4. Error, Order and Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/05-stability-and-stiffness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Stability and Stiff Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/06-adaptive-step-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Adaptive Step Size</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/07-multistep-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Multistep Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/08-systems-and-higher-order.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Systems and Higher-Order Equations</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#local-truncation-error-consistency-and-order" id="toc-local-truncation-error-consistency-and-order" class="nav-link active" data-scroll-target="#local-truncation-error-consistency-and-order">4.1 Local truncation error, consistency and order</a></li>
+  <li><a href="#measuring-the-order" id="toc-measuring-the-order" class="nav-link" data-scroll-target="#measuring-the-order">4.2 Measuring the order</a></li>
+  <li><a href="#accuracy-per-unit-of-work" id="toc-accuracy-per-unit-of-work" class="nav-link" data-scroll-target="#accuracy-per-unit-of-work">4.3 Accuracy per unit of work</a></li>
+  <li><a href="#estimating-the-error-when-the-exact-solution-is-unknown" id="toc-estimating-the-error-when-the-exact-solution-is-unknown" class="nav-link" data-scroll-target="#estimating-the-error-when-the-exact-solution-is-unknown">4.4 Estimating the error when the exact solution is unknown</a></li>
+  <li><a href="#repeated-extrapolation" id="toc-repeated-extrapolation" class="nav-link" data-scroll-target="#repeated-extrapolation">4.5 Repeated extrapolation</a></li>
+  <li><a href="#round-off-error" id="toc-round-off-error" class="nav-link" data-scroll-target="#round-off-error">4.6 Round-off error</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">4.7 Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="04-error-order-efficiency.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">4. Error, Order and Efficiency</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Miraj Samarakkody </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The previous sections built methods of order 1, 2 and 4. This section makes the notion of order precise, shows how to measure it, compares methods by the work they need for a given accuracy, and explains how to <strong>estimate the error of a computed solution when the exact solution is unknown</strong>, which is always the case in practice. It ends with the error that no method can avoid: round-off.</p>
+<p>Test problem: <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>. The Euler, Heun and RK4 functions are defined below exactly as in Sections 1–3.</p>
+<div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.321230Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.321150Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.472213Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.471718Z&quot;}}" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">4.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"axes.grid"</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.set_printoptions(precision<span class="op">=</span><span class="dv">6</span>, suppress<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>exact <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> np.exp(x) <span class="op">-</span> x <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, x0, y0, h, n):</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> f(x[i], y[i])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> heun(f, x0, y0, h, n):</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k1)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (k1 <span class="op">+</span> k2)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, x0, y0, h, n):</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="local-truncation-error-consistency-and-order" class="level2">
+<h2 class="anchored" data-anchor-id="local-truncation-error-consistency-and-order">4.1 Local truncation error, consistency and order</h2>
+<p>Every one-step method can be written as</p>
+<p><span class="math display">\[y_{n+1} = y_n + h\,\Phi(x_n, y_n; h),\]</span></p>
+<p>where <span class="math inline">\(\Phi\)</span> is the <strong>increment function</strong>: <span class="math inline">\(\Phi = f(x_n, y_n)\)</span> for Euler, <span class="math inline">\(\Phi = \tfrac12(k_1 + k_2)\)</span> for Heun, <span class="math inline">\(\Phi = \tfrac16(k_1 + 2k_2 + 2k_3 + k_4)\)</span> for RK4.</p>
+<p><strong>Local truncation error.</strong> Insert the exact solution into the method and see how far it fails to satisfy it:</p>
+<p><span class="math display">\[\tau_{n+1} = y(x_{n+1}) - y(x_n) - h\,\Phi\big(x_n, y(x_n); h\big).\]</span></p>
+<p>This is the error of a single step started from the exact value.</p>
+<ul>
+<li>The method is <strong>consistent</strong> if <span class="math inline">\(\tau_{n+1}/h \to 0\)</span> as <span class="math inline">\(h \to 0\)</span>. Equivalently, <span class="math inline">\(\Phi(x, y; 0) = f(x, y)\)</span>: for very small steps the method follows the true slope.</li>
+<li>The method has <strong>order <span class="math inline">\(p\)</span></strong> if <span class="math inline">\(\tau_{n+1} = O(h^{p+1})\)</span>.</li>
+</ul>
+<p><strong>Theorem (convergence of one-step methods).</strong> If <span class="math inline">\(\Phi\)</span> satisfies a Lipschitz condition in <span class="math inline">\(y\)</span> with constant <span class="math inline">\(L_\Phi\)</span>, and <span class="math inline">\(|\tau_n| \le K h^{p+1}\)</span> for all <span class="math inline">\(n\)</span>, then</p>
+<p><span class="math display">\[|y(x_n) - y_n| \le \frac{K h^{p}}{L_\Phi}\left(e^{L_\Phi(x_n - x_0)} - 1\right).\]</span></p>
+<p>The proof is the same as the proof for Euler in <a href="../numerical-methods/01-eulers-method.html">Section 1.5</a>: the error obeys <span class="math inline">\(|e_{n+1}| \le (1 + hL_\Phi)|e_n| + Kh^{p+1}\)</span>. Two consequences:</p>
+<ul>
+<li>For one-step methods, <strong>consistency alone guarantees convergence</strong> (provided <span class="math inline">\(f\)</span> is Lipschitz, which makes <span class="math inline">\(\Phi\)</span> Lipschitz too).</li>
+<li>A local error of order <span class="math inline">\(h^{p+1}\)</span> gives a global error of order <span class="math inline">\(h^p\)</span>: one power of <span class="math inline">\(h\)</span> is lost because about <span class="math inline">\(1/h\)</span> local errors accumulate.</li>
+</ul>
+</section>
+<section id="measuring-the-order" class="level2">
+<h2 class="anchored" data-anchor-id="measuring-the-order">4.2 Measuring the order</h2>
+<p>If the global error is <span class="math inline">\(E(h) \approx Ch^{p}\)</span>, then</p>
+<p><span class="math display">\[\frac{E(h)}{E(h/2)} \approx 2^{p}, \qquad \log E \approx \log C + p\log h.\]</span></p>
+<p>So the order can be read off in two ways: from the <strong>error ratio</strong> when <span class="math inline">\(h\)</span> is halved, or from the <strong>slope of a log–log plot</strong> of error against <span class="math inline">\(h\)</span>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Order <span class="math inline">\(p\)</span></th>
+<th>Error ratio when <span class="math inline">\(h\)</span> is halved</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Euler</td>
+<td>1</td>
+<td>≈ 2</td>
+</tr>
+<tr class="even">
+<td>Heun</td>
+<td>2</td>
+<td>≈ 4</td>
+</tr>
+<tr class="odd">
+<td>RK4</td>
+<td>4</td>
+<td>≈ 16</td>
+</tr>
+</tbody>
+</table>
+<p>We check this for the test problem by measuring the error at <span class="math inline">\(x = 1\)</span> (exact value <span class="math inline">\(2e - 2 \approx 3.436564\)</span>).</p>
+<div id="c003" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.474162Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.473966Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.477341Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.476922Z&quot;}}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hs <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.0125</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>methods <span class="op">=</span> {<span class="st">"Euler"</span>: euler, <span class="st">"Heun"</span>: heun, <span class="st">"RK4"</span>: rk4}</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cost_per_step <span class="op">=</span> {<span class="st">"Euler"</span>: <span class="dv">1</span>, <span class="st">"Heun"</span>: <span class="dv">2</span>, <span class="st">"RK4"</span>: <span class="dv">4</span>}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> {name: [] <span class="cf">for</span> name <span class="kw">in</span> methods}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> hs:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, method <span class="kw">in</span> methods.items():</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        _, y <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        errors[name].append(<span class="bu">abs</span>(y[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> exact(<span class="fl">1.0</span>)))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'h'</span><span class="sc">:&gt;8}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">:&gt;14}{</span><span class="st">'ratio'</span><span class="sc">:&gt;8}</span><span class="ss">"</span> <span class="cf">for</span> m <span class="kw">in</span> methods))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, h <span class="kw">in</span> <span class="bu">enumerate</span>(hs):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>h<span class="sc">:8.4f}</span><span class="ss">"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> methods:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> errors[name]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        ratio <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>e[i<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> e[i]<span class="sc">:8.2f}</span><span class="ss">"</span> <span class="cf">if</span> i <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;8}</span><span class="ss">"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        row <span class="op">+=</span> <span class="ss">f"</span><span class="sc">{</span>e[i]<span class="sc">:14.3e}{</span>ratio<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(row)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> <span class="bu">zip</span>(methods, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]):</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    slope <span class="op">=</span> np.polyfit(np.log(hs), np.log(errors[name]), <span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:6s}</span><span class="ss"> observed order ≈ </span><span class="sc">{</span>slope<span class="sc">:.2f}</span><span class="ss">  (theory </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       h         Euler   ratio          Heun   ratio           RK4   ratio
+  0.2000     4.599e-01             3.115e-02             6.138e-05        
+  0.1000     2.491e-01    1.85     8.402e-03    3.71     4.169e-06   14.73
+  0.0500     1.300e-01    1.92     2.182e-03    3.85     2.716e-07   15.35
+  0.0250     6.644e-02    1.96     5.558e-04    3.93     1.733e-08   15.67
+  0.0125     3.359e-02    1.98     1.403e-04    3.96     1.095e-09   15.83
+Euler  observed order ≈ 0.95  (theory 1)
+Heun   observed order ≈ 1.95  (theory 2)
+RK4    observed order ≈ 3.95  (theory 4)</code></pre>
+</div>
+</div>
+</section>
+<section id="accuracy-per-unit-of-work" class="level2">
+<h2 class="anchored" data-anchor-id="accuracy-per-unit-of-work">4.3 Accuracy per unit of work</h2>
+<p>Smaller steps are not free. The real cost of a method is the number of times it evaluates <span class="math inline">\(f\)</span>: <span class="math inline">\(N\)</span> for Euler, <span class="math inline">\(2N\)</span> for Heun and <span class="math inline">\(4N\)</span> for RK4. A fair comparison plots the error against that cost.</p>
+<div id="c005" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.478312Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.478260Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.680402Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.679953Z&quot;}}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.2</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> methods:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].loglog(hs, errors[name], <span class="st">"o-"</span>, label<span class="op">=</span>name)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    evals <span class="op">=</span> [cost_per_step[name] <span class="op">*</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h) <span class="cf">for</span> h <span class="kw">in</span> hs]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].loglog(evals, errors[name], <span class="st">"o-"</span>, label<span class="op">=</span>name)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].invert_xaxis()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"step size h"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"|error| at x = 1"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Error vs step size (slope = order)"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"number of f evaluations"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"|error| at x = 1"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Error vs work"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Work needed for an error of 1e-6, using E ≈ C h^p from the finest run</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> <span class="bu">zip</span>(methods, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    evals <span class="op">=</span> cost_per_step[name] <span class="op">*</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> hs[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    need <span class="op">=</span> evals <span class="op">*</span> (errors[name][<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> <span class="fl">1e-6</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> p)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:6s}</span><span class="ss"> needs about </span><span class="sc">{</span>need<span class="sc">:12,.0f}</span><span class="ss"> evaluations of f for error 1e-6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Euler  needs about    2,687,502 evaluations of f for error 1e-6
+Heun   needs about        1,895 evaluations of f for error 1e-6
+RK4    needs about           58 evaluations of f for error 1e-6</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-error-order-efficiency_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Takeaway.</strong> In the right-hand plot, RK4’s line lies far below the others: for any fixed amount of work it is far more accurate. To reach an error of <span class="math inline">\(10^{-6}\)</span>, Euler needs about 2.7 million evaluations of <span class="math inline">\(f\)</span>, Heun about 1,900 and RK4 about 60. Higher-order methods win whenever the solution is smooth.</p>
+</section>
+<section id="estimating-the-error-when-the-exact-solution-is-unknown" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-the-error-when-the-exact-solution-is-unknown">4.4 Estimating the error when the exact solution is unknown</h2>
+<p>In real problems there is no exact solution to compare with. <strong>Richardson’s idea:</strong> solve twice, with step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>. Since <span class="math inline">\(E(h) \approx Ch^p\)</span>,</p>
+<p><span class="math display">\[y(b) - y_{h/2} \approx \frac{y_{h/2} - y_{h}}{2^{p} - 1}.\]</span></p>
+<p><em>Derivation.</em> Write <span class="math inline">\(y(b) = y_h + Ch^p\)</span> and <span class="math inline">\(y(b) = y_{h/2} + C(h/2)^p\)</span>. Subtracting eliminates <span class="math inline">\(y(b)\)</span>: <span class="math inline">\(y_{h/2} - y_h = Ch^p(1 - 2^{-p})\)</span>, so <span class="math inline">\(C(h/2)^p = (y_{h/2} - y_h)/(2^p - 1)\)</span>.</p>
+<ul>
+<li>The right-hand side is an <strong>error estimate</strong> for the finer solution, computed using only numerical results.</li>
+<li>Adding it to <span class="math inline">\(y_{h/2}\)</span> gives an <strong>extrapolated</strong> value that is more accurate than either run: one order higher.</li>
+</ul>
+<p>Below we check the estimate against the true error for the test problem.</p>
+<div id="c007" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.681448Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.681380Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.683635Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.683315Z&quot;}}" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'method'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y_h'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y_h/2'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'estimated err'</span><span class="sc">:&gt;14}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'true err'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'extrapolated'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'its err'</span><span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> [(<span class="st">"Euler"</span>, <span class="dv">1</span>), (<span class="st">"Heun"</span>, <span class="dv">2</span>), (<span class="st">"RK4"</span>, <span class="dv">4</span>)]:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> methods[name]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    _, y1 <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    _, y2 <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.05</span>, <span class="dv">20</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    est <span class="op">=</span> (y2[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> y1[<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> (<span class="dv">2</span><span class="op">**</span>p <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    true <span class="op">=</span> exact(<span class="fl">1.0</span>) <span class="op">-</span> y2[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    extrap <span class="op">=</span> y2[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> est</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span>y1[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>y2[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>est<span class="sc">:14.3e}</span><span class="ss"> </span><span class="sc">{</span>true<span class="sc">:12.3e}</span><span class="ss"> "</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>extrap<span class="sc">:13.8f}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="fl">1.0</span>) <span class="op">-</span> extrap)<span class="sc">:10.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>method          y_h        y_h/2  estimated err     true err  extrapolated    its err
+ Euler   3.18748492   3.30659541      1.191e-01    1.300e-01    3.42570590   1.09e-02
+  Heun   3.42816169   3.43438211      2.073e-03    2.182e-03    3.43645558   1.08e-04
+   RK4   3.43655949   3.43656339      2.598e-07    2.716e-07    3.43656365   1.18e-08</code></pre>
+</div>
+</div>
+<p>The estimated errors closely match the true errors, so the computed solutions <strong>tell you how accurate they are</strong>. Extrapolation also helps: the extrapolated Euler value is about 12 times more accurate than the finer Euler run, and the extrapolated RK4 value is accurate to about <span class="math inline">\(10^{-8}\)</span>. This is the standard check in practice: <strong>always re-run with half the step size and compare.</strong></p>
+</section>
+<section id="repeated-extrapolation" class="level2">
+<h2 class="anchored" data-anchor-id="repeated-extrapolation">4.5 Repeated extrapolation</h2>
+<p>For Euler’s method the global error has a full expansion in powers of <span class="math inline">\(h\)</span>:</p>
+<p><span class="math display">\[y(b) = y_h + C_1 h + C_2 h^2 + C_3 h^3 + \cdots\]</span></p>
+<p>One Richardson step removes the <span class="math inline">\(h\)</span> term. Applying it again to the extrapolated values removes the <span class="math inline">\(h^2\)</span> term, and so on. With step sizes <span class="math inline">\(h, h/2, h/4, \dots\)</span> this gives a triangular table</p>
+<p><span class="math display">\[T_{i,0} = y_{h/2^i}, \qquad T_{i,k} = T_{i,k-1} + \frac{T_{i,k-1} - T_{i-1,k-1}}{2^k - 1},\]</span></p>
+<p>in which column <span class="math inline">\(k\)</span> has order <span class="math inline">\(k + 1\)</span>. (This is the same idea as Romberg integration.)</p>
+<div id="c009" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.684834Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.684762Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.687189Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.686844Z&quot;}}" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> np.zeros((rows, rows))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(rows):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> <span class="fl">0.1</span> <span class="op">/</span> <span class="dv">2</span><span class="op">**</span>i</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    T[i, <span class="dv">0</span>] <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, i <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        T[i, k] <span class="op">=</span> T[i, k <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> (T[i, k <span class="op">-</span> <span class="dv">1</span>] <span class="op">-</span> T[i <span class="op">-</span> <span class="dv">1</span>, k <span class="op">-</span> <span class="dv">1</span>]) <span class="op">/</span> (<span class="dv">2</span><span class="op">**</span>k <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errors |y(1) − T[i, k]|   (rows: h = 0.1, 0.05, ...; columns: number of extrapolations)"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(rows):</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"h = </span><span class="sc">{</span><span class="fl">0.1</span> <span class="op">/</span> <span class="dv">2</span><span class="op">**</span>i<span class="sc">:&lt;8.5f}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="dv">1</span>) <span class="op">-</span> T[i, k])<span class="sc">:11.2e}</span><span class="ss">"</span> <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(i <span class="op">+</span> <span class="dv">1</span>)))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">best value </span><span class="sc">{</span>T[<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]<span class="sc">:.10f}</span><span class="ss">, exact </span><span class="sc">{</span>exact(<span class="dv">1</span>)<span class="sc">:.10f}</span><span class="ss">, using </span><span class="sc">{</span><span class="bu">sum</span>(<span class="dv">10</span> <span class="op">*</span> <span class="dv">2</span><span class="op">**</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(rows))<span class="sc">}</span><span class="ss"> Euler steps in total"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>errors |y(1) − T[i, k]|   (rows: h = 0.1, 0.05, ...; columns: number of extrapolations)
+h = 0.10000    2.49e-01
+h = 0.05000    1.30e-01   1.09e-02
+h = 0.02500    6.64e-02   2.90e-03   2.52e-04
+h = 0.01250    3.36e-02   7.52e-04   3.42e-05   3.02e-06
+h = 0.00625    1.69e-02   1.91e-04   4.45e-06   2.06e-07   1.84e-08
+
+best value 3.4365636385, exact 3.4365636569, using 310 Euler steps in total</code></pre>
+</div>
+</div>
+<p>Five cheap Euler runs combined by extrapolation give far more accuracy than any single Euler run in the table. The method relies on the error expansion being valid, so it needs a smooth solution and the same number of steps per unit length in every run.</p>
+</section>
+<section id="round-off-error" class="level2">
+<h2 class="anchored" data-anchor-id="round-off-error">4.6 Round-off error</h2>
+<p>The analysis so far assumes exact arithmetic. A computer stores numbers with a relative precision of about <span class="math inline">\(\varepsilon\)</span>:</p>
+<ul>
+<li>single precision (<code>float32</code>): <span class="math inline">\(\varepsilon \approx 6 \times 10^{-8}\)</span></li>
+<li>double precision (<code>float64</code>, the NumPy default): <span class="math inline">\(\varepsilon \approx 1.1 \times 10^{-16}\)</span></li>
+</ul>
+<p>Each step adds a rounding error of about <span class="math inline">\(\varepsilon\,|y|\)</span>, and with <span class="math inline">\(N = (b - x_0)/h\)</span> steps these accumulate to about <span class="math inline">\(N\varepsilon \propto \varepsilon/h\)</span>. The total error therefore behaves like</p>
+<p><span class="math display">\[E(h) \approx C h^{p} + \frac{D\varepsilon}{h}.\]</span></p>
+<p>The first term falls and the second rises as <span class="math inline">\(h\)</span> shrinks, so there is a <strong>best step size</strong>; making <span class="math inline">\(h\)</span> smaller than that makes the result <em>worse</em>. Setting <span class="math inline">\(E'(h) = 0\)</span> gives <span class="math inline">\(h^{*} = \big(D\varepsilon / (pC)\big)^{1/(p+1)}\)</span>, which is larger for higher-order methods.</p>
+<p>The effect is easy to see in single precision.</p>
+<div id="c011" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.688408Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.688337Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.865544Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.865236Z&quot;}}" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler_dtype(h, n, dtype):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    h, x, y <span class="op">=</span> dtype(h), dtype(<span class="dv">0</span>), dtype(<span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> y <span class="op">+</span> h <span class="op">*</span> (x <span class="op">+</span> y)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">+</span> h</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> heun_dtype(h, n, dtype):</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    h, x, y <span class="op">=</span> dtype(h), dtype(<span class="dv">0</span>), dtype(<span class="dv">1</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    half <span class="op">=</span> dtype(<span class="fl">0.5</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> x <span class="op">+</span> y</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> (x <span class="op">+</span> h) <span class="op">+</span> (y <span class="op">+</span> h <span class="op">*</span> k1)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> y <span class="op">+</span> half <span class="op">*</span> h <span class="op">*</span> (k1 <span class="op">+</span> k2)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">+</span> h</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>ks <span class="op">=</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">17</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>hs_r <span class="op">=</span> [<span class="fl">2.0</span><span class="op">**-</span>k <span class="cf">for</span> k <span class="kw">in</span> ks]</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, stepper, style <span class="kw">in</span> [(<span class="st">"Euler"</span>, euler_dtype, <span class="st">"o"</span>), (<span class="st">"Heun"</span>, heun_dtype, <span class="st">"s"</span>)]:</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dtype, ls <span class="kw">in</span> [(np.float32, <span class="st">"-"</span>), (np.float64, <span class="st">"--"</span>)]:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        errs <span class="op">=</span> [<span class="bu">abs</span>(<span class="bu">float</span>(stepper(h, <span class="dv">2</span><span class="op">**</span>k, dtype)) <span class="op">-</span> exact(<span class="fl">1.0</span>)) <span class="cf">for</span> h, k <span class="kw">in</span> <span class="bu">zip</span>(hs_r, ks)]</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        plt.loglog(hs_r, errs, marker<span class="op">=</span>style, ls<span class="op">=</span>ls, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>dtype<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_xaxis()</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"step size h"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"|error| at x = 1"</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Truncation error falls with h, round-off error rises"</span>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">8</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-error-order-efficiency_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In double precision (dashed) the error keeps falling over the whole range plotted. In single precision (solid) Heun’s error follows the same line until <span class="math inline">\(h \approx 2 \times 10^{-3}\)</span> and then <strong>stops improving</strong>: at a few times <span class="math inline">\(10^{-6}\)</span>, round-off dominates and smaller steps only add noise. Euler’s truncation error is so much larger that, even with 65,000 steps, it is only just reaching that round-off level (the two Euler curves begin to separate at the smallest <span class="math inline">\(h\)</span>). A higher-order method reaches the round-off floor with far fewer steps.</p>
+<p>With <code>float64</code> the round-off floor is around <span class="math inline">\(10^{-13}\)</span> or below for these methods, which is why it rarely matters in practice, except for very long integrations or extremely small steps.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">4.7 Summary</h2>
+<ul>
+<li>Local truncation error <span class="math inline">\(O(h^{p+1})\)</span> <span class="math inline">\(\Rightarrow\)</span> global error <span class="math inline">\(O(h^{p})\)</span>, for any consistent one-step method with Lipschitz <span class="math inline">\(f\)</span>.</li>
+<li>Measure the order from error ratios (<span class="math inline">\(\approx 2^p\)</span>) or the slope of a log–log plot.</li>
+<li>Compare methods by <strong>error against number of <span class="math inline">\(f\)</span> evaluations</strong>, not error against <span class="math inline">\(h\)</span>.</li>
+<li>Richardson: two runs (<span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>) give an error estimate and a better, extrapolated value.</li>
+<li>Round-off sets a floor on the achievable accuracy; there is no point using steps far below the optimum.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>An order 1 method has error <span class="math inline">\(0.25\)</span> with <span class="math inline">\(h = 0.1\)</span>. Roughly what <span class="math inline">\(h\)</span> gives error <span class="math inline">\(0.001\)</span>?</li>
+<li>A method has error <span class="math inline">\(3.2 \times 10^{-3}\)</span> with step <span class="math inline">\(h\)</span> and <span class="math inline">\(2.0 \times 10^{-4}\)</span> with step <span class="math inline">\(h/2\)</span>. What is its order?</li>
+<li>Use Richardson extrapolation with Heun (<span class="math inline">\(h = 0.2\)</span> and <span class="math inline">\(h = 0.1\)</span>) to estimate the error in <span class="math inline">\(y(1)\)</span> for the test problem. Compare with the true error.</li>
+<li>Why is a plot of error against step size <span class="math inline">\(h\)</span> misleading when comparing Euler and RK4?</li>
+</ol>
+<p><strong>Answers</strong></p>
+<ol type="1">
+<li>Error <span class="math inline">\(\propto h\)</span>, so <span class="math inline">\(h \approx 0.1 \times 0.001/0.25 = 0.0004\)</span>, which is 2,500 steps per unit of <span class="math inline">\(x\)</span>.</li>
+<li>Ratio <span class="math inline">\(16 = 2^4\)</span>: order 4.</li>
+<li>See the cell below.</li>
+<li>One RK4 step costs four evaluations of <span class="math inline">\(f\)</span>, one Euler step only one. Comparing at the same <span class="math inline">\(h\)</span> gives RK4 four times as much work. Plotting against <span class="math inline">\(f\)</span> evaluations compares equal effort.</li>
+</ol>
+<div id="c013" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:11.866841Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:11.866779Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:11.868926Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:11.868529Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>_, ya <span class="op">=</span> heun(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>, <span class="dv">5</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>_, yb <span class="op">=</span> heun(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>est <span class="op">=</span> (yb[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ya[<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> (<span class="dv">2</span><span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"3.  estimated error of the h = 0.1 run: </span><span class="sc">{</span>est<span class="sc">:.3e}</span><span class="ss">,  true error: </span><span class="sc">{</span>exact(<span class="dv">1</span>) <span class="op">-</span> yb[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.3e}</span><span class="ss">"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"    extrapolated value </span><span class="sc">{</span>yb[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> est<span class="sc">:.6f}</span><span class="ss">, exact </span><span class="sc">{</span>exact(<span class="dv">1</span>)<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>3.  estimated error of the h = 0.1 run: 7.582e-03,  true error: 8.402e-03
+    extrapolated value 3.435743, exact 3.436564</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mirajcs\.github\.io\/differential_equations_examples_Julia\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Miraj Samarakkody">
-<meta name="dcterms.date" content="2026-10-13">
+<meta name="dcterms.date" content="2026-10-14">
 
-<title>First-Order Differential Equations – Differential Equations Examples</title>
+<title>First-Order Differential Equations – Differential Equations</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba8f7c244c1f50cbf6c6a3aa3874339a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1bda23ef02b1613632e48409ff51ea9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -151,7 +151,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Differential Equations Examples</span>
+    <span class="navbar-title">Differential Equations</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -161,16 +161,16 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link active" href="./first-order-differential-equations.html" aria-current="page"> 
 <span class="menu-text">First-Order ODEs</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./bifurcations-first-order-differential-equations.html"> 
 <span class="menu-text">Bifurcations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./numerical-methods/index.html"> 
+<span class="menu-text">Numerical Methods</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -204,41 +204,15 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#worked-example-5.1" id="toc-worked-example-5.1" class="nav-link" data-scroll-target="#worked-example-5.1">Worked example 5.1</a></li>
   </ul></li>
-  <li><a href="#numerical-methods" id="toc-numerical-methods" class="nav-link" data-scroll-target="#numerical-methods">6. Numerical methods</a>
+  <li><a href="#numerical-methods" id="toc-numerical-methods" class="nav-link" data-scroll-target="#numerical-methods">6. Numerical methods</a></li>
+  <li><a href="#applications" id="toc-applications" class="nav-link" data-scroll-target="#applications">7. Applications</a>
   <ul class="collapse">
-  <li><a href="#the-idea-replace-the-curve-by-a-sequence-of-points" id="toc-the-idea-replace-the-curve-by-a-sequence-of-points" class="nav-link" data-scroll-target="#the-idea-replace-the-curve-by-a-sequence-of-points">6.1 The idea: replace the curve by a sequence of points</a></li>
-  <li><a href="#eulers-method" id="toc-eulers-method" class="nav-link" data-scroll-target="#eulers-method">6.2 Euler’s method</a></li>
-  <li><a href="#heuns-method-improved-euler" id="toc-heuns-method-improved-euler" class="nav-link" data-scroll-target="#heuns-method-improved-euler">6.3 Heun’s method (improved Euler)</a></li>
-  <li><a href="#the-classical-rungekutta-method-rk4" id="toc-the-classical-rungekutta-method-rk4" class="nav-link" data-scroll-target="#the-classical-rungekutta-method-rk4">6.4 The classical Runge–Kutta method (RK4)</a></li>
-  <li><a href="#seeing-the-slopes" id="toc-seeing-the-slopes" class="nav-link" data-scroll-target="#seeing-the-slopes">6.5 Seeing the slopes</a></li>
-  <li><a href="#why-the-order-is-what-it-is-matching-the-taylor-series" id="toc-why-the-order-is-what-it-is-matching-the-taylor-series" class="nav-link" data-scroll-target="#why-the-order-is-what-it-is-matching-the-taylor-series">6.6 Why the order is what it is: matching the Taylor series</a></li>
-  <li><a href="#all-three-methods-side-by-side" id="toc-all-three-methods-side-by-side" class="nav-link" data-scroll-target="#all-three-methods-side-by-side">6.7 All three methods side by side</a></li>
+  <li><a href="#newtons-law-of-cooling" id="toc-newtons-law-of-cooling" class="nav-link" data-scroll-target="#newtons-law-of-cooling">7.1 Newton’s law of cooling</a></li>
+  <li><a href="#logistic-population-growth" id="toc-logistic-population-growth" class="nav-link" data-scroll-target="#logistic-population-growth">7.2 Logistic population growth</a></li>
   </ul></li>
-  <li><a href="#error-order-and-efficiency" id="toc-error-order-and-efficiency" class="nav-link" data-scroll-target="#error-order-and-efficiency">7. Error, order and efficiency</a>
-  <ul class="collapse">
-  <li><a href="#measuring-the-order" id="toc-measuring-the-order" class="nav-link" data-scroll-target="#measuring-the-order">7.1 Measuring the order</a></li>
-  <li><a href="#accuracy-per-unit-of-work" id="toc-accuracy-per-unit-of-work" class="nav-link" data-scroll-target="#accuracy-per-unit-of-work">7.2 Accuracy per unit of work</a></li>
-  <li><a href="#estimating-the-error-when-the-exact-solution-is-unknown" id="toc-estimating-the-error-when-the-exact-solution-is-unknown" class="nav-link" data-scroll-target="#estimating-the-error-when-the-exact-solution-is-unknown">7.3 Estimating the error when the exact solution is unknown</a></li>
-  </ul></li>
-  <li><a href="#stability-when-a-small-error-explodes" id="toc-stability-when-a-small-error-explodes" class="nav-link" data-scroll-target="#stability-when-a-small-error-explodes">8. Stability: when a small error explodes</a>
-  <ul class="collapse">
-  <li><a href="#the-test-equation" id="toc-the-test-equation" class="nav-link" data-scroll-target="#the-test-equation">8.1 The test equation</a></li>
-  <li><a href="#implicit-methods-and-stiff-equations" id="toc-implicit-methods-and-stiff-equations" class="nav-link" data-scroll-target="#implicit-methods-and-stiff-equations">8.2 Implicit methods and stiff equations</a></li>
-  </ul></li>
-  <li><a href="#numerical-methods-in-practice" id="toc-numerical-methods-in-practice" class="nav-link" data-scroll-target="#numerical-methods-in-practice">9. Numerical methods in practice</a>
-  <ul class="collapse">
-  <li><a href="#adaptive-step-size" id="toc-adaptive-step-size" class="nav-link" data-scroll-target="#adaptive-step-size">9.1 Adaptive step size</a></li>
-  <li><a href="#choosing-a-method" id="toc-choosing-a-method" class="nav-link" data-scroll-target="#choosing-a-method">9.2 Choosing a method</a></li>
-  <li><a href="#common-pitfalls" id="toc-common-pitfalls" class="nav-link" data-scroll-target="#common-pitfalls">9.3 Common pitfalls</a></li>
-  </ul></li>
-  <li><a href="#applications" id="toc-applications" class="nav-link" data-scroll-target="#applications">10. Applications</a>
-  <ul class="collapse">
-  <li><a href="#newtons-law-of-cooling" id="toc-newtons-law-of-cooling" class="nav-link" data-scroll-target="#newtons-law-of-cooling">10.1 Newton’s law of cooling</a></li>
-  <li><a href="#logistic-population-growth" id="toc-logistic-population-growth" class="nav-link" data-scroll-target="#logistic-population-growth">10.2 Logistic population growth</a></li>
-  </ul></li>
-  <li><a href="#an-equation-with-no-elementary-solution" id="toc-an-equation-with-no-elementary-solution" class="nav-link" data-scroll-target="#an-equation-with-no-elementary-solution">11. An equation with no elementary solution</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">12. Summary</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">13. Exercises</a></li>
+  <li><a href="#an-equation-with-no-elementary-solution" id="toc-an-equation-with-no-elementary-solution" class="nav-link" data-scroll-target="#an-equation-with-no-elementary-solution">8. An equation with no elementary solution</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">9. Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">10. Exercises</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="first-order-differential-equations.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -264,7 +238,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 13, 2026</p>
+      <p class="date">October 14, 2026</p>
     </div>
   </div>
   
@@ -276,9 +250,9 @@ window.Quarto = {
 </header>
 
 
-<p>Notes with worked examples: analytical methods (separable, linear, exact), direction fields, numerical methods (Euler, Heun, RK4), and applications.</p>
-<p><strong>Contents</strong> 1. Definitions and initial value problems 2. Direction fields 3. Separable equations 4. Linear equations (integrating factor) 5. Exact equations 6. Numerical methods: Euler, Heun (improved Euler), Runge–Kutta 4 — derivations and worked examples 7. Error, order and efficiency (including Richardson error estimates) 8. Stability and stiff equations 9. Numerical methods in practice: adaptive step size, choosing a method, pitfalls 10. Applications: Newton’s law of cooling, logistic growth 11. An equation with no elementary solution 12. Summary 13. Exercises</p>
-<div id="2f652d66" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.348176Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.348016Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.519117Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.518578Z&quot;}}" data-execution_count="1">
+<p>Notes with worked examples: analytical methods (separable, linear, exact), direction fields, an introduction to numerical methods, and applications.</p>
+<p><strong>Contents</strong> 1. Definitions and initial value problems 2. Direction fields 3. Separable equations 4. Linear equations (integrating factor) 5. Exact equations 6. Numerical methods: Euler and RK4 (the full treatment is in the <a href="./numerical-methods/index.html">Numerical Methods chapter</a>) 7. Applications: Newton’s law of cooling, logistic growth 8. An equation with no elementary solution 9. Summary 10. Exercises</p>
+<div id="2f652d66" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.438973Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.438753Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.599318Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.598926Z&quot;}}" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -306,7 +280,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="direction-fields">2. Direction fields</h2>
 <p>At every point <span class="math inline">\((x, y)\)</span> the equation gives the slope <span class="math inline">\(f(x,y)\)</span> of the solution curve passing through it. Drawing short line segments with these slopes produces a <strong>direction (slope) field</strong>. Solution curves follow the arrows.</p>
 <p>Below is the field for <span class="math inline">\(y' = x - y\)</span>, with a few solution curves. The exact solution is <span class="math inline">\(y = x - 1 + Ce^{-x}\)</span>, so every curve approaches the line <span class="math inline">\(y = x - 1\)</span>.</p>
-<div id="3b549559" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.520724Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.520598Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.606859Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.606492Z&quot;}}" data-execution_count="2">
+<div id="3b549559" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.601191Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.600968Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.688694Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.688319Z&quot;}}" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> direction_field(f, xlim, ylim, n<span class="op">=</span><span class="dv">21</span>, ax<span class="op">=</span><span class="va">None</span>):</span>
@@ -365,7 +339,7 @@ window.Quarto = {
 <li>Solve the quadratic <span class="math inline">\(y^2 + 2y - \tfrac{2}{3}x^3 = 0\)</span> and take the root through the origin: <span class="math inline">\(\boxed{y = -1 + \sqrt{1 + \tfrac{2}{3}x^3}}\)</span>.</li>
 </ol>
 <p>At <span class="math inline">\(x = 1\)</span>: <span class="math inline">\(y = -1 + \sqrt{5/3} \approx 0.290994\)</span>.</p>
-<div id="084159c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.608135Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.608051Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.713878Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.713498Z&quot;}}" data-execution_count="3">
+<div id="084159c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.690166Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.690075Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.801440Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.800966Z&quot;}}" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">200</span>)</span>
@@ -428,7 +402,7 @@ Example 3.2  y(1) = 0.2909944487358056</code></pre>
 <li><span class="math inline">\(y = x^2 + C/x^2\)</span>. From <span class="math inline">\(y(1) = 2\)</span>: <span class="math inline">\(C = 1\)</span>.</li>
 </ol>
 <p><span class="math display">\[\boxed{y = x^2 + \frac{1}{x^2}}\]</span></p>
-<div id="82ab2b5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.715188Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.715112Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.717301Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.716890Z&quot;}}" data-execution_count="4">
+<div id="82ab2b5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.802979Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.802887Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.805189Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.804818Z&quot;}}" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.array([<span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">1.5</span>, <span class="fl">2.0</span>])</span>
@@ -478,7 +452,7 @@ Example 4.2:  y = x^2 + 1/x^2
 </ol>
 <p><span class="math display">\[\boxed{y = \frac{-2 - 3x}{x^2 - 1} = \frac{3x + 2}{1 - x^2}}, \qquad -1 &lt; x &lt; 1.\]</span></p>
 <p>At <span class="math inline">\(x = 0.5\)</span>: <span class="math inline">\(y = 3.5 / 0.75 \approx 4.666667\)</span>.</p>
-<div id="94b373a6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.718426Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.718331Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.720438Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.719890Z&quot;}}" data-execution_count="5">
+<div id="94b373a6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.806719Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.806640Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.808634Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.808245Z&quot;}}" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check example 5.1 by verifying that F(x, y(x)) stays equal to C = -2</span></span>
@@ -498,15 +472,7 @@ x = 0.75   y =  9.714286   F(x, y) = -2.000000</code></pre>
 </section>
 <section id="numerical-methods" class="level2">
 <h2 class="anchored" data-anchor-id="numerical-methods">6. Numerical methods</h2>
-<section id="the-idea-replace-the-curve-by-a-sequence-of-points" class="level3">
-<h3 class="anchored" data-anchor-id="the-idea-replace-the-curve-by-a-sequence-of-points">6.1 The idea: replace the curve by a sequence of points</h3>
-<p>Most ODEs have no closed-form solution, but we can still compute one approximately. Instead of finding a <em>function</em> <span class="math inline">\(y(x)\)</span>, a numerical method computes <em>numbers</em> <span class="math inline">\(y_0, y_1, y_2, \dots\)</span> that approximate <span class="math inline">\(y\)</span> on a grid</p>
-<p><span class="math display">\[x_n = x_0 + nh, \qquad n = 0, 1, 2, \dots\]</span></p>
-<p>where <span class="math inline">\(h\)</span> is the <strong>step size</strong>. Every method in this notebook is a <strong>one-step method</strong>: it uses only the current point <span class="math inline">\((x_n, y_n)\)</span> and the slope function <span class="math inline">\(f\)</span> to produce the next point <span class="math inline">\(y_{n+1}\)</span>.</p>
-<p>The starting point for all of them is the ODE written in integral form. Integrating <span class="math inline">\(y' = f(x, y)\)</span> from <span class="math inline">\(x_n\)</span> to <span class="math inline">\(x_{n+1}\)</span> gives the <strong>exact</strong> relation</p>
-<p><span class="math display">\[y(x_{n+1}) = y(x_n) + \int_{x_n}^{x_{n+1}} f\big(x, y(x)\big)\,dx.\]</span></p>
-<p>The integral is the only part we cannot compute exactly, because <span class="math inline">\(y(x)\)</span> inside it is unknown. <strong>Each method is a different way of approximating that integral</strong>, that is, of estimating the <em>average slope</em> over one step:</p>
-<p><span class="math display">\[y_{n+1} = y_n + h \times (\text{estimate of the average slope on } [x_n, x_{n+1}]).\]</span></p>
+<p>The methods of Sections 3–5 cover only special forms of <span class="math inline">\(f(x, y)\)</span>; most equations, such as the one in Section 8, have no formula for their solution. A <strong>numerical method</strong> computes approximate values <span class="math inline">\(y_n \approx y(x_n)\)</span> on a grid <span class="math inline">\(x_n = x_0 + nh\)</span> with step size <span class="math inline">\(h\)</span>. Two are used in the rest of this notebook:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -516,836 +482,92 @@ x = 0.75   y =  9.714286   F(x, y) = -2.000000</code></pre>
 <thead>
 <tr class="header">
 <th>Method</th>
-<th>Average slope estimated by</th>
-<th>Like the quadrature rule</th>
+<th>Formula</th>
+<th>Order (global error)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Euler</td>
-<td>slope at the left end</td>
-<td>left rectangle rule</td>
+<td><span class="math inline">\(y_{n+1} = y_n + h\,f(x_n, y_n)\)</span></td>
+<td><span class="math inline">\(O(h)\)</span></td>
 </tr>
 <tr class="even">
-<td>Heun</td>
-<td>mean of the slopes at both ends</td>
-<td>trapezoidal rule</td>
-</tr>
-<tr class="odd">
-<td>RK4</td>
-<td>weighted mean of slopes at the start, midpoint (twice) and end</td>
-<td>Simpson’s rule</td>
+<td>Classical Runge–Kutta (RK4)</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \tfrac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)\)</span> with <span class="math inline">\(k_1 = f(x_n, y_n)\)</span>, <span class="math inline">\(k_2 = f(x_n + \tfrac h2, y_n + \tfrac h2 k_1)\)</span>, <span class="math inline">\(k_3 = f(x_n + \tfrac h2, y_n + \tfrac h2 k_2)\)</span>, <span class="math inline">\(k_4 = f(x_n + h, y_n + hk_3)\)</span></td>
+<td><span class="math inline">\(O(h^4)\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>Throughout this section we use one <strong>test problem</strong> whose exact solution is known, so every error can be measured:</p>
-<p><span class="math display">\[y' = x + y, \qquad y(0) = 1, \qquad \text{exact solution } y = 2e^{x} - x - 1.\]</span></p>
-<div id="e9863423" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.721824Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.721731Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.723455Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.722993Z&quot;}}" data-execution_count="6">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>exact <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> np.exp(x) <span class="op">-</span> x <span class="op">-</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-</section>
-<section id="eulers-method" class="level3">
-<h3 class="anchored" data-anchor-id="eulers-method">6.2 Euler’s method</h3>
-<p><strong>Derivation from the Taylor series.</strong> Expand the exact solution about <span class="math inline">\(x_n\)</span>:</p>
-<p><span class="math display">\[y(x_n + h) = y(x_n) + h\,y'(x_n) + \frac{h^2}{2}\,y''(\xi), \qquad \xi \in (x_n, x_{n+1}).\]</span></p>
-<p>Since <span class="math inline">\(y'(x_n) = f(x_n, y_n)\)</span>, dropping the <span class="math inline">\(h^2\)</span> term gives <strong>Euler’s method</strong>:</p>
-<p><span class="math display">\[\boxed{y_{n+1} = y_n + h\,f(x_n, y_n)}\]</span></p>
-<p><strong>Geometric meaning.</strong> From the current point, walk along the tangent line for a distance <span class="math inline">\(h\)</span>. Because the solution curve bends away from its tangent, each step lands slightly off the curve. The next step then starts from the wrong point, on a <em>neighbouring</em> solution curve, so the errors build up.</p>
-<p><strong>Algorithm</strong> 1. Start with <span class="math inline">\(x_0, y_0\)</span>, step size <span class="math inline">\(h\)</span> and number of steps <span class="math inline">\(N\)</span>. 2. For <span class="math inline">\(n = 0, 1, \dots, N-1\)</span>: * compute the slope <span class="math inline">\(k = f(x_n, y_n)\)</span> * set <span class="math inline">\(y_{n+1} = y_n + hk\)</span> and <span class="math inline">\(x_{n+1} = x_n + h\)</span>.</p>
-<div id="1e09742d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.724470Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.724414Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.726158Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.725823Z&quot;}}" data-execution_count="7">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, x0, y0, h, n):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> f(x[i], y[i])</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="worked-example-euler-by-hand-h-0.1" class="level4">
-<h4 class="anchored" data-anchor-id="worked-example-euler-by-hand-h-0.1">Worked example: Euler by hand, <span class="math inline">\(h = 0.1\)</span></h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><span class="math inline">\(n\)</span></th>
-<th><span class="math inline">\(x_n\)</span></th>
-<th><span class="math inline">\(y_n\)</span></th>
-<th>slope <span class="math inline">\(f(x_n, y_n) = x_n + y_n\)</span></th>
-<th><span class="math inline">\(y_{n+1} = y_n + 0.1 \times \text{slope}\)</span></th>
-<th>exact <span class="math inline">\(y(x_{n+1})\)</span></th>
-<th>error</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>0.0</td>
-<td>1.000000</td>
-<td>1.000000</td>
-<td>1.100000</td>
-<td>1.110342</td>
-<td>0.0103</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>0.1</td>
-<td>1.100000</td>
-<td>1.200000</td>
-<td>1.220000</td>
-<td>1.242806</td>
-<td>0.0228</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0.2</td>
-<td>1.220000</td>
-<td>1.420000</td>
-<td>1.362000</td>
-<td>1.399718</td>
-<td>0.0377</td>
-</tr>
-</tbody>
-</table>
-<p>The error grows every step, because each step starts from an already inaccurate value <strong>and</strong> adds a new error of its own.</p>
-</section>
-<section id="local-and-global-error" class="level4">
-<h4 class="anchored" data-anchor-id="local-and-global-error">Local and global error</h4>
-<ul>
-<li>The <strong>local truncation error</strong> (LTE) is the error made in <em>one</em> step, starting from the exact value. It is the term we dropped: <span class="math inline">\(\tfrac{h^2}{2}y''(\xi) = O(h^2)\)</span>. <em>Check:</em> here <span class="math inline">\(y'' = 1 + y' = 1 + x + y\)</span>, so <span class="math inline">\(y''(0) = 2\)</span> and the predicted first-step error is <span class="math inline">\(\tfrac{0.1^2}{2}\cdot 2 = 0.01\)</span>. The actual first-step error is <span class="math inline">\(0.0103\)</span>. ✓</li>
-<li>The <strong>global error</strong> is the total error at a fixed point <span class="math inline">\(x = b\)</span> after all <span class="math inline">\(N = (b - x_0)/h\)</span> steps. Roughly <span class="math inline">\(N\)</span> local errors of size <span class="math inline">\(O(h^2)\)</span> add up:</li>
-</ul>
-<p><span class="math display">\[\text{global error} \approx N \cdot O(h^2) = \frac{b - x_0}{h}\,O(h^2) = O(h).\]</span></p>
-<p>A method whose global error is <span class="math inline">\(O(h^p)\)</span> is said to have <strong>order <span class="math inline">\(p\)</span></strong>. Euler has order 1, so halving <span class="math inline">\(h\)</span> only halves the error. Gaining one more correct digit costs 10 times as many steps.</p>
-<div id="a9d820cf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.727314Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.727234Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.786279Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.785790Z&quot;}}" data-execution_count="8">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geometric picture: one large Euler step (h = 0.5) so the gap is visible</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="fl">0.6</span>, <span class="dv">100</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact solution"</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>k1 <span class="op">=</span> f(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, h], [<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span> h <span class="op">*</span> k1], <span class="st">"C0o-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Euler step: slope k₁ = </span><span class="sc">{</span>k1<span class="sc">:g}</span><span class="ss">"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.vlines(h, <span class="dv">1</span> <span class="op">+</span> h <span class="op">*</span> k1, exact(h), colors<span class="op">=</span><span class="st">"C3"</span>, linestyles<span class="op">=</span><span class="st">":"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>plt.annotate(<span class="ss">f"error = </span><span class="sc">{</span>exact(h) <span class="op">-</span> (<span class="dv">1</span> <span class="op">+</span> h<span class="op">*</span>k1)<span class="sc">:.3f}</span><span class="ss">"</span>, (h, (<span class="dv">1</span> <span class="op">+</span> h<span class="op">*</span>k1 <span class="op">+</span> exact(h)) <span class="op">/</span> <span class="dv">2</span>),</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             xytext<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">0</span>), textcoords<span class="op">=</span><span class="st">"offset points"</span>, color<span class="op">=</span><span class="st">"C3"</span>)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Euler follows the tangent line, which drifts off the curve"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="heuns-method-improved-euler" class="level3">
-<h3 class="anchored" data-anchor-id="heuns-method-improved-euler">6.3 Heun’s method (improved Euler)</h3>
-<p><strong>Derivation from the trapezoidal rule.</strong> Estimate the integral with the trapezoidal rule, which averages the slopes at both ends of the step:</p>
-<p><span class="math display">\[y_{n+1} = y_n + \frac{h}{2}\Big[f(x_n, y_n) + f(x_{n+1}, y_{n+1})\Big].\]</span></p>
-<p>The problem is that <span class="math inline">\(y_{n+1}\)</span> appears on both sides (the formula is <strong>implicit</strong>). Heun’s fix is to first <em>predict</em> <span class="math inline">\(y_{n+1}\)</span> with an Euler step and then <em>correct</em> it with the trapezoidal average. That makes it a <strong>predictor–corrector</strong> method:</p>
-<p><span class="math display">\[
-\begin{aligned}
-k_1 &amp;= f(x_n, y_n) &amp;&amp; \text{slope at the start}\\
-y^{*}_{n+1} &amp;= y_n + h k_1 &amp;&amp; \text{predictor (an Euler step)}\\
-k_2 &amp;= f(x_{n+1}, y^{*}_{n+1}) &amp;&amp; \text{slope at the predicted end point}\\
-y_{n+1} &amp;= y_n + \tfrac{h}{2}(k_1 + k_2) &amp;&amp; \text{corrector: use the average slope}
-\end{aligned}
-\]</span></p>
-<p><strong>Why it is better.</strong> If the curve is concave up, the start slope <span class="math inline">\(k_1\)</span> is too small and the end slope <span class="math inline">\(k_2\)</span> is too large, so their average largely cancels the error. The local error becomes <span class="math inline">\(O(h^3)\)</span> and the global error <span class="math inline">\(O(h^2)\)</span>, so Heun is <strong>order 2</strong>. Halving <span class="math inline">\(h\)</span> divides the error by about 4. Each step costs <strong>2</strong> evaluations of <span class="math inline">\(f\)</span>.</p>
-<div id="04f12469" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.787445Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.787384Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.789384Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.788956Z&quot;}}" data-execution_count="9">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> heun(f, x0, y0, h, n):</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k1)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (k1 <span class="op">+</span> k2)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="worked-example-heun-by-hand-h-0.1" class="level4">
-<h4 class="anchored" data-anchor-id="worked-example-heun-by-hand-h-0.1">Worked example: Heun by hand, <span class="math inline">\(h = 0.1\)</span></h4>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><span class="math inline">\(n\)</span></th>
-<th><span class="math inline">\(x_n\)</span></th>
-<th><span class="math inline">\(y_n\)</span></th>
-<th><span class="math inline">\(k_1 = x_n + y_n\)</span></th>
-<th><span class="math inline">\(y^{*} = y_n + 0.1k_1\)</span></th>
-<th><span class="math inline">\(k_2 = x_{n+1} + y^{*}\)</span></th>
-<th><span class="math inline">\(y_{n+1} = y_n + 0.05(k_1 + k_2)\)</span></th>
-<th>error</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>0.0</td>
-<td>1.000000</td>
-<td>1.000000</td>
-<td>1.100000</td>
-<td>1.200000</td>
-<td>1.110000</td>
-<td>0.00034</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>0.1</td>
-<td>1.110000</td>
-<td>1.210000</td>
-<td>1.231000</td>
-<td>1.431000</td>
-<td>1.242050</td>
-<td>0.00076</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0.2</td>
-<td>1.242050</td>
-<td>1.442050</td>
-<td>1.386255</td>
-<td>1.686255</td>
-<td>1.398465</td>
-<td>0.00125</td>
-</tr>
-</tbody>
-</table>
-<p>After three steps the error is <span class="math inline">\(0.00125\)</span>, about <strong>30 times smaller</strong> than Euler’s <span class="math inline">\(0.0377\)</span>, for twice the work.</p>
-</section>
-</section>
-<section id="the-classical-rungekutta-method-rk4" class="level3">
-<h3 class="anchored" data-anchor-id="the-classical-rungekutta-method-rk4">6.4 The classical Runge–Kutta method (RK4)</h3>
-<p><strong>Derivation from Simpson’s rule.</strong> Simpson’s rule weights the midpoint four times as heavily as the ends:</p>
-<p><span class="math display">\[\int_{x_n}^{x_{n+1}} f\,dx \approx \frac{h}{6}\Big[f_{\text{start}} + 4 f_{\text{mid}} + f_{\text{end}}\Big].\]</span></p>
-<p>RK4 estimates the midpoint slope <strong>twice</strong>, each time more accurately than the last, and splits the weight <span class="math inline">\(4\)</span> into <span class="math inline">\(2 + 2\)</span>:</p>
-<p><span class="math display">\[
-\begin{aligned}
-k_1 &amp;= f(x_n,\ y_n) &amp;&amp; \text{slope at the start}\\
-k_2 &amp;= f\!\left(x_n + \tfrac{h}{2},\ y_n + \tfrac{h}{2}k_1\right) &amp;&amp; \text{slope at the midpoint, reached using } k_1\\
-k_3 &amp;= f\!\left(x_n + \tfrac{h}{2},\ y_n + \tfrac{h}{2}k_2\right) &amp;&amp; \text{slope at the midpoint, reached using the better } k_2\\
-k_4 &amp;= f\!\left(x_n + h,\ y_n + h k_3\right) &amp;&amp; \text{slope at the end, reached using } k_3\\[4pt]
-y_{n+1} &amp;= y_n + \tfrac{h}{6}\big(k_1 + 2k_2 + 2k_3 + k_4\big)
-\end{aligned}
-\]</span></p>
-<p>The weights <span class="math inline">\(\tfrac{1}{6}, \tfrac{2}{6}, \tfrac{2}{6}, \tfrac{1}{6}\)</span> add up to 1, so <span class="math inline">\(\tfrac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4)\)</span> is a weighted <em>average slope</em>. The local error is <span class="math inline">\(O(h^5)\)</span> and the global error <span class="math inline">\(O(h^4)\)</span>: RK4 is <strong>order 4</strong>, and halving <span class="math inline">\(h\)</span> divides the error by about 16. Each step costs <strong>4</strong> evaluations of <span class="math inline">\(f\)</span>.</p>
-<div id="b0aeb4f6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.790421Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.790355Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.792509Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.792081Z&quot;}}" data-execution_count="10">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, x0, y0, h, n):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
-<section id="worked-example-rk4-by-hand-first-step-with-h-0.1" class="level4">
-<h4 class="anchored" data-anchor-id="worked-example-rk4-by-hand-first-step-with-h-0.1">Worked example: RK4 by hand, first step with <span class="math inline">\(h = 0.1\)</span></h4>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>stage</th>
-<th>evaluation point <span class="math inline">\((x, y)\)</span></th>
-<th>slope</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(k_1\)</span></td>
-<td><span class="math inline">\((0,\ 1)\)</span></td>
-<td><span class="math inline">\(1\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(k_2\)</span></td>
-<td><span class="math inline">\((0.05,\ 1 + 0.05 \cdot 1) = (0.05,\ 1.05)\)</span></td>
-<td><span class="math inline">\(1.1\)</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(k_3\)</span></td>
-<td><span class="math inline">\((0.05,\ 1 + 0.05 \cdot 1.1) = (0.05,\ 1.055)\)</span></td>
-<td><span class="math inline">\(1.105\)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(k_4\)</span></td>
-<td><span class="math inline">\((0.1,\ 1 + 0.1 \cdot 1.105) = (0.1,\ 1.1105)\)</span></td>
-<td><span class="math inline">\(1.2105\)</span></td>
-</tr>
-</tbody>
-</table>
-<p><span class="math display">\[y_1 = 1 + \frac{0.1}{6}\big(1 + 2(1.1) + 2(1.105) + 1.2105\big) = 1 + \frac{0.1}{6}(6.6205) = 1.1103417.\]</span></p>
-<p>Exact: <span class="math inline">\(y(0.1) = 1.1103418\)</span>. The error is <span class="math inline">\(1.7 \times 10^{-7}\)</span>, about 60,000 times smaller than Euler’s first step.</p>
-</section>
-</section>
-<section id="seeing-the-slopes" class="level3">
-<h3 class="anchored" data-anchor-id="seeing-the-slopes">6.5 Seeing the slopes</h3>
-<p>Below, one large step (<span class="math inline">\(h = 0.5\)</span>) from <span class="math inline">\((0, 1)\)</span> shows where each method samples the slope. Short arrows mark each sampled slope; the coloured line is the step actually taken.</p>
-<div id="ce8aaeaa" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.793633Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.793574Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.947909Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.947428Z&quot;}}" data-execution_count="11">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>h, x0, y0 <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="fl">0.55</span>, <span class="dv">100</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slope_mark(ax, x, y, s, color, label<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="fl">0.06</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    ax.plot([x <span class="op">-</span> d, x <span class="op">+</span> d], [y <span class="op">-</span> d <span class="op">*</span> s, y <span class="op">+</span> d <span class="op">*</span> s], color<span class="op">=</span>color, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span>label)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(x, y, <span class="st">"o"</span>, color<span class="op">=</span>color, ms<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="fl">4.2</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    ax.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact"</span>)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"y"</span>)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Euler</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>k1 <span class="op">=</span> f(x0, y0)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>y_e <span class="op">=</span> y0 <span class="op">+</span> h <span class="op">*</span> k1</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">0</span>], x0, y0, k1, <span class="st">"C0"</span>, <span class="st">"k₁"</span>)</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot([x0, h], [y0, y_e], <span class="st">"C0--"</span>)</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="ss">f"Euler: 1 slope</span><span class="ch">\n</span><span class="ss">y₁ = </span><span class="sc">{</span>y_e<span class="sc">:.4f}</span><span class="ss">, error </span><span class="sc">{</span>exact(h) <span class="op">-</span> y_e<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Heun</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>k2 <span class="op">=</span> f(x0 <span class="op">+</span> h, y0 <span class="op">+</span> h <span class="op">*</span> k1)</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>y_h <span class="op">=</span> y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (k1 <span class="op">+</span> k2)</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">1</span>], x0, y0, k1, <span class="st">"C0"</span>, <span class="st">"k₁ (start)"</span>)</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">1</span>], x0 <span class="op">+</span> h, y0 <span class="op">+</span> h <span class="op">*</span> k1, k2, <span class="st">"C1"</span>, <span class="st">"k₂ (predicted end)"</span>)</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot([x0, h], [y0, y_h], <span class="st">"C2--"</span>, label<span class="op">=</span><span class="st">"average slope"</span>)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="ss">f"Heun: 2 slopes</span><span class="ch">\n</span><span class="ss">y₁ = </span><span class="sc">{</span>y_h<span class="sc">:.4f}</span><span class="ss">, error </span><span class="sc">{</span>exact(h) <span class="op">-</span> y_h<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># RK4</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>r1 <span class="op">=</span> f(x0, y0)</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> f(x0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> r1)</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>r3 <span class="op">=</span> f(x0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> r2)</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>r4 <span class="op">=</span> f(x0 <span class="op">+</span> h, y0 <span class="op">+</span> h <span class="op">*</span> r3)</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>y_r <span class="op">=</span> y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (r1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> r2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> r3 <span class="op">+</span> r4)</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">2</span>], x0, y0, r1, <span class="st">"C0"</span>, <span class="st">"k₁"</span>)</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">2</span>], x0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> r1, r2, <span class="st">"C1"</span>, <span class="st">"k₂"</span>)</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">2</span>], x0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y0 <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> r2, r3, <span class="st">"C4"</span>, <span class="st">"k₃"</span>)</span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>slope_mark(axes[<span class="dv">2</span>], x0 <span class="op">+</span> h, y0 <span class="op">+</span> h <span class="op">*</span> r3, r4, <span class="st">"C3"</span>, <span class="st">"k₄"</span>)</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].plot([x0, h], [y0, y_r], <span class="st">"C2--"</span>, label<span class="op">=</span><span class="st">"weighted average"</span>)</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">2</span>].set_title(<span class="ss">f"RK4: 4 slopes</span><span class="ch">\n</span><span class="ss">y₁ = </span><span class="sc">{</span>y_r<span class="sc">:.4f}</span><span class="ss">, error </span><span class="sc">{</span>exact(h) <span class="op">-</span> y_r<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"exact y(0.5) = </span><span class="sc">{</span>exact(h)<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>exact y(0.5) = 1.797443</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="why-the-order-is-what-it-is-matching-the-taylor-series" class="level3">
-<h3 class="anchored" data-anchor-id="why-the-order-is-what-it-is-matching-the-taylor-series">6.6 Why the order is what it is: matching the Taylor series</h3>
-<p>For the test problem, the exact solution after one step from <span class="math inline">\((0, 1)\)</span> has the Taylor series</p>
-<p><span class="math display">\[y(h) = 2e^{h} - h - 1 = 1 + h + h^2 + \frac{h^3}{3} + \frac{h^4}{12} + \frac{h^5}{60} + \cdots\]</span></p>
-<p>Expanding each method’s formula for one step, symbolically in <span class="math inline">\(h\)</span>:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Method</th>
-<th>One step gives</th>
-<th>First term missed (local error)</th>
-<th>Predicted at <span class="math inline">\(h=0.1\)</span></th>
-<th>Actual</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Euler</td>
-<td><span class="math inline">\(1 + h\)</span></td>
-<td><span class="math inline">\(h^2\)</span></td>
-<td><span class="math inline">\(1.0 \times 10^{-2}\)</span></td>
-<td><span class="math inline">\(1.03 \times 10^{-2}\)</span></td>
-</tr>
-<tr class="even">
-<td>Heun</td>
-<td><span class="math inline">\(1 + h + h^2\)</span></td>
-<td><span class="math inline">\(h^3/3\)</span></td>
-<td><span class="math inline">\(3.3 \times 10^{-4}\)</span></td>
-<td><span class="math inline">\(3.42 \times 10^{-4}\)</span></td>
-</tr>
-<tr class="odd">
-<td>RK4</td>
-<td><span class="math inline">\(1 + h + h^2 + \frac{h^3}{3} + \frac{h^4}{12}\)</span></td>
-<td><span class="math inline">\(h^5/60\)</span></td>
-<td><span class="math inline">\(1.7 \times 10^{-7}\)</span></td>
-<td><span class="math inline">\(1.69 \times 10^{-7}\)</span></td>
-</tr>
-</tbody>
-</table>
-<p><em>(For RK4: <span class="math inline">\(k_1 = 1\)</span>, <span class="math inline">\(k_2 = 1 + h\)</span>, <span class="math inline">\(k_3 = 1 + h + \tfrac{h^2}{2}\)</span>, <span class="math inline">\(k_4 = 1 + 2h + h^2 + \tfrac{h^3}{2}\)</span>; substituting gives the expression in the table.)</em></p>
-<p>This is the real meaning of order: <strong>a method of order <span class="math inline">\(p\)</span> reproduces the Taylor series of the true solution through the <span class="math inline">\(h^p\)</span> term.</strong> The first term it misses, of size <span class="math inline">\(h^{p+1}\)</span>, is the local error. Over <span class="math inline">\(1/h\)</span> steps these add up to a global error of <span class="math inline">\(h^p\)</span>.</p>
-</section>
-<section id="all-three-methods-side-by-side" class="level3">
-<h3 class="anchored" data-anchor-id="all-three-methods-side-by-side">6.7 All three methods side by side</h3>
-<div id="40aac13d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.949195Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.949113Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:27.951978Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:27.951528Z&quot;}}" data-execution_count="12">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>h, n <span class="op">=</span> <span class="fl">0.1</span>, <span class="dv">10</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x, ye <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>_, yh <span class="op">=</span> heun(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>_, yr <span class="op">=</span> rk4(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>yx <span class="op">=</span> exact(x)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'x'</span><span class="sc">:&gt;5}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Euler'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Heun'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'RK4'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Exact'</span><span class="sc">:&gt;12}</span><span class="ss"> "</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"</span><span class="sc">{</span><span class="st">'|err| Eul'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'|err| Heun'</span><span class="sc">:&gt;10}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'|err| RK4'</span><span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">+</span> <span class="dv">1</span>):</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>x[i]<span class="sc">:5.1f}</span><span class="ss"> </span><span class="sc">{</span>ye[i]<span class="sc">:10.6f}</span><span class="ss"> </span><span class="sc">{</span>yh[i]<span class="sc">:10.6f}</span><span class="ss"> </span><span class="sc">{</span>yr[i]<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>yx[i]<span class="sc">:12.8f}</span><span class="ss"> "</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span><span class="bu">abs</span>(ye[i]<span class="op">-</span>yx[i])<span class="sc">:10.2e}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">abs</span>(yh[i]<span class="op">-</span>yx[i])<span class="sc">:10.2e}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">abs</span>(yr[i]<span class="op">-</span>yx[i])<span class="sc">:10.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>    x      Euler       Heun          RK4        Exact  |err| Eul |err| Heun  |err| RK4
-  0.0   1.000000   1.000000   1.00000000   1.00000000   0.00e+00   0.00e+00   0.00e+00
-  0.1   1.100000   1.110000   1.11034167   1.11034184   1.03e-02   3.42e-04   1.69e-07
-  0.2   1.220000   1.242050   1.24280514   1.24280552   2.28e-02   7.56e-04   3.75e-07
-  0.3   1.362000   1.398465   1.39971699   1.39971762   3.77e-02   1.25e-03   6.21e-07
-  0.4   1.528200   1.581804   1.58364848   1.58364940   5.54e-02   1.85e-03   9.15e-07
-  0.5   1.721020   1.794894   1.79744128   1.79744254   7.64e-02   2.55e-03   1.26e-06
-  0.6   1.943122   2.040857   2.04423592   2.04423760   1.01e-01   3.38e-03   1.68e-06
-  0.7   2.197434   2.323147   2.32750325   2.32750541   1.30e-01   4.36e-03   2.16e-06
-  0.8   2.487178   2.645578   2.65107913   2.65108186   1.64e-01   5.50e-03   2.73e-06
-  0.9   2.815895   3.012364   3.01920283   3.01920622   2.03e-01   6.84e-03   3.39e-06
-  1.0   3.187485   3.428162   3.43655949   3.43656366   2.49e-01   8.40e-03   4.17e-06</code></pre>
-</div>
-</div>
-<div id="bcb775c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:27.952962Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:27.952893Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.005020Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.004696Z&quot;}}" data-execution_count="13">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact  2eˣ − x − 1"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ye, <span class="st">"o--"</span>, label<span class="op">=</span><span class="st">"Euler"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x, yh, <span class="st">"s--"</span>, label<span class="op">=</span><span class="st">"Heun"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x, yr, <span class="st">"^"</span>, ms<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">"RK4"</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"y' = x + y,  y(0) = 1,  h = 0.1"</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="error-order-and-efficiency" class="level2">
-<h2 class="anchored" data-anchor-id="error-order-and-efficiency">7. Error, order and efficiency</h2>
-<section id="measuring-the-order" class="level3">
-<h3 class="anchored" data-anchor-id="measuring-the-order">7.1 Measuring the order</h3>
-<p>If the global error is <span class="math inline">\(E(h) \approx Ch^{p}\)</span>, then</p>
-<p><span class="math display">\[\frac{E(h)}{E(h/2)} \approx 2^{p}, \qquad \log E \approx \log C + p\log h.\]</span></p>
-<p>So the order can be read off in two ways: from the <strong>error ratio</strong> when <span class="math inline">\(h\)</span> is halved, or from the <strong>slope of a log–log plot</strong> of error against <span class="math inline">\(h\)</span>.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Method</th>
-<th>Order <span class="math inline">\(p\)</span></th>
-<th>Error ratio when <span class="math inline">\(h\)</span> is halved</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Euler</td>
-<td>1</td>
-<td>≈ 2</td>
-</tr>
-<tr class="even">
-<td>Heun</td>
-<td>2</td>
-<td>≈ 4</td>
-</tr>
-<tr class="odd">
-<td>RK4</td>
-<td>4</td>
-<td>≈ 16</td>
-</tr>
-</tbody>
-</table>
-<p>We check this for the test problem by measuring the error at <span class="math inline">\(x = 1\)</span> (exact value <span class="math inline">\(2e - 2 \approx 3.436564\)</span>).</p>
-<div id="0ed43423" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.006256Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.006196Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.009683Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.009346Z&quot;}}" data-execution_count="14">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>hs <span class="op">=</span> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.0125</span>]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>methods <span class="op">=</span> {<span class="st">"Euler"</span>: euler, <span class="st">"Heun"</span>: heun, <span class="st">"RK4"</span>: rk4}</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cost_per_step <span class="op">=</span> {<span class="st">"Euler"</span>: <span class="dv">1</span>, <span class="st">"Heun"</span>: <span class="dv">2</span>, <span class="st">"RK4"</span>: <span class="dv">4</span>}</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>errors <span class="op">=</span> {name: [] <span class="cf">for</span> name <span class="kw">in</span> methods}</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> hs:</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, method <span class="kw">in</span> methods.items():</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        _, y <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        errors[name].append(<span class="bu">abs</span>(y[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> exact(<span class="fl">1.0</span>)))</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'h'</span><span class="sc">:&gt;8}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">:&gt;14}{</span><span class="st">'ratio'</span><span class="sc">:&gt;8}</span><span class="ss">"</span> <span class="cf">for</span> m <span class="kw">in</span> methods))</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, h <span class="kw">in</span> <span class="bu">enumerate</span>(hs):</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>h<span class="sc">:8.4f}</span><span class="ss">"</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name <span class="kw">in</span> methods:</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> errors[name]</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        ratio <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>e[i<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> e[i]<span class="sc">:8.2f}</span><span class="ss">"</span> <span class="cf">if</span> i <span class="cf">else</span> <span class="ss">f"</span><span class="sc">{</span><span class="st">''</span><span class="sc">:&gt;8}</span><span class="ss">"</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        row <span class="op">+=</span> <span class="ss">f"</span><span class="sc">{</span>e[i]<span class="sc">:14.3e}{</span>ratio<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(row)</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> <span class="bu">zip</span>(methods, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]):</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    slope <span class="op">=</span> np.polyfit(np.log(hs), np.log(errors[name]), <span class="dv">1</span>)[<span class="dv">0</span>]</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:6s}</span><span class="ss"> observed order ≈ </span><span class="sc">{</span>slope<span class="sc">:.2f}</span><span class="ss">  (theory </span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>       h         Euler   ratio          Heun   ratio           RK4   ratio
-  0.2000     4.599e-01             3.115e-02             6.138e-05        
-  0.1000     2.491e-01    1.85     8.402e-03    3.71     4.169e-06   14.73
-  0.0500     1.300e-01    1.92     2.182e-03    3.85     2.716e-07   15.35
-  0.0250     6.644e-02    1.96     5.558e-04    3.93     1.733e-08   15.67
-  0.0125     3.359e-02    1.98     1.403e-04    3.96     1.095e-09   15.83
-Euler  observed order ≈ 0.95  (theory 1)
-Heun   observed order ≈ 1.95  (theory 2)
-RK4    observed order ≈ 3.95  (theory 4)</code></pre>
-</div>
-</div>
-</section>
-<section id="accuracy-per-unit-of-work" class="level3">
-<h3 class="anchored" data-anchor-id="accuracy-per-unit-of-work">7.2 Accuracy per unit of work</h3>
-<p>Smaller steps are not free. The real cost of a method is the number of times it evaluates <span class="math inline">\(f\)</span>: <span class="math inline">\(N\)</span> for Euler, <span class="math inline">\(2N\)</span> for Heun and <span class="math inline">\(4N\)</span> for RK4. A fair comparison plots the error against that cost.</p>
-<div id="45a435e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.010854Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.010784Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.223888Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.223472Z&quot;}}" data-execution_count="15">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.2</span>))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> methods:</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].loglog(hs, errors[name], <span class="st">"o-"</span>, label<span class="op">=</span>name)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    evals <span class="op">=</span> [cost_per_step[name] <span class="op">*</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h) <span class="cf">for</span> h <span class="kw">in</span> hs]</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].loglog(evals, errors[name], <span class="st">"o-"</span>, label<span class="op">=</span>name)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].invert_xaxis()</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"step size h"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"|error| at x = 1"</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Error vs step size (slope = order)"</span>)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"number of f evaluations"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"|error| at x = 1"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Error vs work"</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axes:</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Work needed for an error of 1e-6, using E ≈ C h^p from the finest run</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> <span class="bu">zip</span>(methods, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>]):</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    evals <span class="op">=</span> cost_per_step[name] <span class="op">*</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> hs[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    need <span class="op">=</span> evals <span class="op">*</span> (errors[name][<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> <span class="fl">1e-6</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> p)</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:6s}</span><span class="ss"> needs about </span><span class="sc">{</span>need<span class="sc">:12,.0f}</span><span class="ss"> evaluations of f for error 1e-6"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Euler  needs about    2,687,502 evaluations of f for error 1e-6
-Heun   needs about        1,895 evaluations of f for error 1e-6
-RK4    needs about           58 evaluations of f for error 1e-6</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Takeaway.</strong> In the right-hand plot, RK4’s line lies far below the others: for any fixed amount of work it is far more accurate. To reach an error of <span class="math inline">\(10^{-6}\)</span>, Euler needs about 2.7 million evaluations of <span class="math inline">\(f\)</span>, Heun about 1,900 and RK4 about 60. Higher-order methods win whenever the solution is smooth.</p>
-</section>
-<section id="estimating-the-error-when-the-exact-solution-is-unknown" class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-error-when-the-exact-solution-is-unknown">7.3 Estimating the error when the exact solution is unknown</h3>
-<p>In real problems there is no exact solution to compare with. <strong>Richardson’s idea:</strong> solve twice, with step sizes <span class="math inline">\(h\)</span> and <span class="math inline">\(h/2\)</span>. Since <span class="math inline">\(E(h) \approx Ch^p\)</span>,</p>
-<p><span class="math display">\[y(b) - y_{h/2} \approx \frac{y_{h/2} - y_{h}}{2^{p} - 1}.\]</span></p>
-<ul>
-<li>The right-hand side is an <strong>error estimate</strong> for the finer solution, computed using only numerical results.</li>
-<li>Adding it to <span class="math inline">\(y_{h/2}\)</span> gives an <strong>extrapolated</strong> value that is more accurate than either run: one order higher.</li>
-</ul>
-<p>Below we check the estimate against the true error for the test problem.</p>
-<div id="e494a004" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.225314Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.225236Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.227555Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.227180Z&quot;}}" data-execution_count="16">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'method'</span><span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y_h'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y_h/2'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'estimated err'</span><span class="sc">:&gt;14}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'true err'</span><span class="sc">:&gt;12}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'extrapolated'</span><span class="sc">:&gt;13}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'its err'</span><span class="sc">:&gt;10}</span><span class="ss">"</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, p <span class="kw">in</span> [(<span class="st">"Euler"</span>, <span class="dv">1</span>), (<span class="st">"Heun"</span>, <span class="dv">2</span>), (<span class="st">"RK4"</span>, <span class="dv">4</span>)]:</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    method <span class="op">=</span> methods[name]</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    _, y1 <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    _, y2 <span class="op">=</span> method(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.05</span>, <span class="dv">20</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    est <span class="op">=</span> (y2[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> y1[<span class="op">-</span><span class="dv">1</span>]) <span class="op">/</span> (<span class="dv">2</span><span class="op">**</span>p <span class="op">-</span> <span class="dv">1</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    true <span class="op">=</span> exact(<span class="fl">1.0</span>) <span class="op">-</span> y2[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    extrap <span class="op">=</span> y2[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> est</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">:&gt;6}</span><span class="ss"> </span><span class="sc">{</span>y1[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>y2[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:12.8f}</span><span class="ss"> </span><span class="sc">{</span>est<span class="sc">:14.3e}</span><span class="ss"> </span><span class="sc">{</span>true<span class="sc">:12.3e}</span><span class="ss"> "</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>extrap<span class="sc">:13.8f}</span><span class="ss"> </span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="fl">1.0</span>) <span class="op">-</span> extrap)<span class="sc">:10.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>method          y_h        y_h/2  estimated err     true err  extrapolated    its err
- Euler   3.18748492   3.30659541      1.191e-01    1.300e-01    3.42570590   1.09e-02
-  Heun   3.42816169   3.43438211      2.073e-03    2.182e-03    3.43645558   1.08e-04
-   RK4   3.43655949   3.43656339      2.598e-07    2.716e-07    3.43656365   1.18e-08</code></pre>
-</div>
-</div>
-<p>The estimated errors closely match the true errors, so the computed solutions <strong>tell you how accurate they are</strong>. Extrapolation also helps: the extrapolated Euler value is about 12 times more accurate than the finer Euler run, and the extrapolated RK4 value is accurate to about <span class="math inline">\(10^{-8}\)</span>. This is the standard check in practice: <strong>always re-run with half the step size and compare.</strong></p>
-</section>
-</section>
-<section id="stability-when-a-small-error-explodes" class="level2">
-<h2 class="anchored" data-anchor-id="stability-when-a-small-error-explodes">8. Stability: when a small error explodes</h2>
-<p>Accuracy is not the only concern. A method can also be <strong>unstable</strong>: for a step that is too large, errors are amplified at every step and the numerical solution blows up, even though the true solution decays.</p>
-<section id="the-test-equation" class="level3">
-<h3 class="anchored" data-anchor-id="the-test-equation">8.1 The test equation</h3>
-<p>Take <span class="math inline">\(y' = -\lambda y\)</span> with <span class="math inline">\(\lambda &gt; 0\)</span>, <span class="math inline">\(y(0) = 1\)</span>. The exact solution <span class="math inline">\(y = e^{-\lambda x}\)</span> decays to 0. Euler gives</p>
-<p><span class="math display">\[y_{n+1} = y_n - h\lambda y_n = (1 - h\lambda)\,y_n \quad\Longrightarrow\quad y_n = (1 - h\lambda)^{n}.\]</span></p>
-<p><span class="math inline">\(R = 1 - h\lambda\)</span> is the <strong>amplification factor</strong>. The numerical solution decays only if <span class="math inline">\(|R| &lt; 1\)</span>, that is</p>
-<p><span class="math display">\[\boxed{h &lt; \frac{2}{\lambda}} \quad\text{(Euler's stability limit).}\]</span></p>
-<p>With <span class="math inline">\(\lambda = 20\)</span> the limit is <span class="math inline">\(h &lt; 0.1\)</span>:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(h\)</span></th>
-<th><span class="math inline">\(R = 1 - 20h\)</span></th>
-<th>behaviour</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.02</td>
-<td>0.6</td>
-<td>smooth decay, like the exact solution</td>
-</tr>
-<tr class="even">
-<td>0.08</td>
-<td>−0.6</td>
-<td>decays, but flips sign every step</td>
-</tr>
-<tr class="odd">
-<td>0.12</td>
-<td>−1.4</td>
-<td>oscillates and grows without bound</td>
-</tr>
-</tbody>
-</table>
-<div id="b3639137" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.228624Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.228559Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.365014Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.364671Z&quot;}}" data-execution_count="17">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>lam <span class="op">=</span> <span class="fl">20.0</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>decay <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="op">-</span>lam <span class="op">*</span> y</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">300</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, h <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="fl">0.02</span>, <span class="fl">0.08</span>, <span class="fl">0.12</span>]):</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> euler(decay, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    ax.plot(xf, np.exp(<span class="op">-</span>lam <span class="op">*</span> xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact e^(-20x)"</span>)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    ax.plot(x, y, <span class="st">"o-"</span>, label<span class="op">=</span><span class="ss">f"Euler, h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">,  R = 1 − λh = </span><span class="sc">{</span><span class="dv">1</span> <span class="op">-</span> lam<span class="op">*</span>h<span class="sc">:.1f}</span><span class="ss">"</span>)</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> ax.legend()</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="implicit-methods-and-stiff-equations" class="level3">
-<h3 class="anchored" data-anchor-id="implicit-methods-and-stiff-equations">8.2 Implicit methods and stiff equations</h3>
-<p><strong>Backward (implicit) Euler</strong> uses the slope at the <em>end</em> of the step:</p>
-<p><span class="math display">\[y_{n+1} = y_n + h\,f(x_{n+1}, y_{n+1}).\]</span></p>
-<p>For the test equation this gives <span class="math inline">\(y_{n+1} = y_n - h\lambda y_{n+1}\)</span>, so</p>
-<p><span class="math display">\[y_{n+1} = \frac{y_n}{1 + h\lambda}, \qquad |R| = \frac{1}{1 + h\lambda} &lt; 1 \text{ for every } h &gt; 0.\]</span></p>
-<p>It is <strong>unconditionally stable</strong>. The price is that, in general, each step requires <em>solving</em> an equation for <span class="math inline">\(y_{n+1}\)</span>, usually with Newton’s method.</p>
-<p>An equation is called <strong>stiff</strong> when stability, not accuracy, forces explicit methods to take tiny steps. This typically happens when the solution has a very fast-decaying part alongside a slow part. Explicit methods (Euler, Heun, RK4) all have a stability limit of the form <span class="math inline">\(h &lt; c/\lambda\)</span>; for RK4 it is <span class="math inline">\(c \approx 2.79\)</span>. For stiff problems, implicit methods are much cheaper overall.</p>
-<div id="4e59434f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.366344Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.366274Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.419712Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.419364Z&quot;}}" data-execution_count="18">
-<details open="" class="code-fold">
-<summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> backward_euler_linear(lam, y0, h, n):</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Backward Euler for y' = -lam * y (the implicit equation solves in closed form)</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> h</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y0 <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> h <span class="op">*</span> lam) <span class="op">**</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">0.12</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>x, y_fwd <span class="op">=</span> euler(decay, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>_, y_bwd <span class="op">=</span> backward_euler_linear(lam, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, np.exp(<span class="op">-</span>lam <span class="op">*</span> xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact"</span>)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_fwd, <span class="st">"o-"</span>, label<span class="op">=</span><span class="st">"forward Euler (unstable)"</span>)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y_bwd, <span class="st">"s-"</span>, label<span class="op">=</span><span class="st">"backward Euler (stable)"</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f"Same step h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">: explicit vs implicit"</span>)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="numerical-methods-in-practice" class="level2">
-<h2 class="anchored" data-anchor-id="numerical-methods-in-practice">9. Numerical methods in practice</h2>
-<section id="adaptive-step-size" class="level3">
-<h3 class="anchored" data-anchor-id="adaptive-step-size">9.1 Adaptive step size</h3>
-<p>A fixed <span class="math inline">\(h\)</span> wastes effort where the solution is smooth and is too coarse where it changes quickly. <strong>Adaptive</strong> solvers choose <span class="math inline">\(h\)</span> step by step:</p>
+<p>Derivations, error analysis and many more methods and examples are in the chapter <strong><a href="./numerical-methods/index.html">Numerical Methods for First-Order ODEs</a></strong>:</p>
 <ol type="1">
-<li>Take a step with two methods of different order, e.g.&nbsp;Euler (order 1) and Heun (order 2), which share <span class="math inline">\(k_1\)</span>.</li>
-<li>Their difference estimates the local error: <span class="math inline">\(\text{err} \approx |y_{\text{Heun}} - y_{\text{Euler}}| = \tfrac{h}{2}|k_2 - k_1|\)</span>.</li>
-<li>If <span class="math inline">\(\text{err} \le \text{tol}\,(1 + |y|)\)</span> (a mixed absolute/relative tolerance), accept the step; otherwise reject it and retry with a smaller <span class="math inline">\(h\)</span>.</li>
-<li>Choose the next step as <span class="math inline">\(h_{\text{new}} = 0.9\,h\sqrt{\text{allowed}/\text{err}}\)</span> (the square root because the local error of the lower-order method is <span class="math inline">\(O(h^2)\)</span>).</li>
+<li><a href="./numerical-methods/01-eulers-method.html">Euler’s method</a></li>
+<li><a href="./numerical-methods/02-second-order-runge-kutta.html">Second-order Runge–Kutta methods</a></li>
+<li><a href="./numerical-methods/03-runge-kutta-4.html">The classical Runge–Kutta method (RK4)</a></li>
+<li><a href="./numerical-methods/04-error-order-efficiency.html">Error, order and efficiency</a></li>
+<li><a href="./numerical-methods/05-stability-and-stiffness.html">Stability and stiff equations</a></li>
+<li><a href="./numerical-methods/06-adaptive-step-size.html">Adaptive step size</a></li>
+<li><a href="./numerical-methods/07-multistep-methods.html">Multistep methods</a></li>
+<li><a href="./numerical-methods/08-systems-and-higher-order.html">Systems and higher-order equations</a></li>
 </ol>
-<p>Professional solvers use the same idea with higher-order pairs: <strong>RK45 (Dormand–Prince)</strong> in <code>scipy.integrate.solve_ivp</code>, MATLAB’s <code>ode45</code>, or <code>Tsit5</code> in Julia’s DifferentialEquations.jl.</p>
-<p><strong>Example.</strong> <span class="math inline">\(y' = 1 + y^2\)</span>, <span class="math inline">\(y(0) = 0\)</span>, with exact solution <span class="math inline">\(y = \tan x\)</span>, which becomes very steep near <span class="math inline">\(x = \pi/2 \approx 1.571\)</span>. We integrate to <span class="math inline">\(x = 1.5\)</span>.</p>
-<div id="61c12b2c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.420961Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.420903Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.512507Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.512073Z&quot;}}" data-execution_count="19">
+<div id="fo013" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.809934Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.809862Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.812360Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.811884Z&quot;}}" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adaptive_heun(f, x0, y0, x_end, tol<span class="op">=</span><span class="fl">1e-3</span>, h<span class="op">=</span><span class="fl">0.1</span>):</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    xs, ys <span class="op">=</span> [x0], [y0]</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> x0, y0</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    rejected <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> x_end <span class="op">-</span> x <span class="op">&gt;</span> <span class="fl">1e-12</span>:</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        h <span class="op">=</span> <span class="bu">min</span>(h, x_end <span class="op">-</span> x)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x, y)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x <span class="op">+</span> h, y <span class="op">+</span> h <span class="op">*</span> k1)</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> <span class="bu">abs</span>(k2 <span class="op">-</span> k1)</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        allowed <span class="op">=</span> tol <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="bu">abs</span>(y))</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> err <span class="op">&lt;=</span> allowed:</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> x <span class="op">+</span> h, y <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (k1 <span class="op">+</span> k2)</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            xs.append(x)<span class="op">;</span> ys.append(y)</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            rejected <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        h <span class="op">*=</span> <span class="bu">min</span>(<span class="fl">2.0</span>, <span class="bu">max</span>(<span class="fl">0.2</span>, <span class="fl">0.9</span> <span class="op">*</span> np.sqrt(allowed <span class="op">/</span> err))) <span class="cf">if</span> err <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="fl">2.0</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(xs), np.array(ys), rejected</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>tanf <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="dv">1</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>xa, ya, rej <span class="op">=</span> adaptive_heun(tanf, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">1.5</span>)</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"accepted steps: </span><span class="sc">{</span><span class="bu">len</span>(xa) <span class="op">-</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">,  rejected: </span><span class="sc">{</span>rej<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"exact tan(1.5) = </span><span class="sc">{</span>np<span class="sc">.</span>tan(<span class="fl">1.5</span>)<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"adaptive Heun:              y(1.5) = </span><span class="sc">{</span>ya[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.5f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(ya[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> np.tan(<span class="fl">1.5</span>))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>n_fixed <span class="op">=</span> <span class="bu">len</span>(xa) <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>xh, yh_fixed <span class="op">=</span> heun(tanf, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">1.5</span> <span class="op">/</span> n_fixed, n_fixed)</span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"fixed-step Heun, </span><span class="sc">{</span>n_fixed<span class="sc">}</span><span class="ss"> steps: y(1.5) = </span><span class="sc">{</span>yh_fixed[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.5f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(yh_fixed[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> np.tan(<span class="fl">1.5</span>))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">300</span>)</span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(xf, np.tan(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact tan x"</span>)</span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(xa, ya, <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"adaptive Heun"</span>)</span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Points cluster where the solution is steep"</span>)</span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend()</span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(xa[:<span class="op">-</span><span class="dv">1</span>], np.diff(xa), <span class="st">"o-"</span>)</span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Step size chosen by the solver"</span>)</span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> axes[<span class="dv">1</span>].set_ylabel(<span class="st">"h"</span>)</span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, x0, y0, h, n):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> f(x[i], y[i])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, x0, y0, h, n):</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>Example.</strong> <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span> is linear, so the method of Section 4 gives its exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>. With <span class="math inline">\(h = 0.1\)</span>:</p>
+<div id="fo015" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.813314Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.813247Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.867155Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.866228Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>exact <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> np.exp(x) <span class="op">-</span> x <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>x, ye <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>_, yr <span class="op">=</span> rk4(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"y(1): exact </span><span class="sc">{</span>exact(<span class="dv">1</span>)<span class="sc">:.8f}</span><span class="ss">   Euler </span><span class="sc">{</span>ye[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.8f}</span><span class="ss"> (error </span><span class="sc">{</span>exact(<span class="dv">1</span>) <span class="op">-</span> ye[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.1e}</span><span class="ss">)   RK4 </span><span class="sc">{</span>yr[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.8f}</span><span class="ss"> (error </span><span class="sc">{</span>exact(<span class="dv">1</span>) <span class="op">-</span> yr[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.1e}</span><span class="ss">)"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact  2eˣ − x − 1"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ye, <span class="st">"o--"</span>, label<span class="op">=</span><span class="st">"Euler"</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, yr, <span class="st">"^"</span>, ms<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">"RK4"</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"y' = x + y,  y(0) = 1,  h = 0.1"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>accepted steps: 89,  rejected: 3
-exact tan(1.5) = 14.10142
-adaptive Heun:              y(1.5) = 14.09386   error = 0.0076
-fixed-step Heun, 89 steps: y(1.5) = 13.81361   error = 0.2878</code></pre>
+<pre><code>y(1): exact 3.43656366   Euler 3.18748492 (error 2.5e-01)   RK4 3.43655949 (error 4.2e-06)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="first-order-differential-equations_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>With the same number of steps, the adaptive solver is about 40 times more accurate than fixed steps. It takes large steps where <span class="math inline">\(\tan x\)</span> is flat and puts its effort near <span class="math inline">\(x = 1.5\)</span>, where the solution is steep.</p>
-</section>
-<section id="choosing-a-method" class="level3">
-<h3 class="anchored" data-anchor-id="choosing-a-method">9.2 Choosing a method</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Situation</th>
-<th>Good choice</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Learning, or a quick rough look</td>
-<td>Euler</td>
-</tr>
-<tr class="even">
-<td>Smooth, non-stiff problem</td>
-<td>RK4 with a fixed step, or adaptive RK45</td>
-</tr>
-<tr class="odd">
-<td>Solution changes scale a lot</td>
-<td>Adaptive step size (RK45, Tsit5)</td>
-</tr>
-<tr class="even">
-<td>Stiff problem (fast and slow scales)</td>
-<td>Implicit method: backward Euler, BDF, Rosenbrock</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="common-pitfalls" class="level3">
-<h3 class="anchored" data-anchor-id="common-pitfalls">9.3 Common pitfalls</h3>
-<ul>
-<li><strong>Step too large:</strong> inaccurate, or unstable (Section 8).</li>
-<li><strong>Step too small:</strong> wasted work, and eventually <strong>round-off error</strong> grows. Each step adds a tiny rounding error of about <span class="math inline">\(10^{-16}\)</span>, and millions of steps add those up.</li>
-<li><strong>No convergence check:</strong> a single run tells you nothing about its accuracy. Halve <span class="math inline">\(h\)</span>, or tighten the tolerance, and compare (Section 7.3).</li>
-<li><strong>Singularities and blow-up:</strong> if the true solution becomes infinite, as <span class="math inline">\(\tan x\)</span> does at <span class="math inline">\(\pi/2\)</span>, no method can step past it; adaptive solvers will shrink <span class="math inline">\(h\)</span> towards zero.</li>
-<li><strong>Order assumes smoothness:</strong> if <span class="math inline">\(f\)</span> has a jump or a kink, the observed order drops. Place a grid point at the discontinuity.</li>
-</ul>
-</section>
 </section>
 <section id="applications" class="level2">
-<h2 class="anchored" data-anchor-id="applications">10. Applications</h2>
+<h2 class="anchored" data-anchor-id="applications">7. Applications</h2>
 <section id="newtons-law-of-cooling" class="level3">
-<h3 class="anchored" data-anchor-id="newtons-law-of-cooling">10.1 Newton’s law of cooling</h3>
+<h3 class="anchored" data-anchor-id="newtons-law-of-cooling">7.1 Newton’s law of cooling</h3>
 <p>The rate of temperature change is proportional to the difference from the surroundings:</p>
 <p><span class="math display">\[\frac{dT}{dt} = -k\,(T - T_a).\]</span></p>
 <p><strong>Problem.</strong> A cup of coffee at <span class="math inline">\(90^\circ\)</span>C is placed in a <span class="math inline">\(20^\circ\)</span>C room with <span class="math inline">\(k = 0.1\ \text{min}^{-1}\)</span>. (a) What is its temperature after 10 minutes? (b) When does it reach <span class="math inline">\(30^\circ\)</span>C?</p>
@@ -1354,25 +576,25 @@ fixed-step Heun, 89 steps: y(1.5) = 13.81361   error = 0.2878</code></pre>
 <li><p><span class="math inline">\(T(10) = 20 + 70e^{-1} \approx 20 + 25.752 = 45.75^\circ\)</span>C.</p></li>
 <li><p><span class="math inline">\(20 + 70e^{-0.1t} = 30 \Rightarrow e^{-0.1t} = 1/7 \Rightarrow t = 10\ln 7 \approx 19.46\)</span> min.</p></li>
 </ol>
-<div id="c824663b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.513608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.513549Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.563442Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.563027Z&quot;}}" data-execution_count="20">
+<div id="c824663b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.868363Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.868283Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:14.923329Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:14.922934Z&quot;}}" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>k, Ta, T0 <span class="op">=</span> <span class="fl">0.1</span>, <span class="fl">20.0</span>, <span class="fl">90.0</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cool <span class="op">=</span> <span class="kw">lambda</span> t, T: <span class="op">-</span>k <span class="op">*</span> (T <span class="op">-</span> Ta)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>T_exact <span class="op">=</span> <span class="kw">lambda</span> t: Ta <span class="op">+</span> (T0 <span class="op">-</span> Ta) <span class="op">*</span> np.exp(<span class="op">-</span>k <span class="op">*</span> t)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>t, T_rk <span class="op">=</span> rk4(cool, <span class="dv">0</span>, T0, <span class="fl">1.0</span>, <span class="dv">40</span>)       <span class="co"># h = 1 minute</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>_, T_eu <span class="op">=</span> euler(cool, <span class="dv">0</span>, T0, <span class="fl">1.0</span>, <span class="dv">40</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T(10) exact = </span><span class="sc">{</span>T_exact(<span class="dv">10</span>)<span class="sc">:.4f}</span><span class="ss">   RK4 = </span><span class="sc">{</span>T_rk[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">   Euler = </span><span class="sc">{</span>T_eu[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"time to reach 30 °C = 10 ln 7 = </span><span class="sc">{</span><span class="dv">10</span> <span class="op">*</span> np<span class="sc">.</span>log(<span class="dv">7</span>)<span class="sc">:.4f}</span><span class="ss"> min"</span>)</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">200</span>)</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>plt.plot(tf, T_exact(tf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact"</span>)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>plt.plot(t, T_eu, <span class="st">"."</span>, label<span class="op">=</span><span class="st">"Euler (h = 1)"</span>)</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">30</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)<span class="op">;</span> plt.axvline(<span class="dv">10</span> <span class="op">*</span> np.log(<span class="dv">7</span>), color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"t (min)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"T (°C)"</span>)<span class="op">;</span> plt.title(<span class="st">"Newton's law of cooling"</span>)</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>k, Ta, T0 <span class="op">=</span> <span class="fl">0.1</span>, <span class="fl">20.0</span>, <span class="fl">90.0</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cool <span class="op">=</span> <span class="kw">lambda</span> t, T: <span class="op">-</span>k <span class="op">*</span> (T <span class="op">-</span> Ta)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>T_exact <span class="op">=</span> <span class="kw">lambda</span> t: Ta <span class="op">+</span> (T0 <span class="op">-</span> Ta) <span class="op">*</span> np.exp(<span class="op">-</span>k <span class="op">*</span> t)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>t, T_rk <span class="op">=</span> rk4(cool, <span class="dv">0</span>, T0, <span class="fl">1.0</span>, <span class="dv">40</span>)       <span class="co"># h = 1 minute</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>_, T_eu <span class="op">=</span> euler(cool, <span class="dv">0</span>, T0, <span class="fl">1.0</span>, <span class="dv">40</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"T(10) exact = </span><span class="sc">{</span>T_exact(<span class="dv">10</span>)<span class="sc">:.4f}</span><span class="ss">   RK4 = </span><span class="sc">{</span>T_rk[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">   Euler = </span><span class="sc">{</span>T_eu[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"time to reach 30 °C = 10 ln 7 = </span><span class="sc">{</span><span class="dv">10</span> <span class="op">*</span> np<span class="sc">.</span>log(<span class="dv">7</span>)<span class="sc">:.4f}</span><span class="ss"> min"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">200</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.plot(tf, T_exact(tf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.plot(t, T_eu, <span class="st">"."</span>, label<span class="op">=</span><span class="st">"Euler (h = 1)"</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">30</span>, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)<span class="op">;</span> plt.axvline(<span class="dv">10</span> <span class="op">*</span> np.log(<span class="dv">7</span>), color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"t (min)"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"T (°C)"</span>)<span class="op">;</span> plt.title(<span class="st">"Newton's law of cooling"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>T(10) exact = 45.7516   RK4 = 45.7516   Euler = 44.4075
@@ -1381,43 +603,43 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-21-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="first-order-differential-equations_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="logistic-population-growth" class="level3">
-<h3 class="anchored" data-anchor-id="logistic-population-growth">10.2 Logistic population growth</h3>
+<h3 class="anchored" data-anchor-id="logistic-population-growth">7.2 Logistic population growth</h3>
 <p><span class="math display">\[\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right),\]</span></p>
 <p>where <span class="math inline">\(r\)</span> is the growth rate and <span class="math inline">\(K\)</span> is the carrying capacity. Separating variables with partial fractions gives</p>
 <p><span class="math display">\[P(t) = \frac{K}{1 + \left(\dfrac{K - P_0}{P_0}\right)e^{-rt}}.\]</span></p>
 <p><strong>Problem.</strong> <span class="math inline">\(r = 0.5\)</span> per year, <span class="math inline">\(K = 1000\)</span>, <span class="math inline">\(P_0 = 100\)</span>. Find <span class="math inline">\(P(5)\)</span>.</p>
 <p><span class="math display">\[P(5) = \frac{1000}{1 + 9e^{-2.5}} = \frac{1000}{1 + 9(0.082085)} = \frac{1000}{1.738765} \approx 575.1.\]</span></p>
 <p>The equilibria are <span class="math inline">\(P = 0\)</span> (unstable) and <span class="math inline">\(P = K\)</span> (stable). Growth is fastest at <span class="math inline">\(P = K/2\)</span>.</p>
-<div id="d33b9930" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.564534Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.564476Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.661019Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.660522Z&quot;}}" data-execution_count="21">
+<div id="d33b9930" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:14.924454Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:14.924400Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:15.026093Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:15.025545Z&quot;}}" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>r, K, P0 <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1000.0</span>, <span class="fl">100.0</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>logistic <span class="op">=</span> <span class="kw">lambda</span> t, P: r <span class="op">*</span> P <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P <span class="op">/</span> K)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>P_exact <span class="op">=</span> <span class="kw">lambda</span> t: K <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (K <span class="op">-</span> P0) <span class="op">/</span> P0 <span class="op">*</span> np.exp(<span class="op">-</span>r <span class="op">*</span> t))</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>t, P_rk <span class="op">=</span> rk4(logistic, <span class="dv">0</span>, P0, <span class="fl">0.5</span>, <span class="dv">40</span>)</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P(5) exact = </span><span class="sc">{</span>P_exact(<span class="dv">5</span>)<span class="sc">:.4f}</span><span class="ss">   RK4 (h=0.5) = </span><span class="sc">{</span>P_rk[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>))</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">200</span>)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(tf, P_exact(tf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact"</span>)</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(t, P_rk, <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"RK4 (h = 0.5)"</span>)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(K, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Logistic growth"</span>)</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"t (years)"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"P"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend()</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>direction_field(logistic, (<span class="dv">0</span>, <span class="dv">20</span>), (<span class="dv">0</span>, <span class="dv">1400</span>), ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p0 <span class="kw">in</span> [<span class="dv">50</span>, <span class="dv">300</span>, <span class="dv">700</span>, <span class="dv">1300</span>]:</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    _, Pp <span class="op">=</span> rk4(logistic, <span class="dv">0</span>, p0, <span class="fl">0.1</span>, <span class="dv">200</span>)</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">201</span>), Pp, lw<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Solutions approach K = 1000"</span>)</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>r, K, P0 <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">1000.0</span>, <span class="fl">100.0</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>logistic <span class="op">=</span> <span class="kw">lambda</span> t, P: r <span class="op">*</span> P <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> P <span class="op">/</span> K)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>P_exact <span class="op">=</span> <span class="kw">lambda</span> t: K <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (K <span class="op">-</span> P0) <span class="op">/</span> P0 <span class="op">*</span> np.exp(<span class="op">-</span>r <span class="op">*</span> t))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>t, P_rk <span class="op">=</span> rk4(logistic, <span class="dv">0</span>, P0, <span class="fl">0.5</span>, <span class="dv">40</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P(5) exact = </span><span class="sc">{</span>P_exact(<span class="dv">5</span>)<span class="sc">:.4f}</span><span class="ss">   RK4 (h=0.5) = </span><span class="sc">{</span>P_rk[<span class="dv">10</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">4</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">200</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(tf, P_exact(tf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Exact"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(t, P_rk, <span class="st">"o"</span>, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"RK4 (h = 0.5)"</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axhline(K, color<span class="op">=</span><span class="st">"gray"</span>, ls<span class="op">=</span><span class="st">":"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_title(<span class="st">"Logistic growth"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"t (years)"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].set_ylabel(<span class="st">"P"</span>)<span class="op">;</span> axes[<span class="dv">0</span>].legend()</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>direction_field(logistic, (<span class="dv">0</span>, <span class="dv">20</span>), (<span class="dv">0</span>, <span class="dv">1400</span>), ax<span class="op">=</span>axes[<span class="dv">1</span>])</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p0 <span class="kw">in</span> [<span class="dv">50</span>, <span class="dv">300</span>, <span class="dv">700</span>, <span class="dv">1300</span>]:</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    _, Pp <span class="op">=</span> rk4(logistic, <span class="dv">0</span>, p0, <span class="fl">0.1</span>, <span class="dv">200</span>)</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">201</span>), Pp, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">"Solutions approach K = 1000"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>P(5) exact = 575.1209   RK4 (h=0.5) = 575.1165</code></pre>
@@ -1425,7 +647,7 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="first-order-differential-equations_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="first-order-differential-equations_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1433,22 +655,22 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 </section>
 </section>
 <section id="an-equation-with-no-elementary-solution" class="level2">
-<h2 class="anchored" data-anchor-id="an-equation-with-no-elementary-solution">11. An equation with no elementary solution</h2>
+<h2 class="anchored" data-anchor-id="an-equation-with-no-elementary-solution">8. An equation with no elementary solution</h2>
 <p>The Riccati equation</p>
 <p><span class="math display">\[y' = x^2 + y^2, \qquad y(0) = 0\]</span></p>
 <p>cannot be solved in terms of elementary functions. We estimate <span class="math inline">\(y(1)\)</span> with RK4 and check the result by repeatedly halving <span class="math inline">\(h\)</span>. When the digits stop changing, the answer has converged.</p>
-<div id="bf5385d1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.662066Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.662012Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.664297Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.663936Z&quot;}}" data-execution_count="22">
+<div id="bf5385d1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:15.027293Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:15.027226Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:15.029556Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:15.029224Z&quot;}}" data-execution_count="10">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="kw">lambda</span> x, y: x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>prev <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'h'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y(1) RK4'</span><span class="sc">:&gt;16}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'change'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.0125</span>]:</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    _, y <span class="op">=</span> rk4(g, <span class="dv">0</span>, <span class="dv">0</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    change <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span><span class="bu">abs</span>(y[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> prev)<span class="sc">:12.2e}</span><span class="ss">"</span> <span class="cf">if</span> prev <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="st">""</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>h<span class="sc">:8.4f}</span><span class="ss"> </span><span class="sc">{</span>y[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:16.10f}</span><span class="ss"> </span><span class="sc">{</span>change<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    prev <span class="op">=</span> y[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="kw">lambda</span> x, y: x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prev <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'h'</span><span class="sc">:&gt;8}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'y(1) RK4'</span><span class="sc">:&gt;16}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'change'</span><span class="sc">:&gt;12}</span><span class="ss">"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.0125</span>]:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    _, y <span class="op">=</span> rk4(g, <span class="dv">0</span>, <span class="dv">0</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    change <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span><span class="bu">abs</span>(y[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> prev)<span class="sc">:12.2e}</span><span class="ss">"</span> <span class="cf">if</span> prev <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="cf">else</span> <span class="st">""</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>h<span class="sc">:8.4f}</span><span class="ss"> </span><span class="sc">{</span>y[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:16.10f}</span><span class="ss"> </span><span class="sc">{</span>change<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    prev <span class="op">=</span> y[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       h         y(1) RK4       change
@@ -1462,13 +684,8 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 <p>The last two values agree to about 8 significant figures: <span class="math inline">\(y(1) \approx 0.3502318\)</span>. The solution grows quickly afterwards and blows up near <span class="math inline">\(x \approx 2.003\)</span>, a reminder that solutions of nonlinear ODEs can exist only on a finite interval.</p>
 </section>
 <section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">12. Summary</h2>
+<h2 class="anchored" data-anchor-id="summary">9. Summary</h2>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Type</th>
@@ -1495,13 +712,13 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 <tr class="even">
 <td>Anything else</td>
 <td><span class="math inline">\(y' = f(x,y)\)</span></td>
-<td>Numerical: Euler (order 1), Heun (2), RK4 (4)</td>
+<td>Numerical: Euler (order 1), RK4 (order 4); see <a href="./numerical-methods/index.html">Numerical Methods</a></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="exercises" class="level2">
-<h2 class="anchored" data-anchor-id="exercises">13. Exercises</h2>
+<h2 class="anchored" data-anchor-id="exercises">10. Exercises</h2>
 <ol type="1">
 <li>Solve <span class="math inline">\(y' = y\cos x\)</span>, <span class="math inline">\(y(0) = 2\)</span>.</li>
 <li>Solve <span class="math inline">\(y' - 3y = e^{2x}\)</span>, <span class="math inline">\(y(0) = 0\)</span>.</li>
@@ -1516,17 +733,17 @@ time to reach 30 °C = 10 ln 7 = 19.4591 min</code></pre>
 <li><span class="math inline">\(M_y = e^{x} = N_x\)</span>; <span class="math inline">\(F = ye^{x} + x^2 - y\)</span>, so <span class="math inline">\(ye^{x} + x^2 - y = 1\)</span>, giving <span class="math inline">\(y = \dfrac{1 - x^2}{e^{x} - 1}\)</span>.</li>
 <li>and 5. Run the cell below.</li>
 </ol>
-<div id="6b98382b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-13T18:51:28.665362Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-13T18:51:28.665296Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-13T18:51:28.667468Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-13T18:51:28.667107Z&quot;}}" data-execution_count="23">
+<div id="6b98382b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:18:15.030680Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:18:15.030608Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:18:15.032569Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:18:15.032278Z&quot;}}" data-execution_count="11">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> y</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>_, y_eu <span class="op">=</span> euler(q, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>, <span class="dv">4</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>_, y_rk <span class="op">=</span> rk4(q, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>, <span class="dv">4</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>ex <span class="op">=</span> np.exp(<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact  y(1) = </span><span class="sc">{</span>ex<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Euler  y(1) = </span><span class="sc">{</span>y_eu[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(y_eu[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RK4    y(1) = </span><span class="sc">{</span>y_rk[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(y_rk[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Error ratio Euler / RK4 ≈ </span><span class="sc">{</span><span class="bu">abs</span>(y_eu[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex) <span class="op">/</span> <span class="bu">abs</span>(y_rk[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> y</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>_, y_eu <span class="op">=</span> euler(q, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>, <span class="dv">4</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>_, y_rk <span class="op">=</span> rk4(q, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>, <span class="dv">4</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ex <span class="op">=</span> np.exp(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Exact  y(1) = </span><span class="sc">{</span>ex<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Euler  y(1) = </span><span class="sc">{</span>y_eu[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(y_eu[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"RK4    y(1) = </span><span class="sc">{</span>y_rk[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(y_rk[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Error ratio Euler / RK4 ≈ </span><span class="sc">{</span><span class="bu">abs</span>(y_eu[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex) <span class="op">/</span> <span class="bu">abs</span>(y_rk[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> ex)<span class="sc">:.0f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Exact  y(1) = 0.367879
@@ -1613,7 +830,7 @@ Error ratio Euler / RK4 ≈ 768</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/mirajcs\.github\.io\/differential_equations_examples_Julia\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

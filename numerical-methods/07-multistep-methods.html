@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Miraj Samarakkody">
+<meta name="dcterms.date" content="2026-10-14">
+
+<title>7. Multistep Methods – Differential Equations</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bda23ef02b1613632e48409ff51ea9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Differential Equations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../first-order-differential-equations.html"> 
+<span class="menu-text">First-Order ODEs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bifurcations-first-order-differential-equations.html"> 
+<span class="menu-text">Bifurcations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../numerical-methods/index.html" aria-current="page"> 
+<span class="menu-text">Numerical Methods</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-methods/07-multistep-methods.html">7. Multistep Methods</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical Methods for First-Order ODEs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/01-eulers-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Euler’s Method</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/02-second-order-runge-kutta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Second-Order Runge–Kutta Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/03-runge-kutta-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. The Classical Runge–Kutta Method (RK4)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/04-error-order-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Error, Order and Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/05-stability-and-stiffness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Stability and Stiff Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/06-adaptive-step-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Adaptive Step Size</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/07-multistep-methods.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">7. Multistep Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/08-systems-and-higher-order.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Systems and Higher-Order Equations</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-idea-integrate-a-polynomial-through-past-slopes" id="toc-the-idea-integrate-a-polynomial-through-past-slopes" class="nav-link active" data-scroll-target="#the-idea-integrate-a-polynomial-through-past-slopes">7.1 The idea: integrate a polynomial through past slopes</a></li>
+  <li><a href="#computing-the-coefficients" id="toc-computing-the-coefficients" class="nav-link" data-scroll-target="#computing-the-coefficients">7.2 Computing the coefficients</a></li>
+  <li><a href="#starting-values" id="toc-starting-values" class="nav-link" data-scroll-target="#starting-values">7.3 Starting values</a></li>
+  <li><a href="#predictorcorrector-methods" id="toc-predictorcorrector-methods" class="nav-link" data-scroll-target="#predictorcorrector-methods">7.4 Predictor–corrector methods</a></li>
+  <li><a href="#order-and-cost" id="toc-order-and-cost" class="nav-link" data-scroll-target="#order-and-cost">7.5 Order and cost</a></li>
+  <li><a href="#zero-stability-a-new-way-to-fail" id="toc-zero-stability-a-new-way-to-fail" class="nav-link" data-scroll-target="#zero-stability-a-new-way-to-fail">7.6 Zero-stability: a new way to fail</a></li>
+  <li><a href="#absolute-stability-regions" id="toc-absolute-stability-regions" class="nav-link" data-scroll-target="#absolute-stability-regions">7.7 Absolute stability regions</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">7.8 Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="07-multistep-methods.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">7. Multistep Methods</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Miraj Samarakkody </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>A Runge–Kutta method evaluates <span class="math inline">\(f\)</span> several times inside each step and then throws those slopes away. A <strong>multistep method</strong> keeps the slopes from earlier steps and reuses them, so it needs only <strong>one or two new evaluations of <span class="math inline">\(f\)</span> per step</strong>, whatever its order. This section builds the Adams family, the most widely used multistep methods, and explains the new kind of stability that multistep methods need.</p>
+<p>Test problem: <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>.</p>
+<div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.492040Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.491959Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.646006Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.645570Z&quot;}}" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">4.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"axes.grid"</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.set_printoptions(precision<span class="op">=</span><span class="dv">6</span>, suppress<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fractions <span class="im">import</span> Fraction</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>exact <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> np.exp(x) <span class="op">-</span> x <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rk4(f, x0, y0, h, n):</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        k1 <span class="op">=</span> f(x[i], y[i])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        k2 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k1)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        k3 <span class="op">=</span> f(x[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span>, y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> k2)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        k4 <span class="op">=</span> f(x[i] <span class="op">+</span> h, y[i] <span class="op">+</span> h <span class="op">*</span> k3)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">6</span> <span class="op">*</span> (k1 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k2 <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> k3 <span class="op">+</span> k4)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="the-idea-integrate-a-polynomial-through-past-slopes" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea-integrate-a-polynomial-through-past-slopes">7.1 The idea: integrate a polynomial through past slopes</h2>
+<p>Start again from the exact relation</p>
+<p><span class="math display">\[y(x_{n+1}) = y(x_n) + \int_{x_n}^{x_{n+1}} f\big(x, y(x)\big)\,dx.\]</span></p>
+<p>By the time we reach <span class="math inline">\(x_n\)</span> we already know the slopes <span class="math inline">\(f_n, f_{n-1}, f_{n-2}, \dots\)</span> at earlier grid points. Fit a polynomial through them and integrate the polynomial instead of <span class="math inline">\(f\)</span>.</p>
+<p><strong>Adams–Bashforth 2 (AB2).</strong> The straight line through <span class="math inline">\((x_{n-1}, f_{n-1})\)</span> and <span class="math inline">\((x_n, f_n)\)</span> is, with <span class="math inline">\(x = x_n + th\)</span>,</p>
+<p><span class="math display">\[p(t) = f_n + t\,(f_n - f_{n-1}).\]</span></p>
+<p>Integrating over the step (<span class="math inline">\(t\)</span> from <span class="math inline">\(0\)</span> to <span class="math inline">\(1\)</span>, <span class="math inline">\(dx = h\,dt\)</span>):</p>
+<p><span class="math display">\[\int_{x_n}^{x_{n+1}} p\,dx = h\left(f_n + \tfrac12(f_n - f_{n-1})\right) \quad\Longrightarrow\quad \boxed{y_{n+1} = y_n + \frac{h}{2}\big(3f_n - f_{n-1}\big)}\]</span></p>
+<p>Each step needs only <strong>one</strong> new evaluation, <span class="math inline">\(f_n\)</span>; <span class="math inline">\(f_{n-1}\)</span> is remembered from the previous step. The polynomial is extrapolated beyond the points it was fitted to, which is why the coefficients are not simply an average.</p>
+<p>In general a <strong>linear <span class="math inline">\(k\)</span>-step method</strong> has the form</p>
+<p><span class="math display">\[\sum_{j=0}^{k} \alpha_j\,y_{n+j} = h\sum_{j=0}^{k}\beta_j\,f_{n+j}.\]</span></p>
+<p>It is explicit if <span class="math inline">\(\beta_k = 0\)</span> and implicit otherwise.</p>
+</section>
+<section id="computing-the-coefficients" class="level2">
+<h2 class="anchored" data-anchor-id="computing-the-coefficients">7.2 Computing the coefficients</h2>
+<p>Fitting a polynomial through <span class="math inline">\(k\)</span> slopes and integrating it is the same as asking that the formula integrate every polynomial of degree <span class="math inline">\(&lt; k\)</span> <strong>exactly</strong>. With nodes <span class="math inline">\(t_j\)</span> (in units of <span class="math inline">\(h\)</span>, measured from <span class="math inline">\(x_n\)</span>) and weights <span class="math inline">\(\beta_j\)</span>:</p>
+<p><span class="math display">\[\sum_j \beta_j\,t_j^{m} = \int_0^1 t^m\,dt = \frac{1}{m+1}, \qquad m = 0, 1, \dots, k - 1.\]</span></p>
+<ul>
+<li><strong>Adams–Bashforth</strong> (<span class="math inline">\(k\)</span> steps, explicit): nodes <span class="math inline">\(t = 0, -1, \dots, -(k-1)\)</span>, i.e.&nbsp;<span class="math inline">\(f_n, f_{n-1}, \dots\)</span>. Order <span class="math inline">\(k\)</span>.</li>
+<li><strong>Adams–Moulton</strong> (<span class="math inline">\(k\)</span> steps, implicit): nodes <span class="math inline">\(t = 1, 0, -1, \dots, -(k-1)\)</span>, i.e.&nbsp;also <span class="math inline">\(f_{n+1}\)</span>. Order <span class="math inline">\(k + 1\)</span>.</li>
+</ul>
+<p>The code solves these small linear systems and prints the coefficients as fractions.</p>
+<div id="c003" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.647405Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.647311Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.650310Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.649846Z&quot;}}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adams_coefficients(nodes):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    nodes <span class="op">=</span> np.array(nodes, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> <span class="bu">len</span>(nodes)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    V <span class="op">=</span> np.vander(nodes, m, increasing<span class="op">=</span><span class="va">True</span>).T          <span class="co"># row i: nodes**i</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    rhs <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> np.arange(<span class="dv">1</span>, m <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.linalg.solve(V, rhs)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_fractions(beta):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    fr <span class="op">=</span> [Fraction(b).limit_denominator(<span class="dv">10000</span>) <span class="cf">for</span> b <span class="kw">in</span> beta]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> np.lcm.<span class="bu">reduce</span>([q.denominator <span class="cf">for</span> q <span class="kw">in</span> fr])</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"(h/</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">) × ["</span> <span class="op">+</span> <span class="st">", "</span>.join(<span class="bu">str</span>(<span class="bu">int</span>(q <span class="op">*</span> d)) <span class="cf">for</span> q <span class="kw">in</span> fr) <span class="op">+</span> <span class="st">"]"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>AB <span class="op">=</span> {k: adams_coefficients([<span class="op">-</span>j <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(k)]) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>)}</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>AM <span class="op">=</span> {k: adams_coefficients([<span class="dv">1</span>] <span class="op">+</span> [<span class="op">-</span>j <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(k)]) <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>)}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Adams–Bashforth: weights of f_n, f_(n-1), ..."</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, b <span class="kw">in</span> AB.items():</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  AB</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> (order </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>as_fractions(b)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Adams–Moulton: weights of f_(n+1), f_n, f_(n-1), ..."</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, b <span class="kw">in</span> AM.items():</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  AM</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> (order </span><span class="sc">{</span>k <span class="op">+</span> <span class="dv">1</span><span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>as_fractions(b)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Adams–Bashforth: weights of f_n, f_(n-1), ...
+  AB1 (order 1): (h/1) × [1]
+  AB2 (order 2): (h/2) × [3, -1]
+  AB3 (order 3): (h/12) × [23, -16, 5]
+  AB4 (order 4): (h/24) × [55, -59, 37, -9]
+Adams–Moulton: weights of f_(n+1), f_n, f_(n-1), ...
+  AM1 (order 2): (h/2) × [1, 1]
+  AM2 (order 3): (h/12) × [5, 8, -1]
+  AM3 (order 4): (h/24) × [9, 19, -5, 1]</code></pre>
+</div>
+</div>
+<p>In formulas:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Formula</th>
+<th>Order</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AB1 (Euler)</td>
+<td><span class="math inline">\(y_{n+1} = y_n + h f_n\)</span></td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>AB2</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \frac{h}{2}(3f_n - f_{n-1})\)</span></td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>AB3</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \frac{h}{12}(23f_n - 16f_{n-1} + 5f_{n-2})\)</span></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>AB4</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \frac{h}{24}(55f_n - 59f_{n-1} + 37f_{n-2} - 9f_{n-3})\)</span></td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>AM1 (trapezoidal)</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \frac{h}{2}(f_{n+1} + f_n)\)</span></td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>AM3</td>
+<td><span class="math inline">\(y_{n+1} = y_n + \frac{h}{24}(9f_{n+1} + 19f_n - 5f_{n-1} + f_{n-2})\)</span></td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="starting-values" class="level2">
+<h2 class="anchored" data-anchor-id="starting-values">7.3 Starting values</h2>
+<p>A <span class="math inline">\(k\)</span>-step method needs <span class="math inline">\(y_0, y_1, \dots, y_{k-1}\)</span> before it can take its first step, but the IVP only gives <span class="math inline">\(y_0\)</span>. The missing values are computed with a one-step method of the <strong>same order</strong>, usually RK4. A lower-order start would spoil the accuracy of the whole computation.</p>
+<div id="c005" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.651163Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.651115Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.653398Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.653110Z&quot;}}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adams_bashforth(f, x0, y0, h, n, k):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    beta <span class="op">=</span> AB[k]                                   <span class="co"># weights of f_n, f_(n-1), ..., f_(n-k+1)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    y[:k] <span class="op">=</span> rk4(f, x0, y0, h, k <span class="op">-</span> <span class="dv">1</span>)[<span class="dv">1</span>]           <span class="co"># starting values from RK4</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    F[:k] <span class="op">=</span> [f(x[i], y[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k)]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k <span class="op">-</span> <span class="dv">1</span>, n):</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> (beta <span class="op">@</span> F[i <span class="op">-</span> np.arange(k)])</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        F[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> f(x[i <span class="op">+</span> <span class="dv">1</span>], y[i <span class="op">+</span> <span class="dv">1</span>])           <span class="co"># the one new evaluation per step</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    _, y <span class="op">=</span> adams_bashforth(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>, k)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"AB</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: y(1) = </span><span class="sc">{</span>y[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.8f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="dv">1</span>) <span class="op">-</span> y[<span class="op">-</span><span class="dv">1</span>])<span class="sc">:.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>AB1: y(1) = 3.18748492   error = 2.49e-01
+AB2: y(1) = 3.41762729   error = 1.89e-02
+AB3: y(1) = 3.43510125   error = 1.46e-03
+AB4: y(1) = 3.43644888   error = 1.15e-04</code></pre>
+</div>
+</div>
+</section>
+<section id="predictorcorrector-methods" class="level2">
+<h2 class="anchored" data-anchor-id="predictorcorrector-methods">7.4 Predictor–corrector methods</h2>
+<p>The implicit Adams–Moulton methods are more accurate than Adams–Bashforth methods of the same order (smaller error constants) and have larger stability regions, but they need <span class="math inline">\(f_{n+1} = f(x_{n+1}, y_{n+1})\)</span> before <span class="math inline">\(y_{n+1}\)</span> is known. Instead of solving the equation, a <strong>predictor–corrector</strong> method uses the explicit formula to supply a guess:</p>
+<ol type="1">
+<li><strong>P</strong>redict: <span class="math inline">\(y^{*}_{n+1}\)</span> from AB4.</li>
+<li><strong>E</strong>valuate: <span class="math inline">\(f^{*}_{n+1} = f(x_{n+1}, y^{*}_{n+1})\)</span>.</li>
+<li><strong>C</strong>orrect: <span class="math inline">\(y_{n+1}\)</span> from AM3, with <span class="math inline">\(f^{*}_{n+1}\)</span> in place of <span class="math inline">\(f_{n+1}\)</span>.</li>
+<li><strong>E</strong>valuate: <span class="math inline">\(f_{n+1} = f(x_{n+1}, y_{n+1})\)</span>, stored for the next step.</li>
+</ol>
+<p>This <strong>PECE</strong> scheme (the Adams–Bashforth–Moulton method, ABM4) has order 4 and costs <strong>two</strong> evaluations of <span class="math inline">\(f\)</span> per step, half the cost of RK4.</p>
+<p><strong>A free error estimate (Milne’s device).</strong> Predictor and corrector have the same order but different error constants: <span class="math inline">\(\tfrac{251}{720}h^5y^{(5)}\)</span> for AB4 and <span class="math inline">\(-\tfrac{19}{720}h^5y^{(5)}\)</span> for AM3. Their difference therefore estimates the error of the corrector:</p>
+<p><span class="math display">\[\text{local error of } y_{n+1} \approx -\frac{19}{270}\,\big(y_{n+1} - y^{*}_{n+1}\big).\]</span></p>
+<p>This plays the same role as an embedded Runge–Kutta pair in <a href="../numerical-methods/06-adaptive-step-size.html">Section 6</a>. In the run below, each step’s estimate is between about <span class="math inline">\(6 \times 10^{-7}\)</span> and <span class="math inline">\(10^{-6}\)</span>, with the same sign as the actual error; the final error, <span class="math inline">\(3.6 \times 10^{-6}\)</span>, is of the same order as these seven local errors added together.</p>
+<div id="c007" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.654427Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.654363Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.657947Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.657673Z&quot;}}" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> abm4(f, x0, y0, h, n):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    y[:<span class="dv">4</span>] <span class="op">=</span> rk4(f, x0, y0, h, <span class="dv">3</span>)[<span class="dv">1</span>]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    F <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    F[:<span class="dv">4</span>] <span class="op">=</span> [f(x[i], y[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>)]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    milne <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>, n):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        yp <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">24</span> <span class="op">*</span> (<span class="dv">55</span> <span class="op">*</span> F[i] <span class="op">-</span> <span class="dv">59</span> <span class="op">*</span> F[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> <span class="dv">37</span> <span class="op">*</span> F[i <span class="op">-</span> <span class="dv">2</span>] <span class="op">-</span> <span class="dv">9</span> <span class="op">*</span> F[i <span class="op">-</span> <span class="dv">3</span>])     <span class="co"># P</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        fp <span class="op">=</span> f(x[i <span class="op">+</span> <span class="dv">1</span>], yp)                                                                  <span class="co"># E</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">/</span> <span class="dv">24</span> <span class="op">*</span> (<span class="dv">9</span> <span class="op">*</span> fp <span class="op">+</span> <span class="dv">19</span> <span class="op">*</span> F[i] <span class="op">-</span> <span class="dv">5</span> <span class="op">*</span> F[i <span class="op">-</span> <span class="dv">1</span>] <span class="op">+</span> F[i <span class="op">-</span> <span class="dv">2</span>])            <span class="co"># C</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        F[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> f(x[i <span class="op">+</span> <span class="dv">1</span>], y[i <span class="op">+</span> <span class="dv">1</span>])                                                      <span class="co"># E</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        milne[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">19</span> <span class="op">/</span> <span class="dv">270</span> <span class="op">*</span> (y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">-</span> yp)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y, milne</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>x, y, milne <span class="op">=</span> abm4(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ABM4: y(1) = </span><span class="sc">{</span>y[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.8f}</span><span class="ss">   error = </span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="dv">1</span>) <span class="op">-</span> y[<span class="op">-</span><span class="dv">1</span>])<span class="sc">:.2e}</span><span class="ss">"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Milne estimates of the local error, steps 4–10:"</span>, <span class="st">" "</span>.join(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">:.2e}</span><span class="ss">"</span> <span class="cf">for</span> m <span class="kw">in</span> milne[<span class="dv">4</span>:]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>ABM4: y(1) = 3.43656724   error = 3.58e-06
+Milne estimates of the local error, steps 4–10: -6.24e-07 -6.85e-07 -7.61e-07 -8.40e-07 -9.28e-07 -1.03e-06 -1.13e-06</code></pre>
+</div>
+</div>
+</section>
+<section id="order-and-cost" class="level2">
+<h2 class="anchored" data-anchor-id="order-and-cost">7.5 Order and cost</h2>
+<p>The table measures the error at <span class="math inline">\(x = 1\)</span> as <span class="math inline">\(h\)</span> is halved, and the plot compares accuracy with the number of <span class="math inline">\(f\)</span> evaluations. Counted evaluations include the RK4 starting steps.</p>
+<div id="c009" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.658975Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.658926Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.866252Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.865800Z&quot;}}" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evals(name, n):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> {<span class="st">"AB2"</span>: <span class="dv">2</span>, <span class="st">"AB3"</span>: <span class="dv">3</span>, <span class="st">"AB4"</span>: <span class="dv">4</span>, <span class="st">"ABM4"</span>: <span class="dv">4</span>}.get(name, <span class="dv">0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> name <span class="op">==</span> <span class="st">"RK4"</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">4</span> <span class="op">*</span> n</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> (k <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> k                           <span class="co"># RK4 starting steps + initial slopes</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> start <span class="op">+</span> (n <span class="op">-</span> (k <span class="op">-</span> <span class="dv">1</span>)) <span class="op">*</span> (<span class="dv">2</span> <span class="cf">if</span> name <span class="op">==</span> <span class="st">"ABM4"</span> <span class="cf">else</span> <span class="dv">1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>runs <span class="op">=</span> {</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"AB2"</span>: <span class="kw">lambda</span> n: adams_bashforth(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> <span class="op">/</span> n, n, <span class="dv">2</span>)[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"AB3"</span>: <span class="kw">lambda</span> n: adams_bashforth(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> <span class="op">/</span> n, n, <span class="dv">3</span>)[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"AB4"</span>: <span class="kw">lambda</span> n: adams_bashforth(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> <span class="op">/</span> n, n, <span class="dv">4</span>)[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ABM4"</span>: <span class="kw">lambda</span> n: abm4(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> <span class="op">/</span> n, n)[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RK4"</span>: <span class="kw">lambda</span> n: rk4(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span> <span class="op">/</span> n, n)[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>ns <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">80</span>, <span class="dv">160</span>]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'n'</span><span class="sc">:&gt;5}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span>m<span class="sc">:&gt;11}{</span><span class="st">'ratio'</span><span class="sc">:&gt;7}</span><span class="ss">"</span> <span class="cf">for</span> m <span class="kw">in</span> runs))</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>table <span class="op">=</span> {m: [<span class="bu">abs</span>(exact(<span class="dv">1</span>) <span class="op">-</span> run(n)) <span class="cf">for</span> n <span class="kw">in</span> ns] <span class="cf">for</span> m, run <span class="kw">in</span> runs.items()}</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, n <span class="kw">in</span> <span class="bu">enumerate</span>(ns):</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>n<span class="sc">:5d}</span><span class="ss">"</span> <span class="op">+</span> <span class="st">""</span>.join(<span class="ss">f"</span><span class="sc">{</span>table[m][i]<span class="sc">:11.2e}</span><span class="ss">"</span> <span class="op">+</span> (<span class="ss">f"</span><span class="sc">{</span>table[m][i<span class="op">-</span><span class="dv">1</span>] <span class="op">/</span> table[m][i]<span class="sc">:7.1f}</span><span class="ss">"</span> <span class="cf">if</span> i <span class="cf">else</span> <span class="st">" "</span> <span class="op">*</span> <span class="dv">7</span>) <span class="cf">for</span> m <span class="kw">in</span> runs))</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> runs:</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    plt.loglog([evals(m, n) <span class="cf">for</span> n <span class="kw">in</span> ns], table[m], <span class="st">"o-"</span>, label<span class="op">=</span>m)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"number of f evaluations"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"|error| at x = 1"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Multistep methods vs RK4: error against work"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    n        AB2  ratio        AB3  ratio        AB4  ratio       ABM4  ratio        RK4  ratio
+   10   1.89e-02          1.46e-03          1.15e-04          3.58e-06          4.17e-06       
+   20   5.20e-03    3.6   2.17e-04    6.7   9.36e-06   12.3   5.07e-07    7.1   2.72e-07   15.3
+   40   1.36e-03    3.8   2.95e-05    7.4   6.60e-07   14.2   4.29e-08   11.8   1.73e-08   15.7
+   80   3.47e-04    3.9   3.83e-06    7.7   4.37e-08   15.1   3.08e-09   13.9   1.09e-09   15.8
+  160   8.76e-05    4.0   4.88e-07    7.8   2.81e-09   15.6   2.05e-10   15.0   6.88e-11   15.9</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-multistep-methods_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The ratios approach <span class="math inline">\(2^k\)</span> for AB<span class="math inline">\(k\)</span> and <span class="math inline">\(16\)</span> for ABM4, confirming the orders. Against <strong>work</strong>, the fourth-order Adams methods beat RK4 on this problem because they need fewer evaluations per step; ABM4 is also more accurate than AB4 for the same step. This is why multistep methods are attractive when <span class="math inline">\(f\)</span> is expensive to evaluate.</p>
+<p>The trade-offs: * they need starting values, and changing the step size is awkward (the formulas assume equally spaced past points, so the history has to be interpolated or the coefficients recomputed); * their stability regions are smaller (Section 7.7).</p>
+<p>Variable-order, variable-step Adams codes (such as <code>LSODA</code>’s non-stiff mode or MATLAB’s <code>ode113</code>) handle these issues and are very efficient for smooth problems with expensive <span class="math inline">\(f\)</span>.</p>
+</section>
+<section id="zero-stability-a-new-way-to-fail" class="level2">
+<h2 class="anchored" data-anchor-id="zero-stability-a-new-way-to-fail">7.6 Zero-stability: a new way to fail</h2>
+<p>Multistep methods can fail in a way one-step methods cannot. Consider</p>
+<p><span class="math display">\[y_{n+2} + 4y_{n+1} - 5y_n = h\,(4f_{n+1} + 2f_n).\]</span></p>
+<p>It is consistent, and in fact has order 3: it integrates <span class="math inline">\(y = 1, x, x^2, x^3\)</span> exactly (Exercise 3). It even uses only one new evaluation per step. But look at the <strong>characteristic polynomial</strong> of its left-hand side,</p>
+<p><span class="math display">\[\rho(\zeta) = \zeta^2 + 4\zeta - 5 = (\zeta - 1)(\zeta + 5).\]</span></p>
+<p>For a tiny <span class="math inline">\(h\)</span> the method is essentially <span class="math inline">\(y_{n+2} + 4y_{n+1} - 5y_n = 0\)</span>, whose solutions are combinations of <span class="math inline">\(1^n\)</span> and <span class="math inline">\((-5)^n\)</span>. The root <span class="math inline">\(\zeta = 1\)</span> is the one that follows the true solution. The <strong>parasitic</strong> root <span class="math inline">\(\zeta = -5\)</span> multiplies any small error, even rounding, by <span class="math inline">\(-5\)</span> at every step.</p>
+<div id="c011" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.867414Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.867331Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.869621Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.869234Z&quot;}}" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> bad_method(f, x0, y0, h, n):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0 <span class="op">+</span> h <span class="op">*</span> np.arange(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    y[<span class="dv">0</span>], y[<span class="dv">1</span>] <span class="op">=</span> y0, exact(x0 <span class="op">+</span> h)                  <span class="co"># even a perfect starting value</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">1</span>):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">2</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">4</span> <span class="op">*</span> y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> y[i] <span class="op">+</span> h <span class="op">*</span> (<span class="dv">4</span> <span class="op">*</span> f(x[i <span class="op">+</span> <span class="dv">1</span>], y[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> f(x[i], y[i]))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.0125</span>]:</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> bad_method(f, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"h = </span><span class="sc">{</span>h<span class="sc">:7.4f}</span><span class="ss">:  error at x = 1 is </span><span class="sc">{</span><span class="bu">abs</span>(exact(<span class="dv">1</span>) <span class="op">-</span> y[<span class="op">-</span><span class="dv">1</span>])<span class="sc">:.2e}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>h =  0.1000:  error at x = 1 is 5.69e+00
+h =  0.0500:  error at x = 1 is 3.24e+06
+h =  0.0250:  error at x = 1 is 1.87e+19
+h =  0.0125:  error at x = 1 is 1.04e+46</code></pre>
+</div>
+</div>
+<p>The error <strong>grows</strong> as <span class="math inline">\(h\)</span> is made smaller: smaller steps mean more steps, and every step multiplies the parasitic error by <span class="math inline">\(5\)</span>. The method is consistent but does <strong>not converge</strong>.</p>
+<p><strong>Root condition.</strong> A linear multistep method is <strong>zero-stable</strong> if all roots of <span class="math inline">\(\rho(\zeta) = \sum_j \alpha_j\zeta^j\)</span> satisfy <span class="math inline">\(|\zeta| \le 1\)</span>, and any root with <span class="math inline">\(|\zeta| = 1\)</span> is simple. For Adams methods <span class="math inline">\(\rho(\zeta) = \zeta^k - \zeta^{k-1} = \zeta^{k-1}(\zeta - 1)\)</span>, with roots <span class="math inline">\(1\)</span> and <span class="math inline">\(0\)</span>: always zero-stable.</p>
+<p><strong>Dahlquist’s equivalence theorem.</strong> A consistent linear multistep method converges <strong>if and only if</strong> it is zero-stable. This is the precise form of “consistency + stability = convergence” from the <a href="../numerical-methods/index.html">chapter introduction</a>.</p>
+<p><strong>Dahlquist’s first barrier.</strong> A zero-stable <span class="math inline">\(k\)</span>-step method has order at most <span class="math inline">\(k + 1\)</span> if <span class="math inline">\(k\)</span> is odd and <span class="math inline">\(k + 2\)</span> if <span class="math inline">\(k\)</span> is even, and at most <span class="math inline">\(k\)</span> if it is explicit. The method above has order 3 with <span class="math inline">\(k = 2\)</span>, more than an explicit 2-step method is allowed, and it pays for that with zero-instability.</p>
+</section>
+<section id="absolute-stability-regions" class="level2">
+<h2 class="anchored" data-anchor-id="absolute-stability-regions">7.7 Absolute stability regions</h2>
+<p>Applying a linear multistep method to <span class="math inline">\(y' = \lambda y\)</span> gives the recurrence <span class="math inline">\(\sum_j(\alpha_j - z\beta_j)\,y_{n+j} = 0\)</span>, with <span class="math inline">\(z = h\lambda\)</span>. It is stable when all roots of <span class="math inline">\(\rho(\zeta) - z\,\sigma(\zeta)\)</span>, where <span class="math inline">\(\sigma(\zeta) = \sum_j\beta_j\zeta^j\)</span>, lie in the unit disc. The boundary of the stability region is where a root has <span class="math inline">\(|\zeta| = 1\)</span>, that is, <span class="math inline">\(\zeta = e^{i\theta}\)</span>, which gives the <strong>boundary locus</strong></p>
+<p><span class="math display">\[z(\theta) = \frac{\rho(e^{i\theta})}{\sigma(e^{i\theta})}, \qquad 0 \le \theta \le 2\pi.\]</span></p>
+<div id="c013" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.870603Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.870538Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.934308Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.933969Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span> <span class="op">*</span> np.pi, <span class="dv">2000</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> np.exp(<span class="ot">1j</span> <span class="op">*</span> theta)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">6</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>):</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    rho <span class="op">=</span> zeta<span class="op">**</span>k <span class="op">-</span> zeta<span class="op">**</span>(k <span class="op">-</span> <span class="dv">1</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> <span class="bu">sum</span>(AB[k][i] <span class="op">*</span> zeta<span class="op">**</span>(k <span class="op">-</span> <span class="dv">1</span> <span class="op">-</span> i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    zb <span class="op">=</span> rho <span class="op">/</span> sigma</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ax.plot(zb.real, zb.imag, label<span class="op">=</span><span class="ss">f"AB</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># RK4 boundary for comparison: |R(z)| = 1</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>re, im <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="fl">3.2</span>, <span class="fl">0.8</span>, <span class="dv">500</span>), np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">500</span>))</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> re <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> im</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>R4 <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> Z <span class="op">+</span> Z<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> Z<span class="op">**</span><span class="dv">3</span> <span class="op">/</span> <span class="dv">6</span> <span class="op">+</span> Z<span class="op">**</span><span class="dv">4</span> <span class="op">/</span> <span class="dv">24</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>ax.contour(re, im, np.<span class="bu">abs</span>(R4), levels<span class="op">=</span>[<span class="dv">1</span>], colors<span class="op">=</span><span class="st">"k"</span>, linestyles<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>ax.plot([], [], <span class="st">"k--"</span>, label<span class="op">=</span><span class="st">"RK4"</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, lw<span class="op">=</span><span class="fl">0.8</span>)<span class="op">;</span> ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">"gray"</span>, lw<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span><span class="fl">3.2</span>, <span class="fl">0.8</span>)<span class="op">;</span> ax.set_ylim(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>)<span class="op">;</span> ax.set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Re z"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"Im z"</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Stability region boundaries (regions lie inside, to the left of 0)"</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>ax.legend()<span class="op">;</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, lim <span class="kw">in</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">1</span>), (<span class="dv">3</span>, <span class="dv">6</span> <span class="op">/</span> <span class="dv">11</span>), (<span class="dv">4</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">10</span>)]:</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"AB</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: stable on the negative real axis for h|λ| ≤ </span><span class="sc">{</span>lim<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"RK4: stable on the negative real axis for h|λ| ≤ 2.785"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>AB1: stable on the negative real axis for h|λ| ≤ 2.000
+AB2: stable on the negative real axis for h|λ| ≤ 1.000
+AB3: stable on the negative real axis for h|λ| ≤ 0.545
+AB4: stable on the negative real axis for h|λ| ≤ 0.300
+RK4: stable on the negative real axis for h|λ| ≤ 2.785</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07-multistep-methods_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Adams–Bashforth regions <strong>shrink</strong> as the order increases, and AB4’s is tiny compared with RK4’s. Even after dividing by RK4’s four evaluations per step (<span class="math inline">\(2.785/4 \approx 0.70\)</span> per evaluation, against <span class="math inline">\(0.3\)</span> for AB4), RK4 gets more stability for the same work. Explicit multistep methods are therefore a poor choice for stiff problems. The multistep methods used for stiff problems are the implicit <strong>backward differentiation formulas (BDF)</strong>, which have very large stability regions; they are what <code>ode15s</code> and <code>solve_ivp(method="BDF")</code> use.</p>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">7.8 Summary</h2>
+<ul>
+<li>Multistep methods reuse past slopes: one (AB) or two (ABM, PECE) evaluations of <span class="math inline">\(f\)</span> per step at any order.</li>
+<li>Adams–Bashforth (explicit, order <span class="math inline">\(k\)</span>) and Adams–Moulton (implicit, order <span class="math inline">\(k + 1\)</span>) come from integrating an interpolating polynomial.</li>
+<li>They need starting values from a one-step method of the same order, and changing <span class="math inline">\(h\)</span> is awkward.</li>
+<li>A consistent multistep method converges if and only if it is <strong>zero-stable</strong> (root condition).</li>
+<li>Explicit Adams methods have small stability regions; stiff problems call for implicit BDF methods.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>Derive the AB3 coefficients by hand from <span class="math inline">\(\sum_j\beta_jt_j^m = \frac{1}{m+1}\)</span> with nodes <span class="math inline">\(t = 0, -1, -2\)</span>.</li>
+<li>Show that the one-step Adams–Moulton method is the trapezoidal rule.</li>
+<li>Check that <span class="math inline">\(y_{n+2} + 4y_{n+1} - 5y_n = h(4f_{n+1} + 2f_n)\)</span> is exact for <span class="math inline">\(y = 1, x, x^2, x^3\)</span> but not for <span class="math inline">\(x^4\)</span>. (Take <span class="math inline">\(x_n = 0\)</span>, <span class="math inline">\(h = 1\)</span>.)</li>
+<li>Why is it hard to change the step size in the middle of an Adams–Bashforth computation?</li>
+</ol>
+<p><strong>Answers</strong></p>
+<ol type="1">
+<li><span class="math inline">\(\beta_0 + \beta_1 + \beta_2 = 1\)</span>, <span class="math inline">\(\ -\beta_1 - 2\beta_2 = \tfrac12\)</span>, <span class="math inline">\(\ \beta_1 + 4\beta_2 = \tfrac13\)</span>. Adding the last two: <span class="math inline">\(2\beta_2 = \tfrac56\)</span>, so <span class="math inline">\(\beta_2 = \tfrac{5}{12}\)</span>, <span class="math inline">\(\beta_1 = -\tfrac{16}{12}\)</span>, <span class="math inline">\(\beta_0 = \tfrac{23}{12}\)</span>.</li>
+<li>With nodes <span class="math inline">\(t = 1, 0\)</span>: <span class="math inline">\(\beta_0 + \beta_1 = 1\)</span> and <span class="math inline">\(\beta_0 = \tfrac12\)</span>, so <span class="math inline">\(y_{n+1} = y_n + \tfrac{h}{2}(f_{n+1} + f_n)\)</span>.</li>
+<li>See the cell below: the residual is <span class="math inline">\(0\)</span> for degrees <span class="math inline">\(0\)</span>–<span class="math inline">\(3\)</span> and <span class="math inline">\(4\)</span> for <span class="math inline">\(x^4\)</span>.</li>
+<li>The coefficients were derived for equally spaced past points <span class="math inline">\(x_n, x_n - h, x_n - 2h, \dots\)</span>. After a change of step size the stored slopes are no longer at those points, so either new coefficients must be computed for the uneven spacing or the past values must be interpolated onto the new grid.</li>
+</ol>
+<div id="c015" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:17:27.935378Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:17:27.935323Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:17:27.937419Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:17:27.937084Z&quot;}}" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"1.  AB3 coefficients ×12:"</span>, np.<span class="bu">round</span>(AB[<span class="dv">3</span>] <span class="op">*</span> <span class="dv">12</span>, <span class="dv">10</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"2.  AM1 coefficients:"</span>, AM[<span class="dv">1</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="kw">lambda</span> x: x<span class="op">**</span>m</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    dy <span class="op">=</span> <span class="kw">lambda</span> x: m <span class="op">*</span> x<span class="op">**</span>(m <span class="op">-</span> <span class="dv">1</span>) <span class="cf">if</span> m <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    lhs <span class="op">=</span> y(<span class="dv">2</span>) <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> y(<span class="dv">1</span>) <span class="op">-</span> <span class="dv">5</span> <span class="op">*</span> y(<span class="dv">0</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    rhs <span class="op">=</span> <span class="dv">4</span> <span class="op">*</span> dy(<span class="dv">1</span>) <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> dy(<span class="dv">0</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"3.  y = x^</span><span class="sc">{</span>m<span class="sc">}</span><span class="ss">:  LHS − RHS = </span><span class="sc">{</span>lhs <span class="op">-</span> rhs<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.  AB3 coefficients ×12: [ 23. -16.   5.]
+2.  AM1 coefficients: [0.5 0.5]
+3.  y = x^0:  LHS − RHS = 0
+3.  y = x^1:  LHS − RHS = 0
+3.  y = x^2:  LHS − RHS = 0
+3.  y = x^3:  LHS − RHS = 0
+3.  y = x^4:  LHS − RHS = 4</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mirajcs\.github\.io\/differential_equations_examples_Julia\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

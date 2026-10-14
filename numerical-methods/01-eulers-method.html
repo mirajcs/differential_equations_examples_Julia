@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Miraj Samarakkody">
+<meta name="dcterms.date" content="2026-10-14">
+
+<title>1. Euler’s Method – Differential Equations</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1bda23ef02b1613632e48409ff51ea9e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Differential Equations</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../first-order-differential-equations.html"> 
+<span class="menu-text">First-Order ODEs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bifurcations-first-order-differential-equations.html"> 
+<span class="menu-text">Bifurcations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../numerical-methods/index.html" aria-current="page"> 
+<span class="menu-text">Numerical Methods</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../numerical-methods/01-eulers-method.html">1. Euler’s Method</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical Methods for First-Order ODEs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/01-eulers-method.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">1. Euler’s Method</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/02-second-order-runge-kutta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Second-Order Runge–Kutta Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/03-runge-kutta-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. The Classical Runge–Kutta Method (RK4)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/04-error-order-efficiency.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Error, Order and Efficiency</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/05-stability-and-stiffness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. Stability and Stiff Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/06-adaptive-step-size.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Adaptive Step Size</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/07-multistep-methods.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Multistep Methods</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../numerical-methods/08-systems-and-higher-order.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Systems and Higher-Order Equations</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#three-derivations-of-the-same-formula" id="toc-three-derivations-of-the-same-formula" class="nav-link active" data-scroll-target="#three-derivations-of-the-same-formula">1.1 Three derivations of the same formula</a></li>
+  <li><a href="#worked-example-by-hand-h-0.1" id="toc-worked-example-by-hand-h-0.1" class="nav-link" data-scroll-target="#worked-example-by-hand-h-0.1">1.2 Worked example by hand, <span class="math inline">\(h = 0.1\)</span></a></li>
+  <li><a href="#pictures-of-the-error" id="toc-pictures-of-the-error" class="nav-link" data-scroll-target="#pictures-of-the-error">1.3 Pictures of the error</a></li>
+  <li><a href="#local-and-global-error" id="toc-local-and-global-error" class="nav-link" data-scroll-target="#local-and-global-error">1.4 Local and global error</a></li>
+  <li><a href="#a-proof-that-eulers-method-converges" id="toc-a-proof-that-eulers-method-converges" class="nav-link" data-scroll-target="#a-proof-that-eulers-method-converges">1.5 A proof that Euler’s method converges</a></li>
+  <li><a href="#more-worked-examples" id="toc-more-worked-examples" class="nav-link" data-scroll-target="#more-worked-examples">1.6 More worked examples</a>
+  <ul class="collapse">
+  <li><a href="#example-1-a-decaying-solution" id="toc-example-1-a-decaying-solution" class="nav-link" data-scroll-target="#example-1-a-decaying-solution">Example 1: a decaying solution</a></li>
+  <li><a href="#example-2-a-table-with-the-error-bound" id="toc-example-2-a-table-with-the-error-bound" class="nav-link" data-scroll-target="#example-2-a-table-with-the-error-bound">Example 2: a table with the error bound</a></li>
+  <li><a href="#example-3-euler-does-not-notice-a-blow-up" id="toc-example-3-euler-does-not-notice-a-blow-up" class="nav-link" data-scroll-target="#example-3-euler-does-not-notice-a-blow-up">Example 3: Euler does not notice a blow-up</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">1.7 Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="01-eulers-method.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">1. Euler’s Method</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Miraj Samarakkody </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Euler’s method is the simplest numerical method for <span class="math inline">\(y' = f(x, y)\)</span>, <span class="math inline">\(y(x_0) = y_0\)</span>. It is rarely used on its own in practice, but every idea in this chapter (local and global error, order, convergence, stability) can be seen clearly in it first.</p>
+<p>Test problem: <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>.</p>
+<div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.266972Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.266872Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.420692Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.420117Z&quot;}}" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"figure.figsize"</span>] <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">4.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">"axes.grid"</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.set_printoptions(precision<span class="op">=</span><span class="dv">6</span>, suppress<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x, y: x <span class="op">+</span> y</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>exact <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">2</span> <span class="op">*</span> np.exp(x) <span class="op">-</span> x <span class="op">-</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="three-derivations-of-the-same-formula" class="level2">
+<h2 class="anchored" data-anchor-id="three-derivations-of-the-same-formula">1.1 Three derivations of the same formula</h2>
+<p><strong>(a) From the Taylor series.</strong> Expand the exact solution about <span class="math inline">\(x_n\)</span>:</p>
+<p><span class="math display">\[y(x_n + h) = y(x_n) + h\,y'(x_n) + \frac{h^2}{2}\,y''(\xi), \qquad \xi \in (x_n, x_{n+1}).\]</span></p>
+<p>Since <span class="math inline">\(y'(x_n) = f(x_n, y(x_n))\)</span>, dropping the <span class="math inline">\(h^2\)</span> term gives</p>
+<p><span class="math display">\[\boxed{y_{n+1} = y_n + h\,f(x_n, y_n)}\]</span></p>
+<p><strong>(b) From a difference quotient.</strong> Replace the derivative by the forward difference <span class="math inline">\(y'(x_n) \approx \dfrac{y(x_{n+1}) - y(x_n)}{h}\)</span>, set it equal to <span class="math inline">\(f(x_n, y_n)\)</span> and solve for <span class="math inline">\(y_{n+1}\)</span>.</p>
+<p><strong>(c) From the integral form.</strong> In <span class="math inline">\(y(x_{n+1}) = y(x_n) + \int_{x_n}^{x_{n+1}} f\,dx\)</span>, approximate the integral by the <strong>left rectangle rule</strong>: <span class="math inline">\(h\)</span> times the integrand at the left end.</p>
+<p>All three give the same method. Derivation (a) also tells us the size of the error we make in one step: the dropped term <span class="math inline">\(\tfrac{h^2}{2}y''(\xi)\)</span>.</p>
+<p><strong>Geometric meaning.</strong> From the current point, walk along the tangent line for a distance <span class="math inline">\(h\)</span>. Because the solution curve bends away from its tangent, each step lands slightly off the curve.</p>
+<p><strong>Algorithm</strong> 1. Start with <span class="math inline">\(x_0, y_0\)</span>, step size <span class="math inline">\(h\)</span> and number of steps <span class="math inline">\(N\)</span>. 2. For <span class="math inline">\(n = 0, 1, \dots, N-1\)</span>: * compute the slope <span class="math inline">\(k = f(x_n, y_n)\)</span> * set <span class="math inline">\(y_{n+1} = y_n + hk\)</span> and <span class="math inline">\(x_{n+1} = x_n + h\)</span>.</p>
+<div id="c003" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.422223Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.422109Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.423995Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.423662Z&quot;}}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euler(f, x0, y0, h, n):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> np.zeros(n <span class="op">+</span> <span class="dv">1</span>), np.zeros(n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x[<span class="dv">0</span>], y[<span class="dv">0</span>] <span class="op">=</span> x0, y0</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        y[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> y[i] <span class="op">+</span> h <span class="op">*</span> f(x[i], y[i])</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        x[i <span class="op">+</span> <span class="dv">1</span>] <span class="op">=</span> x[i] <span class="op">+</span> h</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="worked-example-by-hand-h-0.1" class="level2">
+<h2 class="anchored" data-anchor-id="worked-example-by-hand-h-0.1">1.2 Worked example by hand, <span class="math inline">\(h = 0.1\)</span></h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(n\)</span></th>
+<th><span class="math inline">\(x_n\)</span></th>
+<th><span class="math inline">\(y_n\)</span></th>
+<th>slope <span class="math inline">\(f(x_n, y_n) = x_n + y_n\)</span></th>
+<th><span class="math inline">\(y_{n+1} = y_n + 0.1 \times \text{slope}\)</span></th>
+<th>exact <span class="math inline">\(y(x_{n+1})\)</span></th>
+<th>error</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.0</td>
+<td>1.000000</td>
+<td>1.000000</td>
+<td>1.100000</td>
+<td>1.110342</td>
+<td>0.0103</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.1</td>
+<td>1.100000</td>
+<td>1.200000</td>
+<td>1.220000</td>
+<td>1.242806</td>
+<td>0.0228</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.2</td>
+<td>1.220000</td>
+<td>1.420000</td>
+<td>1.362000</td>
+<td>1.399718</td>
+<td>0.0377</td>
+</tr>
+</tbody>
+</table>
+<p>The error grows every step, because each step starts from an already inaccurate value <strong>and</strong> adds a new error of its own. The code reproduces the table:</p>
+<div id="c005" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.425097Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.425042Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.426967Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.426638Z&quot;}}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">3</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"n = </span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">:  x = </span><span class="sc">{</span>x[n]<span class="sc">:.1f}</span><span class="ss">  y_n = </span><span class="sc">{</span>y[n]<span class="sc">:.6f}</span><span class="ss">  slope = </span><span class="sc">{</span>f(x[n], y[n])<span class="sc">:.6f}</span><span class="ss">  "</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"y_(n+1) = </span><span class="sc">{</span>y[n<span class="op">+</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">  exact = </span><span class="sc">{</span>exact(x[n<span class="op">+</span><span class="dv">1</span>])<span class="sc">:.6f}</span><span class="ss">  error = </span><span class="sc">{</span>exact(x[n<span class="op">+</span><span class="dv">1</span>]) <span class="op">-</span> y[n<span class="op">+</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>n = 0:  x = 0.0  y_n = 1.000000  slope = 1.000000  y_(n+1) = 1.100000  exact = 1.110342  error = 0.0103
+n = 1:  x = 0.1  y_n = 1.100000  slope = 1.200000  y_(n+1) = 1.220000  exact = 1.242806  error = 0.0228
+n = 2:  x = 0.2  y_n = 1.220000  slope = 1.420000  y_(n+1) = 1.362000  exact = 1.399718  error = 0.0377</code></pre>
+</div>
+</div>
+</section>
+<section id="pictures-of-the-error" class="level2">
+<h2 class="anchored" data-anchor-id="pictures-of-the-error">1.3 Pictures of the error</h2>
+<p>The left plot takes one large step (<span class="math inline">\(h = 0.5\)</span>) so the gap between the tangent line and the curve is visible.</p>
+<p>The right plot takes four steps with <span class="math inline">\(h = 0.25\)</span> and also draws, through each computed point, the <strong>exact solution curve that passes through it</strong> (dashed). Each step leaves the curve it started on and lands on a new one. Because the solution curves of <span class="math inline">\(y' = x + y\)</span> spread apart (see the <a href="../numerical-methods/index.html">chapter introduction</a>), the jumps between curves are amplified as <span class="math inline">\(x\)</span> increases.</p>
+<div id="c007" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.427994Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.427941Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.557855Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.557352Z&quot;}}" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">4.2</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># One large step</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="fl">0.6</span>, <span class="dv">100</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ax.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact solution"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>k1 <span class="op">=</span> f(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, h], [<span class="dv">1</span>, <span class="dv">1</span> <span class="op">+</span> h <span class="op">*</span> k1], <span class="st">"C0o-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Euler step: slope k₁ = </span><span class="sc">{</span>k1<span class="sc">:g}</span><span class="ss">"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>ax.vlines(h, <span class="dv">1</span> <span class="op">+</span> h <span class="op">*</span> k1, exact(h), colors<span class="op">=</span><span class="st">"C3"</span>, linestyles<span class="op">=</span><span class="st">":"</span>, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax.annotate(<span class="ss">f"error = </span><span class="sc">{</span>exact(h) <span class="op">-</span> (<span class="dv">1</span> <span class="op">+</span> h<span class="op">*</span>k1)<span class="sc">:.3f}</span><span class="ss">"</span>, (h, (<span class="dv">1</span> <span class="op">+</span> h<span class="op">*</span>k1 <span class="op">+</span> exact(h)) <span class="op">/</span> <span class="dv">2</span>),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            xytext<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">0</span>), textcoords<span class="op">=</span><span class="st">"offset points"</span>, color<span class="op">=</span><span class="st">"C3"</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"One step follows the tangent line"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"y"</span>)<span class="op">;</span> ax.legend()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Several steps, with the solution curve through each computed point</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>h, n <span class="op">=</span> <span class="fl">0.25</span>, <span class="dv">4</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>xs, ys <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, h, n)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>ax.plot(xf, exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact solution (y₀ = 1)"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xn, yn <span class="kw">in</span> <span class="bu">zip</span>(xs[<span class="dv">1</span>:], ys[<span class="dv">1</span>:]):</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> (yn <span class="op">+</span> xn <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> np.exp(<span class="op">-</span>xn)          <span class="co"># y = C e^x - x - 1 passes through (xn, yn)</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    ax.plot(xf, C <span class="op">*</span> np.exp(xf) <span class="op">-</span> xf <span class="op">-</span> <span class="dv">1</span>, <span class="st">"--"</span>, color<span class="op">=</span><span class="st">"gray"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>ax.plot(xs, ys, <span class="st">"C0o-"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"Euler, h = 0.25"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Each step lands on a neighbouring solution curve"</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> ax.legend()</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-eulers-method_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="local-and-global-error" class="level2">
+<h2 class="anchored" data-anchor-id="local-and-global-error">1.4 Local and global error</h2>
+<ul>
+<li>The <strong>local truncation error</strong> (LTE) is the error made in <em>one</em> step, starting from the exact value. It is the term we dropped: <span class="math inline">\(\tfrac{h^2}{2}y''(\xi) = O(h^2)\)</span>. <em>Check:</em> here <span class="math inline">\(y'' = 1 + y' = 1 + x + y\)</span>, so <span class="math inline">\(y''(0) = 2\)</span> and the predicted first-step error is <span class="math inline">\(\tfrac{0.1^2}{2}\cdot 2 = 0.01\)</span>. The actual first-step error is <span class="math inline">\(0.0103\)</span>.</li>
+<li>The <strong>global error</strong> is the total error at a fixed point <span class="math inline">\(x = b\)</span> after all <span class="math inline">\(N = (b - x_0)/h\)</span> steps. Roughly <span class="math inline">\(N\)</span> local errors of size <span class="math inline">\(O(h^2)\)</span> add up:</li>
+</ul>
+<p><span class="math display">\[\text{global error} \approx N \cdot O(h^2) = \frac{b - x_0}{h}\,O(h^2) = O(h).\]</span></p>
+<p>A method whose global error is <span class="math inline">\(O(h^p)\)</span> has <strong>order <span class="math inline">\(p\)</span></strong>. Euler has order 1: halving <span class="math inline">\(h\)</span> only halves the error, and gaining one more correct digit costs 10 times as many steps.</p>
+<p>The argument “<span class="math inline">\(N\)</span> errors of size <span class="math inline">\(h^2\)</span> add up to <span class="math inline">\(h\)</span>” ignores that old errors are also amplified by later steps (Section 1.3). The next section makes it rigorous.</p>
+</section>
+<section id="a-proof-that-eulers-method-converges" class="level2">
+<h2 class="anchored" data-anchor-id="a-proof-that-eulers-method-converges">1.5 A proof that Euler’s method converges</h2>
+<p><strong>Theorem.</strong> Suppose <span class="math inline">\(f\)</span> satisfies a Lipschitz condition in <span class="math inline">\(y\)</span> with constant <span class="math inline">\(L\)</span>, and <span class="math inline">\(|y''(x)| \le M\)</span> on <span class="math inline">\([x_0, b]\)</span>. Then the Euler approximations satisfy</p>
+<p><span class="math display">\[|y(x_n) - y_n| \;\le\; \frac{hM}{2L}\left(e^{L(x_n - x_0)} - 1\right).\]</span></p>
+<p><strong>Proof.</strong> Let <span class="math inline">\(e_n = y(x_n) - y_n\)</span>. Taylor’s theorem and Euler’s formula give</p>
+<p><span class="math display">\[
+\begin{aligned}
+y(x_{n+1}) &amp;= y(x_n) + h f\big(x_n, y(x_n)\big) + \tfrac{h^2}{2}y''(\xi_n),\\
+y_{n+1} &amp;= y_n + h f(x_n, y_n).
+\end{aligned}
+\]</span></p>
+<p>Subtracting,</p>
+<p><span class="math display">\[e_{n+1} = e_n + h\Big[f\big(x_n, y(x_n)\big) - f(x_n, y_n)\Big] + \tfrac{h^2}{2}y''(\xi_n).\]</span></p>
+<p>By the Lipschitz condition the bracket is at most <span class="math inline">\(L|e_n|\)</span> in size, so</p>
+<p><span class="math display">\[|e_{n+1}| \le (1 + hL)\,|e_n| + \frac{h^2 M}{2}.\]</span></p>
+<p>This says: <em>the old error is amplified by at most <span class="math inline">\(1 + hL\)</span>, and a new local error of at most <span class="math inline">\(h^2M/2\)</span> is added.</em> Starting from <span class="math inline">\(e_0 = 0\)</span> and applying it repeatedly,</p>
+<p><span class="math display">\[|e_n| \le \frac{h^2M}{2}\sum_{j=0}^{n-1}(1 + hL)^j = \frac{h^2M}{2}\cdot\frac{(1 + hL)^n - 1}{hL} = \frac{hM}{2L}\Big((1 + hL)^n - 1\Big).\]</span></p>
+<p>Finally <span class="math inline">\(1 + hL \le e^{hL}\)</span>, so <span class="math inline">\((1 + hL)^n \le e^{nhL} = e^{L(x_n - x_0)}\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p><strong>What the theorem says</strong> * The error bound is proportional to <span class="math inline">\(h\)</span>: Euler <strong>converges</strong>, with order 1. * The factor <span class="math inline">\(e^{L(x_n - x_0)}\)</span> means errors can grow exponentially over long intervals. This is the sensitivity of the ODE itself, not a flaw of the method. * The bound is a worst case. It is usually pessimistic, but it has the right dependence on <span class="math inline">\(h\)</span>.</p>
+<p><strong>Check on the test problem.</strong> <span class="math inline">\(\partial f / \partial y = 1\)</span>, so <span class="math inline">\(L = 1\)</span>. On <span class="math inline">\([0, 1]\)</span>, <span class="math inline">\(y'' = 2e^{x}\)</span>, so <span class="math inline">\(M = 2e\)</span>. The bound becomes <span class="math inline">\(h\,e\,(e^{x} - 1)\)</span>.</p>
+<div id="c010" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.559171Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.559074Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.630249Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.629922Z&quot;}}" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h, c <span class="kw">in</span> [(<span class="fl">0.1</span>, <span class="st">"C0"</span>), (<span class="fl">0.05</span>, <span class="st">"C1"</span>)]:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    ax.plot(x, exact(x) <span class="op">-</span> y, <span class="st">"o-"</span>, color<span class="op">=</span>c, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="ss">f"actual error, h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(x, h <span class="op">*</span> np.e <span class="op">*</span> (np.exp(x) <span class="op">-</span> <span class="dv">1</span>), <span class="st">"--"</span>, color<span class="op">=</span>c, label<span class="op">=</span><span class="ss">f"bound, h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"h = </span><span class="sc">{</span>h<span class="sc">:5}</span><span class="ss">: error at x = 1 is </span><span class="sc">{</span>exact(<span class="dv">1</span>) <span class="op">-</span> y[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">,  bound is </span><span class="sc">{</span>h <span class="op">*</span> np<span class="sc">.</span>e <span class="op">*</span> (np.e <span class="op">-</span> <span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"x"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"error"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Euler's global error and the theoretical bound"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>ax.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>h =   0.1: error at x = 1 is 0.2491,  bound is 0.4671
+h =  0.05: error at x = 1 is 0.1300,  bound is 0.2335</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-eulers-method_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bound is about twice the actual error here, and both halve when <span class="math inline">\(h\)</span> is halved.</p>
+</section>
+<section id="more-worked-examples" class="level2">
+<h2 class="anchored" data-anchor-id="more-worked-examples">1.6 More worked examples</h2>
+<section id="example-1-a-decaying-solution" class="level3">
+<h3 class="anchored" data-anchor-id="example-1-a-decaying-solution">Example 1: a decaying solution</h3>
+<p><span class="math display">\[y' = -2xy, \qquad y(0) = 1, \qquad \text{exact solution } y = e^{-x^2}.\]</span></p>
+<p>Here neighbouring solutions draw together (<span class="math inline">\(\partial f/\partial y = -2x \le 0\)</span>), so errors made early on are damped later.</p>
+<div id="c012" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.631726Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.631659Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.695278Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.694871Z&quot;}}" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> <span class="kw">lambda</span> x, y: <span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x <span class="op">*</span> y</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>g_exact <span class="op">=</span> <span class="kw">lambda</span> x: np.exp(<span class="op">-</span>x<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">200</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, g_exact(xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact  e^(−x²)"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>]:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    x, y <span class="op">=</span> euler(g, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">2</span> <span class="op">/</span> h))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, y, <span class="st">"o--"</span>, ms<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="ss">f"Euler, h = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"h = </span><span class="sc">{</span>h<span class="sc">:5}</span><span class="ss">: max |error| on [0, 2] = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(np.<span class="bu">abs</span>(y <span class="op">-</span> g_exact(x)))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y"</span>)<span class="op">;</span> plt.title(<span class="st">"y' = −2xy"</span>)<span class="op">;</span> plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>h =   0.2: max |error| on [0, 2] = 0.0751
+h =   0.1: max |error| on [0, 2] = 0.0348
+h =  0.05: max |error| on [0, 2] = 0.0169</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-eulers-method_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The maximum error roughly halves each time <span class="math inline">\(h\)</span> is halved, as expected for an order 1 method.</p>
+</section>
+<section id="example-2-a-table-with-the-error-bound" class="level3">
+<h3 class="anchored" data-anchor-id="example-2-a-table-with-the-error-bound">Example 2: a table with the error bound</h3>
+<p><span class="math display">\[y' = y - x^2 + 1, \qquad y(0) = 0.5, \qquad 0 \le x \le 2, \qquad \text{exact solution } y = (x + 1)^2 - \tfrac{1}{2}e^{x}.\]</span></p>
+<p>Here <span class="math inline">\(L = 1\)</span>, and <span class="math inline">\(y'' = 2 - \tfrac{1}{2}e^{x}\)</span>, so <span class="math inline">\(|y''| \le \tfrac{1}{2}e^{2} - 2 \approx 1.695 = M\)</span> on <span class="math inline">\([0, 2]\)</span>. With <span class="math inline">\(h = 0.2\)</span> the bound is <span class="math inline">\(\tfrac{0.2 \times 1.695}{2}(e^{x} - 1)\)</span>.</p>
+<div id="c014" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.696585Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.696506Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.698756Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.698359Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="kw">lambda</span> x, y: y <span class="op">-</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p_exact <span class="op">=</span> <span class="kw">lambda</span> x: (x <span class="op">+</span> <span class="dv">1</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> <span class="fl">0.5</span> <span class="op">*</span> np.exp(x)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>M <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> np.exp(<span class="dv">2</span>) <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> euler(p, <span class="dv">0</span>, <span class="fl">0.5</span>, h, <span class="dv">10</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="st">'x'</span><span class="sc">:&gt;4}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'Euler y_n'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'exact'</span><span class="sc">:&gt;11}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'error'</span><span class="sc">:&gt;9}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'bound'</span><span class="sc">:&gt;9}</span><span class="ss">"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xn, yn <span class="kw">in</span> <span class="bu">zip</span>(x, y):</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>xn<span class="sc">:4.1f}</span><span class="ss"> </span><span class="sc">{</span>yn<span class="sc">:11.6f}</span><span class="ss"> </span><span class="sc">{</span>p_exact(xn)<span class="sc">:11.6f}</span><span class="ss"> </span><span class="sc">{</span>p_exact(xn) <span class="op">-</span> yn<span class="sc">:9.5f}</span><span class="ss"> </span><span class="sc">{</span>h <span class="op">*</span> M <span class="op">/</span> <span class="dv">2</span> <span class="op">*</span> (np.exp(xn) <span class="op">-</span> <span class="dv">1</span>)<span class="sc">:9.5f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   x   Euler y_n       exact     error     bound
+ 0.0    0.500000    0.500000   0.00000   0.00000
+ 0.2    0.800000    0.829299   0.02930   0.03752
+ 0.4    1.152000    1.214088   0.06209   0.08334
+ 0.6    1.550400    1.648941   0.09854   0.13931
+ 0.8    1.988480    2.127230   0.13875   0.20767
+ 1.0    2.458176    2.640859   0.18268   0.29117
+ 1.2    2.949811    3.179942   0.23013   0.39315
+ 1.4    3.451773    3.732400   0.28063   0.51771
+ 1.6    3.950128    4.283484   0.33336   0.66985
+ 1.8    4.428154    4.815176   0.38702   0.85568
+ 2.0    4.865785    5.305472   0.43969   1.08264</code></pre>
+</div>
+</div>
+<p>The actual error stays below the bound at every step, as the theorem guarantees.</p>
+</section>
+<section id="example-3-euler-does-not-notice-a-blow-up" class="level3">
+<h3 class="anchored" data-anchor-id="example-3-euler-does-not-notice-a-blow-up">Example 3: Euler does not notice a blow-up</h3>
+<p><span class="math display">\[y' = y^2, \qquad y(0) = 1, \qquad \text{exact solution } y = \frac{1}{1 - x}.\]</span></p>
+<p>The exact solution becomes infinite at <span class="math inline">\(x = 1\)</span> and does not exist beyond it. <span class="math inline">\(f = y^2\)</span> is not Lipschitz for all <span class="math inline">\(y\)</span>, so the convergence theorem does not apply on <span class="math inline">\([0, 1.5]\)</span>.</p>
+<div id="c016" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.699842Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.699766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.851564Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.851115Z&quot;}}" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="kw">lambda</span> x, y: y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> euler(q, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">15</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>xf <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="fl">0.93</span>, <span class="dv">200</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xf, <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">-</span> xf), <span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"exact 1/(1 − x)"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">"o-"</span>, label<span class="op">=</span><span class="st">"Euler, h = 0.1"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">1</span>, color<span class="op">=</span><span class="st">"C3"</span>, ls<span class="op">=</span><span class="st">":"</span>, label<span class="op">=</span><span class="st">"x = 1 (blow-up)"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)<span class="op">;</span> plt.xlabel(<span class="st">"x"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"y (log scale)"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Euler steps straight past the singularity"</span>)<span class="op">;</span> plt.legend()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> xn, yn <span class="kw">in</span> <span class="bu">zip</span>(x[<span class="dv">8</span>:<span class="dv">13</span>], y[<span class="dv">8</span>:<span class="dv">13</span>]):</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"x = </span><span class="sc">{</span>xn<span class="sc">:.1f}</span><span class="ss">   Euler y = </span><span class="sc">{</span>yn<span class="sc">:.4g}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>x = 0.8   Euler y = 3.24
+x = 0.9   Euler y = 4.289
+x = 1.0   Euler y = 6.129
+x = 1.1   Euler y = 9.885
+x = 1.2   Euler y = 19.66</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-eulers-method_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Euler returns finite numbers for <span class="math inline">\(x &gt; 1\)</span> even though the solution does not exist there. A numerical method only ever sees the values of <span class="math inline">\(f\)</span> at the points it visits. <strong>It cannot warn you that the problem itself has broken down</strong>: that is what the theory in the <a href="../numerical-methods/index.html">chapter introduction</a> is for. Watching for values that grow very fast, and halving <span class="math inline">\(h\)</span> to see whether the results settle down, are the practical defences.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">1.7 Summary</h2>
+<ul>
+<li>Euler’s method: <span class="math inline">\(y_{n+1} = y_n + h f(x_n, y_n)\)</span>. One evaluation of <span class="math inline">\(f\)</span> per step.</li>
+<li>Local truncation error <span class="math inline">\(O(h^2)\)</span>, global error <span class="math inline">\(O(h)\)</span>: <strong>order 1</strong>.</li>
+<li>Convergence is guaranteed when <span class="math inline">\(f\)</span> is Lipschitz, with error bound <span class="math inline">\(\dfrac{hM}{2L}\big(e^{L(x - x_0)} - 1\big)\)</span>.</li>
+<li>It is cheap per step but needs very small steps for good accuracy. The next sections construct methods with higher order.</li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>Use Euler with <span class="math inline">\(h = 0.25\)</span> to estimate <span class="math inline">\(y(1)\)</span> for <span class="math inline">\(y' = y\)</span>, <span class="math inline">\(y(0) = 1\)</span>. Compare with <span class="math inline">\(e\)</span>.</li>
+<li>Show that for the test problem <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, Euler gives <strong>exactly</strong> <span class="math inline">\(y_n = 2(1 + h)^n - x_n - 1\)</span>. Use <span class="math inline">\(\lim_{h \to 0}(1 + h)^{1/h} = e\)</span> to show that <span class="math inline">\(y_n \to y(x_n)\)</span> as <span class="math inline">\(h \to 0\)</span> with <span class="math inline">\(x_n\)</span> fixed.</li>
+<li>Take three Euler steps of size <span class="math inline">\(h = 0.1\)</span> by hand for <span class="math inline">\(y' = x - y\)</span>, <span class="math inline">\(y(0) = 1\)</span>. The exact solution is <span class="math inline">\(y = x - 1 + 2e^{-x}\)</span>.</li>
+<li>For <span class="math inline">\(y' = -2xy\)</span>, <span class="math inline">\(y(0) = 1\)</span> on <span class="math inline">\([0, 1]\)</span>, find <span class="math inline">\(L\)</span> and <span class="math inline">\(M\)</span> and evaluate the error bound at <span class="math inline">\(x = 1\)</span> for <span class="math inline">\(h = 0.1\)</span>. Compare with the actual error.</li>
+</ol>
+<p><strong>Answers</strong></p>
+<ol type="1">
+<li><span class="math inline">\(y_4 = 1.25^4 = 2.441406\)</span>; error <span class="math inline">\(e - 2.441406 = 0.2769\)</span>.</li>
+<li>Substitute <span class="math inline">\(y_n = 2(1+h)^n - x_n - 1\)</span> into <span class="math inline">\(y_{n+1} = y_n + h(x_n + y_n)\)</span> and simplify. With <span class="math inline">\(n = x/h\)</span>, <span class="math inline">\((1 + h)^{x/h} = \big((1 + h)^{1/h}\big)^x \to e^{x}\)</span>.</li>
+<li><span class="math inline">\(y_1 = 0.9\)</span>, <span class="math inline">\(y_2 = 0.82\)</span>, <span class="math inline">\(y_3 = 0.758\)</span>; exact <span class="math inline">\(y(0.3) = 0.781636\)</span>, error <span class="math inline">\(0.0236\)</span>.</li>
+<li><span class="math inline">\(|\partial f/\partial y| = 2x \le 2\)</span>, so <span class="math inline">\(L = 2\)</span>. <span class="math inline">\(y'' = (4x^2 - 2)e^{-x^2}\)</span> has maximum size <span class="math inline">\(2\)</span> (at <span class="math inline">\(x = 0\)</span>), so <span class="math inline">\(M = 2\)</span>. The bound is <span class="math inline">\(\frac{0.1 \cdot 2}{2 \cdot 2}(e^{2} - 1) \approx 0.32\)</span>, far larger than the actual error, because here the solution curves draw together and the bound assumes the worst case.</li>
+</ol>
+<p>The cell below checks the numerical answers.</p>
+<div id="c018" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:08.852956Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:08.852857Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:08.856036Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:08.855632Z&quot;}}" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>_, y1 <span class="op">=</span> euler(<span class="kw">lambda</span> x, y: y, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>, <span class="dv">4</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"1.  y(1) ≈ </span><span class="sc">{</span>y1[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.6f}</span><span class="ss">,  error = </span><span class="sc">{</span>np<span class="sc">.</span>e <span class="op">-</span> y1[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> h <span class="kw">in</span> [<span class="fl">0.1</span>, <span class="fl">0.01</span>, <span class="fl">0.001</span>]:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    xs, ys <span class="op">=</span> euler(f, <span class="dv">0</span>, <span class="dv">1</span>, h, <span class="bu">round</span>(<span class="dv">1</span> <span class="op">/</span> h))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"2.  h = </span><span class="sc">{</span>h<span class="sc">:6}</span><span class="ss">: max |y_n − (2(1+h)^n − x_n − 1)| = "</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"</span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(np.<span class="bu">abs</span>(ys <span class="op">-</span> (<span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> h)<span class="op">**</span>np.arange(<span class="bu">len</span>(xs)) <span class="op">-</span> xs <span class="op">-</span> <span class="dv">1</span>)))<span class="sc">:.1e}</span><span class="ss">,  error at x = 1: </span><span class="sc">{</span>exact(<span class="dv">1</span>) <span class="op">-</span> ys[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>_, y3 <span class="op">=</span> euler(<span class="kw">lambda</span> x, y: x <span class="op">-</span> y, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">3</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"3.  y_1, y_2, y_3 = </span><span class="sc">{</span>y3[<span class="dv">1</span>:]<span class="sc">}</span><span class="ss">,  error at 0.3 = </span><span class="sc">{</span><span class="fl">0.3</span> <span class="op">-</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> np<span class="sc">.</span>exp(<span class="op">-</span><span class="fl">0.3</span>) <span class="op">-</span> y3[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>xs, y4 <span class="op">=</span> euler(g, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="dv">10</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"4.  actual error at x = 1: </span><span class="sc">{</span>g_exact(<span class="dv">1</span>) <span class="op">-</span> y4[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">,  bound: </span><span class="sc">{</span><span class="fl">0.1</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> <span class="dv">2</span>) <span class="op">*</span> (np.exp(<span class="dv">2</span>) <span class="op">-</span> <span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.  y(1) ≈ 2.441406,  error = 0.2769
+2.  h =    0.1: max |y_n − (2(1+h)^n − x_n − 1)| = 4.4e-15,  error at x = 1: 0.24908
+2.  h =   0.01: max |y_n − (2(1+h)^n − x_n − 1)| = 5.8e-15,  error at x = 1: 0.02694
+2.  h =  0.001: max |y_n − (2(1+h)^n − x_n − 1)| = 6.0e-13,  error at x = 1: 0.00272
+3.  y_1, y_2, y_3 = [0.9   0.82  0.758],  error at 0.3 = 0.0236
+4.  actual error at x = 1: -0.0138,  bound: 0.3195</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/mirajcs\.github\.io\/differential_equations_examples_Julia\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
