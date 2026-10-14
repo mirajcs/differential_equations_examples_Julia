@@ -1,0 +1,31 @@
+name: Publish site
+
+on:
+  push:
+    branches: main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Notebooks are committed with their outputs, so Quarto renders them
+      # without executing any code: no Python environment is needed.
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.19
+          tinytex: true   # LaTeX for the PDF versions of each page
+
+      - name: Render and publish to the gh-pages branch
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
