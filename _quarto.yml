@@ -10,8 +10,8 @@ website:
   title: "Differential Equations"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
+      #- href: index.qmd
+       # text: Home
       - href: first-order-differential-equations.ipynb
         text: First-Order ODEs
       - href: bifurcations-first-order-differential-equations.ipynb

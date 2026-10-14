@@ -2,7 +2,6 @@
 title: "Differential Equations"
 ---
 
-Worked examples of first-order differential equations, direction fields, Euler's method and bifurcations.
 
 - [First-Order Differential Equations](first-order-differential-equations.ipynb)
 - [Bifurcations of First-Order Differential Equations](bifurcations-first-order-differential-equations.ipynb)
