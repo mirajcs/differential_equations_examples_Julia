@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Miraj Samarakkody">
-<meta name="dcterms.date" content="2026-10-14">
+<meta name="dcterms.date" content="2026-10-21">
 
 <title>3. The Classical Runge–Kutta Method (RK4) – Differential Equations</title>
 <style>
@@ -259,7 +259,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#derivation-from-simpsons-rule" id="toc-derivation-from-simpsons-rule" class="nav-link active" data-scroll-target="#derivation-from-simpsons-rule">3.1 Derivation from Simpson’s rule</a>
+  <li><a href="#quick-note-rk4-with-a-calculator" id="toc-quick-note-rk4-with-a-calculator" class="nav-link active" data-scroll-target="#quick-note-rk4-with-a-calculator">Quick note: RK4 with a calculator</a></li>
+  <li><a href="#derivation-from-simpsons-rule" id="toc-derivation-from-simpsons-rule" class="nav-link" data-scroll-target="#derivation-from-simpsons-rule">3.1 Derivation from Simpson’s rule</a>
   <ul class="collapse">
   <li><a href="#worked-example-rk4-by-hand-first-step-with-h-0.1" id="toc-worked-example-rk4-by-hand-first-step-with-h-0.1" class="nav-link" data-scroll-target="#worked-example-rk4-by-hand-first-step-with-h-0.1">Worked example: RK4 by hand, first step with <span class="math inline">\(h = 0.1\)</span></a></li>
   </ul></li>
@@ -297,7 +298,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2026</p>
+      <p class="date">October 21, 2026</p>
     </div>
   </div>
   
@@ -311,6 +312,47 @@ window.Quarto = {
 
 <p>RK4 uses four slopes per step and has order 4. For smooth, non-stiff problems it gives an excellent balance of accuracy and simplicity, which is why it is the method most people mean by “Runge–Kutta”. This section derives it, introduces the <strong>Butcher tableau</strong> notation that describes every Runge–Kutta method, and explains the <strong>order conditions</strong> that determine a method’s order.</p>
 <p>Test problem: <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>.</p>
+<section id="quick-note-rk4-with-a-calculator" class="level2">
+<h2 class="anchored" data-anchor-id="quick-note-rk4-with-a-calculator">Quick note: RK4 with a calculator</h2>
+<p><strong>Use:</strong> solve <span class="math inline">\(y' = f(x, y)\)</span>, <span class="math inline">\(y(x_0) = y_0\)</span>, one step at a time with step size <span class="math inline">\(h\)</span>.</p>
+<p><strong>One step (four slopes):</strong></p>
+<ol type="1">
+<li>Slope at the start: <span class="math inline">\(k_1 = f(x_n,\ y_n)\)</span></li>
+<li>Slope at the middle, using <span class="math inline">\(k_1\)</span>: <span class="math inline">\(k_2 = f\!\left(x_n + \tfrac{h}{2},\ y_n + \tfrac{h}{2}k_1\right)\)</span></li>
+<li>Slope at the middle again, using <span class="math inline">\(k_2\)</span>: <span class="math inline">\(k_3 = f\!\left(x_n + \tfrac{h}{2},\ y_n + \tfrac{h}{2}k_2\right)\)</span></li>
+<li>Slope at the end, using <span class="math inline">\(k_3\)</span>: <span class="math inline">\(k_4 = f(x_n + h,\ y_n + h\,k_3)\)</span></li>
+<li>Weighted average and step: <span class="math inline">\(y_{n+1} = y_n + \dfrac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)\)</span></li>
+<li>Move along: <span class="math inline">\(x_{n+1} = x_n + h\)</span>, then repeat.</li>
+</ol>
+<p>Each step needs only multiplication, addition and <span class="math inline">\(f\)</span>, so a basic calculator is enough.</p>
+<p><strong>Example:</strong> <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, <span class="math inline">\(h = 0.1\)</span>. Find <span class="math inline">\(y(0.2)\)</span>. Here <span class="math inline">\(h/2 = 0.05\)</span> and <span class="math inline">\(h/6 = 0.0166667\)</span>.</p>
+<p><em>Step 1</em> (<span class="math inline">\(x_0 = 0\)</span>, <span class="math inline">\(y_0 = 1\)</span>)</p>
+<ul>
+<li><span class="math inline">\(k_1 = 0 + 1 = 1\)</span></li>
+<li><span class="math inline">\(k_2 = 0.05 + (1 + 0.05 \times 1) = 0.05 + 1.05 = 1.1\)</span></li>
+<li><span class="math inline">\(k_3 = 0.05 + (1 + 0.05 \times 1.1) = 0.05 + 1.055 = 1.105\)</span></li>
+<li><span class="math inline">\(k_4 = 0.1 + (1 + 0.1 \times 1.105) = 0.1 + 1.1105 = 1.2105\)</span></li>
+<li><span class="math inline">\(k_1 + 2k_2 + 2k_3 + k_4 = 1 + 2.2 + 2.21 + 1.2105 = 6.6205\)</span></li>
+<li><span class="math inline">\(y_1 = 1 + \tfrac{0.1}{6}(6.6205) = \mathbf{1.1103417}\)</span></li>
+</ul>
+<p><em>Step 2</em> (<span class="math inline">\(x_1 = 0.1\)</span>, <span class="math inline">\(y_1 = 1.1103417\)</span>)</p>
+<ul>
+<li><span class="math inline">\(k_1 = 0.1 + 1.1103417 = 1.2103417\)</span></li>
+<li><span class="math inline">\(k_2 = 0.15 + (1.1103417 + 0.05 \times 1.2103417) = 0.15 + 1.1708588 = 1.3208588\)</span></li>
+<li><span class="math inline">\(k_3 = 0.15 + (1.1103417 + 0.05 \times 1.3208588) = 0.15 + 1.1763846 = 1.3263846\)</span></li>
+<li><span class="math inline">\(k_4 = 0.2 + (1.1103417 + 0.1 \times 1.3263846) = 0.2 + 1.2429802 = 1.4429802\)</span></li>
+<li><span class="math inline">\(k_1 + 2k_2 + 2k_3 + k_4 = 1.2103417 + 2.6417176 + 2.6527692 + 1.4429802 = 7.9478087\)</span></li>
+<li><span class="math inline">\(y_2 = 1.1103417 + \tfrac{0.1}{6}(7.9478087) = \mathbf{1.2428052}\)</span></li>
+</ul>
+<p><strong>Check:</strong> the exact answer is <span class="math inline">\(y(0.2) = 2e^{0.2} - 1.2 = 1.2428055\)</span>, so the error is about <span class="math inline">\(3 \times 10^{-7}\)</span>. Heun (RK2) with the same <span class="math inline">\(h\)</span> has an error of about <span class="math inline">\(0.0008\)</span>, roughly 2000 times larger.</p>
+<p><strong>Tips for working by hand</strong></p>
+<ul>
+<li>Lay it out as a table: <span class="math inline">\(n\)</span>, <span class="math inline">\(x_n\)</span>, <span class="math inline">\(y_n\)</span>, <span class="math inline">\(k_1\)</span>, <span class="math inline">\(k_2\)</span>, <span class="math inline">\(k_3\)</span>, <span class="math inline">\(k_4\)</span>, <span class="math inline">\(y_{n+1}\)</span>.</li>
+<li><span class="math inline">\(k_2\)</span> and <span class="math inline">\(k_3\)</span> both use <span class="math inline">\(x_n + h/2\)</span>. Only the <span class="math inline">\(y\)</span> value changes.</li>
+<li>Don’t forget the 2s: the middle slopes count <strong>twice</strong>.</li>
+<li>Keep 6 to 7 decimal places in the middle of the working, because RK4 is accurate enough that rounding errors start to show.</li>
+<li>Halving <span class="math inline">\(h\)</span> cuts the error to about <span class="math inline">\(\tfrac{1}{16}\)</span>.</li>
+</ul>
 <div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:10.365083Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:10.364904Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:10.531659Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:10.531197Z&quot;}}" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -343,6 +385,7 @@ window.Quarto = {
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+</section>
 <section id="derivation-from-simpsons-rule" class="level2">
 <h2 class="anchored" data-anchor-id="derivation-from-simpsons-rule">3.1 Derivation from Simpson’s rule</h2>
 <p>Simpson’s rule weights the midpoint four times as heavily as the ends:</p>

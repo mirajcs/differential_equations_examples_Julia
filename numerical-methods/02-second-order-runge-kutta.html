@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Miraj Samarakkody">
-<meta name="dcterms.date" content="2026-10-14">
+<meta name="dcterms.date" content="2026-10-21">
 
 <title>2. Second-Order Runge–Kutta Methods – Differential Equations</title>
 <style>
@@ -259,7 +259,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#heuns-method-improved-euler" id="toc-heuns-method-improved-euler" class="nav-link active" data-scroll-target="#heuns-method-improved-euler">2.1 Heun’s method (improved Euler)</a>
+  <li><a href="#quick-note-rk2-with-a-calculator" id="toc-quick-note-rk2-with-a-calculator" class="nav-link active" data-scroll-target="#quick-note-rk2-with-a-calculator">Quick note: RK2 with a calculator</a></li>
+  <li><a href="#heuns-method-improved-euler" id="toc-heuns-method-improved-euler" class="nav-link" data-scroll-target="#heuns-method-improved-euler">2.1 Heun’s method (improved Euler)</a>
   <ul class="collapse">
   <li><a href="#worked-example-heun-by-hand-h-0.1" id="toc-worked-example-heun-by-hand-h-0.1" class="nav-link" data-scroll-target="#worked-example-heun-by-hand-h-0.1">Worked example: Heun by hand, <span class="math inline">\(h = 0.1\)</span></a></li>
   </ul></li>
@@ -295,7 +296,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 14, 2026</p>
+      <p class="date">October 21, 2026</p>
     </div>
   </div>
   
@@ -309,6 +310,40 @@ window.Quarto = {
 
 <p>Euler’s method uses a single slope, taken at the start of the step. <strong>Runge–Kutta methods</strong> evaluate <span class="math inline">\(f\)</span> at a few trial points inside the step (called <strong>stages</strong>) and combine the slopes into a better estimate of the average slope. This section covers the methods with two stages: Heun, midpoint and Ralston. All three have order 2.</p>
 <p>Test problem: <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, exact solution <span class="math inline">\(y = 2e^{x} - x - 1\)</span>.</p>
+<section id="quick-note-rk2-with-a-calculator" class="level2">
+<h2 class="anchored" data-anchor-id="quick-note-rk2-with-a-calculator">Quick note: RK2 with a calculator</h2>
+<p><strong>Use:</strong> solve <span class="math inline">\(y' = f(x, y)\)</span>, <span class="math inline">\(y(x_0) = y_0\)</span>, one step at a time with step size <span class="math inline">\(h\)</span>.</p>
+<p><strong>One step (Heun’s method):</strong></p>
+<ol type="1">
+<li>Slope at the start: <span class="math inline">\(k_1 = f(x_n,\ y_n)\)</span></li>
+<li>Slope at the end (using an Euler guess for <span class="math inline">\(y\)</span>): <span class="math inline">\(k_2 = f(x_n + h,\ y_n + h\,k_1)\)</span></li>
+<li>Average the slopes and step: <span class="math inline">\(y_{n+1} = y_n + \dfrac{h}{2}(k_1 + k_2)\)</span></li>
+<li>Move along: <span class="math inline">\(x_{n+1} = x_n + h\)</span>, then repeat.</li>
+</ol>
+<p>Each step needs only multiplication, addition and <span class="math inline">\(f\)</span>, so a basic calculator is enough.</p>
+<p><strong>Example:</strong> <span class="math inline">\(y' = x + y\)</span>, <span class="math inline">\(y(0) = 1\)</span>, <span class="math inline">\(h = 0.1\)</span>. Find <span class="math inline">\(y(0.2)\)</span>.</p>
+<p><em>Step 1</em> (<span class="math inline">\(x_0 = 0\)</span>, <span class="math inline">\(y_0 = 1\)</span>)</p>
+<ul>
+<li><span class="math inline">\(k_1 = 0 + 1 = 1\)</span></li>
+<li>Euler guess: <span class="math inline">\(1 + 0.1(1) = 1.1\)</span></li>
+<li><span class="math inline">\(k_2 = 0.1 + 1.1 = 1.2\)</span></li>
+<li><span class="math inline">\(y_1 = 1 + 0.05(1 + 1.2) = \mathbf{1.11}\)</span></li>
+</ul>
+<p><em>Step 2</em> (<span class="math inline">\(x_1 = 0.1\)</span>, <span class="math inline">\(y_1 = 1.11\)</span>)</p>
+<ul>
+<li><span class="math inline">\(k_1 = 0.1 + 1.11 = 1.21\)</span></li>
+<li>Euler guess: <span class="math inline">\(1.11 + 0.1(1.21) = 1.231\)</span></li>
+<li><span class="math inline">\(k_2 = 0.2 + 1.231 = 1.431\)</span></li>
+<li><span class="math inline">\(y_2 = 1.11 + 0.05(1.21 + 1.431) = \mathbf{1.24205}\)</span></li>
+</ul>
+<p><strong>Check:</strong> the exact answer is <span class="math inline">\(y(0.2) = 2e^{0.2} - 1.2 = 1.242806\)</span>, so the error is about <span class="math inline">\(0.0008\)</span>. Euler’s method with the same <span class="math inline">\(h\)</span> has an error about 10 times larger.</p>
+<p><strong>Tips for working by hand</strong></p>
+<ul>
+<li>Lay it out as a table: <span class="math inline">\(n\)</span>, <span class="math inline">\(x_n\)</span>, <span class="math inline">\(y_n\)</span>, <span class="math inline">\(k_1\)</span>, Euler guess, <span class="math inline">\(k_2\)</span>, <span class="math inline">\(y_{n+1}\)</span>.</li>
+<li><span class="math inline">\(h/2\)</span> is just a number (here <span class="math inline">\(0.05\)</span>), so work it out once.</li>
+<li>Keep 5 to 6 decimal places in the middle of the working and round only at the end.</li>
+<li>Halving <span class="math inline">\(h\)</span> cuts the error to about <span class="math inline">\(\tfrac14\)</span>.</li>
+</ul>
 <div id="c001" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-14T16:16:09.494342Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-14T16:16:09.494201Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-14T16:16:09.659543Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-14T16:16:09.659051Z&quot;}}" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
@@ -331,6 +366,7 @@ window.Quarto = {
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
+</section>
 <section id="heuns-method-improved-euler" class="level2">
 <h2 class="anchored" data-anchor-id="heuns-method-improved-euler">2.1 Heun’s method (improved Euler)</h2>
 <p><strong>Derivation from the trapezoidal rule.</strong> Estimate the integral in <span class="math inline">\(y(x_{n+1}) = y(x_n) + \int_{x_n}^{x_{n+1}} f\,dx\)</span> with the trapezoidal rule, which averages the slopes at both ends of the step:</p>

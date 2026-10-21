@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/index.html</loc>
-    <lastmod>2026-10-14T17:50:28.491Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.938Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/07-multistep-methods.html</loc>
-    <lastmod>2026-10-14T17:50:28.488Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.936Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/05-stability-and-stiffness.html</loc>
-    <lastmod>2026-10-14T17:50:28.486Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.934Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/03-runge-kutta-4.html</loc>
-    <lastmod>2026-10-14T17:50:28.483Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.931Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/01-eulers-method.html</loc>
-    <lastmod>2026-10-14T17:50:28.481Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.929Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/first-order-differential-equations.html</loc>
-    <lastmod>2026-10-14T17:50:28.480Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.928Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/index.html</loc>
-    <lastmod>2026-10-14T17:50:28.480Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.928Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/bifurcations-first-order-differential-equations.html</loc>
-    <lastmod>2026-10-14T17:50:28.478Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.926Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/02-second-order-runge-kutta.html</loc>
-    <lastmod>2026-10-14T17:50:28.482Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.930Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/04-error-order-efficiency.html</loc>
-    <lastmod>2026-10-14T17:50:28.484Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.932Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/06-adaptive-step-size.html</loc>
-    <lastmod>2026-10-14T17:50:28.487Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.935Z</lastmod>
   </url>
   <url>
     <loc>https://mirajcs.github.io/differential_equations_examples_Julia/numerical-methods/08-systems-and-higher-order.html</loc>
-    <lastmod>2026-10-14T17:50:28.490Z</lastmod>
+    <lastmod>2026-10-21T01:23:57.937Z</lastmod>
   </url>
 </urlset>
