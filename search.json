@@ -1,5 +1,27 @@
 [
   {
+    "objectID": "second-order-linear/index.html",
+    "href": "second-order-linear/index.html",
+    "title": "Second-Order Linear Differential Equations",
+    "section": "",
+    "text": "This chapter covers equations of the form\n\\[y'' + p(t)\\,y' + q(t)\\,y = g(t),\\]\nwhich describe mechanical vibrations, electric circuits and many other systems where an acceleration depends on position and velocity. Following Boyce & DiPrima, Elementary Differential Equations and Boundary Value Problems (11th ed., Wiley), Chapter 3, the independent variable is now called \\(t\\).\nPrerequisite: First-Order Differential Equations.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "Second-Order Linear Differential Equations"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/index.html#chapter-contents",
+    "href": "second-order-linear/index.html#chapter-contents",
+    "title": "Second-Order Linear Differential Equations",
+    "section": "Chapter contents",
+    "text": "Chapter contents\n\n\n\n\nSection\nWhat it covers\n\n\n\n\n3.1\nHomogeneous equations with constant coefficients\nLinear second-order equations, initial value problems, the characteristic equation, distinct real roots, long-term behaviour\n\n\n3.2\nSolutions of linear homogeneous equations; the Wronskian\ncoming soon\n\n\n3.3\nComplex roots of the characteristic equation\ncoming soon\n\n\n3.4\nRepeated roots; reduction of order\ncoming soon\n\n\n3.5\nNonhomogeneous equations; method of undetermined coefficients\ncoming soon\n\n\n3.6\nVariation of parameters\ncoming soon\n\n\n3.7\nMechanical and electrical vibrations\ncoming soon\n\n\n3.8\nForced periodic vibrations\ncoming soon\n\n\n\nNumerical methods for second-order equations (rewriting them as first-order systems) are in Numerical Methods, Section 8.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "Second-Order Linear Differential Equations"
+    ]
+  },
+  {
     "objectID": "numerical-methods/index.html",
     "href": "numerical-methods/index.html",
     "title": "Numerical Methods for First-Order ODEs",
@@ -620,7 +642,7 @@
     "href": "index.html",
     "title": "Differential Equations",
     "section": "",
-    "text": "First-Order Differential Equations\nBifurcations of First-Order Differential Equations\nNumerical Methods for First-Order ODEs"
+    "text": "First-Order Differential Equations\nBifurcations of First-Order Differential Equations\nNumerical Methods for First-Order ODEs\nSecond-Order Linear Differential Equations"
   },
   {
     "objectID": "bifurcations-first-order-differential-equations.html",
@@ -1111,6 +1133,127 @@
     "crumbs": [
       "Numerical Methods",
       "8. Systems and Higher-Order Equations"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "",
+    "text": "A second-order equation involves the second derivative of the unknown function. This section defines linear second-order equations and their initial value problems, then solves the simplest important case: homogeneous equations with constant coefficients,\n\\[ay'' + by' + cy = 0.\\]\nThe method is to try \\(y = e^{rt}\\), which turns the differential equation into a quadratic equation for \\(r\\). This section treats the case where that quadratic has two distinct real roots. Complex roots and repeated roots are in Sections 3.3 and 3.4.\nReference: Boyce & DiPrima, Elementary Differential Equations and Boundary Value Problems, 11th ed., §3.1.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#quick-note-solving-ay-by-cy-0-by-hand",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#quick-note-solving-ay-by-cy-0-by-hand",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "Quick note: solving \\(ay'' + by' + cy = 0\\) by hand",
+    "text": "Quick note: solving \\(ay'' + by' + cy = 0\\) by hand\nUse: constant coefficients, right-hand side zero, characteristic roots real and different (\\(b^2 - 4ac &gt; 0\\)).\n\nReplace \\(y''\\), \\(y'\\), \\(y\\) by \\(r^2\\), \\(r\\), \\(1\\): characteristic equation \\(ar^2 + br + c = 0\\).\nFind the roots \\(r_1 \\ne r_2\\) (factor, or \\(r = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\)).\nGeneral solution: \\(y = c_1 e^{r_1 t} + c_2 e^{r_2 t}\\).\nFor an IVP, differentiate, \\(y' = c_1 r_1 e^{r_1 t} + c_2 r_2 e^{r_2 t}\\), put in \\(t = t_0\\) and solve the two linear equations for \\(c_1, c_2\\).\n\nExample: \\(y'' + 5y' + 6y = 0\\), \\(y(0) = 2\\), \\(y'(0) = 3\\).\n\nCharacteristic equation: \\(r^2 + 5r + 6 = (r + 2)(r + 3) = 0\\), so \\(r_1 = -2\\), \\(r_2 = -3\\).\nGeneral solution: \\(y = c_1 e^{-2t} + c_2 e^{-3t}\\).\nAt \\(t = 0\\): \\(c_1 + c_2 = 2\\) and \\(-2c_1 - 3c_2 = 3\\).\nAdd twice the first to the second: \\(-c_2 = 7\\), so \\(c_2 = -7\\) and \\(c_1 = 9\\).\nAnswer: \\(y = 9e^{-2t} - 7e^{-3t}\\).\n\nCheck: \\(y(0) = 9 - 7 = 2\\) and \\(y'(0) = -18 + 21 = 3\\). ✓\nTips\n\nAlways check the initial conditions at the end; it takes ten seconds and catches most sign errors.\nIf \\(t_0 \\ne 0\\), either keep the factors \\(e^{r t_0}\\) or write the solution as \\(c_1 e^{r_1 (t - t_0)} + c_2 e^{r_2 (t - t_0)}\\); then the equations at \\(t_0\\) are as simple as at \\(0\\).\nA root \\(r = 0\\) gives the solution \\(e^{0t} = 1\\), a constant.\n\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nplt.rcParams[\"figure.figsize\"] = (7, 4.5)\nplt.rcParams[\"axes.grid\"] = True\nnp.set_printoptions(precision=6, suppress=True)",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#second-order-linear-equations",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#second-order-linear-equations",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "1. Second-order linear equations",
+    "text": "1. Second-order linear equations\nA second-order ODE has the form\n\\[\\frac{d^2 y}{dt^2} = f\\!\\left(t,\\ y,\\ \\frac{dy}{dt}\\right).\\]\nIt is linear if \\(f\\) is linear in \\(y\\) and \\(y'\\), that is \\(f = g(t) - p(t)\\,y' - q(t)\\,y\\):\n\\[y'' + p(t)\\,y' + q(t)\\,y = g(t).\\]\nEquivalently, \\(P(t)\\,y'' + Q(t)\\,y' + R(t)\\,y = G(t)\\); dividing by \\(P(t)\\) gives the first form wherever \\(P(t) \\ne 0\\). An equation that is not of this form is nonlinear.\n\n\n\n\n\n\n\n\nEquation\nLinear?\nWhy\n\n\n\n\n\\(y'' + 3y' + 2y = \\sin t\\)\nyes\nconstant coefficients, \\(g(t) = \\sin t\\)\n\n\n\\(t^2 y'' + t y' + (t^2 - 4)y = 0\\)\nyes\ncoefficients depend on \\(t\\) only (Bessel’s equation)\n\n\n\\(y'' + \\sin y = 0\\)\nno\n\\(\\sin y\\) is not linear in \\(y\\) (pendulum)\n\n\n\\(y'' + y\\,y' = 0\\)\nno\nthe product \\(y\\,y'\\)\n\n\n\nHomogeneous or nonhomogeneous. The equation is homogeneous if \\(g(t) = 0\\) (or \\(G(t) = 0\\)) for all \\(t\\), and nonhomogeneous otherwise. (“Homogeneous” here has nothing to do with the homogeneous first-order equations \\(y' = F(y/t)\\).) Sections 3.1 to 3.4 deal with homogeneous equations; Section 3.5 shows that solving a nonhomogeneous equation reduces to the homogeneous one plus one particular solution.\nInitial value problem. A first-order equation needed one condition. A second-order equation needs two, the position and the velocity at the starting time:\n\\[y'' + p(t)\\,y' + q(t)\\,y = g(t), \\qquad y(t_0) = y_0, \\qquad y'(t_0) = y_0'.\\]\nGeometrically, the solution must pass through \\((t_0, y_0)\\) with slope \\(y_0'\\). Section 3.2 proves that when \\(p, q, g\\) are continuous this IVP has exactly one solution.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#constant-coefficients-a-first-example",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#constant-coefficients-a-first-example",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "2. Constant coefficients: a first example",
+    "text": "2. Constant coefficients: a first example\nFrom here on, the coefficients are constants:\n\\[ay'' + by' + cy = 0, \\qquad a \\ne 0.\\]\nExample 1. \\(y'' - y = 0\\).\nWe need a function whose second derivative equals itself. Calculus gives two at once: \\(y_1 = e^{t}\\) and \\(y_2 = e^{-t}\\). More generally, any combination\n\\[y = c_1 e^{t} + c_2 e^{-t}\\]\nis also a solution, since \\(y'' = c_1 e^{t} + c_2 e^{-t} = y\\). This is a two-parameter family, one constant for each of the two initial conditions.\nChoosing the constants. For \\(y(0) = 2\\), \\(y'(0) = -1\\):\n\\[c_1 + c_2 = 2, \\qquad c_1 - c_2 = -1 \\quad\\Longrightarrow\\quad c_1 = \\tfrac12,\\ c_2 = \\tfrac32,\\]\nso \\(y = \\tfrac12 e^{t} + \\tfrac32 e^{-t}\\).\nThe plot shows several members of the family. All of them grow eventually unless \\(c_1 = 0\\): the \\(e^{-t}\\) part dies out and the \\(e^{t}\\) part takes over.\n\n\nCode\nt = np.linspace(-2, 2, 300)\nfor c1, c2 in [(1, 0), (0, 1), (0.5, 1.5), (1, -1), (-0.5, 1)]:\n    plt.plot(t, c1 * np.exp(t) + c2 * np.exp(-t), lw=2, label=f\"c₁ = {c1}, c₂ = {c2}\")\nplt.ylim(-6, 8)\nplt.xlabel(\"t\"); plt.ylabel(\"y\")\nplt.title(\"Solutions y = c₁eᵗ + c₂e⁻ᵗ of y'' − y = 0\")\nplt.legend(fontsize=8);",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#the-characteristic-equation",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#the-characteristic-equation",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "3. The characteristic equation",
+    "text": "3. The characteristic equation\nExample 1 suggests looking for solutions of the form \\(y = e^{rt}\\), with \\(r\\) to be found. Then \\(y' = re^{rt}\\) and \\(y'' = r^2 e^{rt}\\), and substituting into \\(ay'' + by' + cy = 0\\) gives\n\\[(ar^2 + br + c)\\,e^{rt} = 0.\\]\nSince \\(e^{rt}\\) is never zero, \\(y = e^{rt}\\) is a solution exactly when\n\\[\\boxed{ar^2 + br + c = 0}\\]\nThis is the characteristic equation of the differential equation. A differential equation has become an algebra problem.\nShortcut: read it straight off the ODE by replacing \\(y'' \\to r^2\\), \\(y' \\to r\\), \\(y \\to 1\\).\nThe roots \\(r = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\) fall into three cases:\n\n\n\n\n\n\n\n\n\nDiscriminant\nRoots\nSolutions\nSection\n\n\n\n\n\\(b^2 - 4ac &gt; 0\\)\nreal and distinct, \\(r_1 \\ne r_2\\)\n\\(e^{r_1 t}\\), \\(e^{r_2 t}\\)\n3.1\n\n\n\\(b^2 - 4ac &lt; 0\\)\ncomplex conjugates \\(\\lambda \\pm i\\mu\\)\n\\(e^{\\lambda t}\\cos \\mu t\\), \\(e^{\\lambda t}\\sin \\mu t\\)\n3.3\n\n\n\\(b^2 - 4ac = 0\\)\nrepeated, \\(r_1 = r_2\\)\n\\(e^{r_1 t}\\), \\(te^{r_1 t}\\)\n3.4",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#distinct-real-roots",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#distinct-real-roots",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "4. Distinct real roots",
+    "text": "4. Distinct real roots\nIf \\(r_1 \\ne r_2\\) are real, then \\(y_1 = e^{r_1 t}\\) and \\(y_2 = e^{r_2 t}\\) are solutions, and so is every combination\n\\[\\boxed{y = c_1 e^{r_1 t} + c_2 e^{r_2 t}}\\]\nWhy combinations are solutions. Write \\(L[y] = ay'' + by' + cy\\). Differentiation is linear, so\n\\[L[c_1 y_1 + c_2 y_2] = c_1 L[y_1] + c_2 L[y_2] = c_1 \\cdot 0 + c_2 \\cdot 0 = 0.\\]\nThis is the superposition principle; it works for every linear homogeneous equation, not only constant-coefficient ones (Section 3.2).\nAny initial conditions can be met. Impose \\(y(t_0) = y_0\\), \\(y'(t_0) = y_0'\\):\n\\[\n\\begin{aligned}\nc_1 e^{r_1 t_0} + c_2 e^{r_2 t_0} &= y_0,\\\\\nc_1 r_1 e^{r_1 t_0} + c_2 r_2 e^{r_2 t_0} &= y_0'.\n\\end{aligned}\n\\]\nThe determinant of this linear system is \\((r_2 - r_1)\\,e^{(r_1 + r_2)t_0}\\), which is nonzero because \\(r_1 \\ne r_2\\). So there is always exactly one solution, and Cramer’s rule gives\n\\[c_1 = \\frac{y_0' - y_0 r_2}{r_1 - r_2}\\,e^{-r_1 t_0}, \\qquad c_2 = \\frac{y_0 r_1 - y_0'}{r_1 - r_2}\\,e^{-r_2 t_0}.\\]\nBecause every IVP can be solved by a member of the family, the family contains every solution: it is the general solution. (Section 3.2 makes this argument precise with the Wronskian; the determinant above is exactly the Wronskian of \\(e^{r_1 t}\\) and \\(e^{r_2 t}\\) at \\(t_0\\).)\nThe code below turns these formulas into a small solver.\n\n\nCode\ndef char_roots(a, b, c):\n    # Real, distinct roots of a r^2 + b r + c = 0, larger root first.\n    disc = b**2 - 4 * a * c\n    if disc &lt;= 0:\n        raise ValueError(f\"b² − 4ac = {disc}: roots are not real and distinct (see Sections 3.3, 3.4)\")\n    r = sorted([(-b + np.sqrt(disc)) / (2 * a), (-b - np.sqrt(disc)) / (2 * a)], reverse=True)\n    return float(r[0]), float(r[1])\n\ndef solve_ivp_const(a, b, c, t0, y0, yp0):\n    # Constants of y = c1 e^{r1 t} + c2 e^{r2 t} that satisfy y(t0) = y0, y'(t0) = yp0.\n    r1, r2 = char_roots(a, b, c)\n    c1 = (yp0 - y0 * r2) / (r1 - r2) * np.exp(-r1 * t0)\n    c2 = (y0 * r1 - yp0) / (r1 - r2) * np.exp(-r2 * t0)\n    y = lambda t: c1 * np.exp(r1 * t) + c2 * np.exp(r2 * t)\n    dy = lambda t: c1 * r1 * np.exp(r1 * t) + c2 * r2 * np.exp(r2 * t)\n    return (r1, r2), (c1, c2), y, dy\n\ndef residual(a, b, c, y, dy, t, h=1e-4):\n    # a y'' + b y' + c y, with y'' from a central difference of y'; should be ≈ 0.\n    d2y = (dy(t + h) - dy(t - h)) / (2 * h)\n    return a * d2y + b * dy(t) + c * y(t)\n\n# Example 1: y'' − y = 0, y(0) = 2, y'(0) = −1\nroots, consts, y, dy = solve_ivp_const(1, 0, -1, 0, 2, -1)\nprint(f\"roots r1 = {roots[0]:g}, r2 = {roots[1]:g};  constants c1 = {consts[0]:g}, c2 = {consts[1]:g}\")\nprint(f\"max |residual| on [0, 2]: {np.max(np.abs(residual(1, 0, -1, y, dy, np.linspace(0, 2, 50)))):.1e}\")\n\n\nroots r1 = 1, r2 = -1;  constants c1 = 0.5, c2 = 1.5\nmax |residual| on [0, 2]: 6.5e-09",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#worked-examples",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#worked-examples",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "5. Worked examples",
+    "text": "5. Worked examples\nExample 2. Find the general solution of \\(y'' + 5y' + 6y = 0\\).\n\\(r^2 + 5r + 6 = (r + 2)(r + 3) = 0\\) gives \\(r_1 = -2\\), \\(r_2 = -3\\), so\n\\[y = c_1 e^{-2t} + c_2 e^{-3t}.\\]\nExample 3. Solve \\(y'' + 5y' + 6y = 0\\), \\(y(0) = 2\\), \\(y'(0) = 3\\).\nFrom Example 2, \\(y' = -2c_1 e^{-2t} - 3c_2 e^{-3t}\\). At \\(t = 0\\):\n\\[c_1 + c_2 = 2, \\qquad -2c_1 - 3c_2 = 3 \\quad\\Longrightarrow\\quad c_1 = 9,\\ c_2 = -7,\\]\n\\[y = 9e^{-2t} - 7e^{-3t}.\\]\nExample 4. The solution of Example 3 starts at \\(y = 2\\) with positive slope, so it rises first and then decays to zero. Find its maximum.\nSet \\(y' = -18e^{-2t} + 21e^{-3t} = 0\\). Multiplying by \\(e^{3t}\\) gives \\(18e^{t} = 21\\), so\n\\[t_m = \\ln\\tfrac{7}{6} \\approx 0.1542, \\qquad y_m = 9\\left(\\tfrac{6}{7}\\right)^2 - 7\\left(\\tfrac{6}{7}\\right)^3 = \\tfrac{108}{49} \\approx 2.2041.\\]\n\n\nCode\n(r1, r2), (c1, c2), y, dy = solve_ivp_const(1, 5, 6, 0, 2, 3)\nprint(f\"Example 3: r = {r1:g}, {r2:g};  c1 = {c1:g}, c2 = {c2:g}\")\n\ntm = np.log(7 / 6)\nprint(f\"Example 4: t_m = {tm:.4f}, y(t_m) = {y(tm):.4f}, 108/49 = {108/49:.4f}, y'(t_m) = {dy(tm):.1e}\")\n\nt = np.linspace(0, 4, 400)\nplt.plot(t, y(t), lw=2, label=\"y = 9e⁻²ᵗ − 7e⁻³ᵗ\")\nplt.plot(t, 9 * np.exp(-2 * t), \"--\", label=\"9e⁻²ᵗ\")\nplt.plot(t, -7 * np.exp(-3 * t), \"--\", label=\"−7e⁻³ᵗ\")\nplt.plot(tm, y(tm), \"ko\")\nplt.annotate(f\"max ({tm:.3f}, {y(tm):.3f})\", (tm, y(tm)), xytext=(0.6, 2.4))\nplt.axhline(0, color=\"gray\", lw=0.8)\nplt.xlabel(\"t\"); plt.ylabel(\"y\")\nplt.title(\"y'' + 5y' + 6y = 0,  y(0) = 2,  y'(0) = 3\")\nplt.legend();\n\n\nExample 3: r = -2, -3;  c1 = 9, c2 = -7\nExample 4: t_m = 0.1542, y(t_m) = 2.2041, 108/49 = 2.2041, y'(t_m) = 0.0e+00\n\n\n\n\n\n\n\n\n\nBoth exponentials decay, so \\(y \\to 0\\). The slower one, \\(e^{-2t}\\), decides how fast: for large \\(t\\), \\(y \\approx 9e^{-2t}\\).\nExample 5. Solve \\(4y'' - 8y' + 3y = 0\\), \\(y(0) = 2\\), \\(y'(0) = \\tfrac12\\).\n\\(4r^2 - 8r + 3 = (2r - 1)(2r - 3) = 0\\) gives \\(r = \\tfrac12, \\tfrac32\\), so \\(y = c_1 e^{t/2} + c_2 e^{3t/2}\\) and\n\\[c_1 + c_2 = 2, \\qquad \\tfrac12 c_1 + \\tfrac32 c_2 = \\tfrac12 \\quad\\Longrightarrow\\quad c_1 = \\tfrac52,\\ c_2 = -\\tfrac12,\\]\n\\[y = \\tfrac52 e^{t/2} - \\tfrac12 e^{3t/2}.\\]\nBoth roots are positive, but the coefficient of the faster exponential \\(e^{3t/2}\\) is negative. That term eventually wins, so \\(y \\to -\\infty\\). The solution crosses zero where \\(5e^{t/2} = e^{3t/2}\\), i.e. \\(e^{t} = 5\\), \\(t = \\ln 5 \\approx 1.609\\).\n\n\nCode\n(r1, r2), (c1, c2), y, dy = solve_ivp_const(4, -8, 3, 0, 2, 0.5)\nprint(f\"Example 5: r = {r1:g}, {r2:g};  coefficient of e^(3t/2) = {c1:g}, of e^(t/2) = {c2:g}\")\nprint(f\"y(ln 5) = {y(np.log(5)):.1e}\")\n\nt = np.linspace(0, 2.5, 300)\nplt.plot(t, y(t), lw=2, label=\"y = (5/2)e^(t/2) − (1/2)e^(3t/2)\")\nplt.plot(np.log(5), 0, \"ko\", label=\"zero at t = ln 5\")\nplt.axhline(0, color=\"gray\", lw=0.8)\nplt.xlabel(\"t\"); plt.ylabel(\"y\")\nplt.title(\"4y'' − 8y' + 3y = 0,  y(0) = 2,  y'(0) = 1/2\")\nplt.legend();\n\n\nExample 5: r = 1.5, 0.5;  coefficient of e^(3t/2) = -0.5, of e^(t/2) = 2.5\ny(ln 5) = 1.8e-15\n\n\n\n\n\n\n\n\n\nExample 6 (initial time not zero). Solve \\(y'' - y' - 2y = 0\\), \\(y(1) = 1\\), \\(y'(1) = 0\\).\n\\(r^2 - r - 2 = (r - 2)(r + 1)\\), so \\(r = 2, -1\\). Writing the solution in terms of \\(t - 1\\),\n\\[y = A e^{2(t - 1)} + B e^{-(t - 1)}, \\qquad A + B = 1, \\quad 2A - B = 0 \\quad\\Longrightarrow\\quad A = \\tfrac13,\\ B = \\tfrac23.\\]\nSo \\(y = \\tfrac13 e^{2(t-1)} + \\tfrac23 e^{-(t-1)}\\), which equals \\(\\tfrac{1}{3e^2} e^{2t} + \\tfrac{2e}{3} e^{-t}\\): the same answer as \\(c_1 = \\tfrac13 e^{-2}\\), \\(c_2 = \\tfrac23 e\\) from the formulas in Section 4.\n\n\nCode\n_, (c1, c2), y, dy = solve_ivp_const(1, -1, -2, 1, 1, 0)\nprint(f\"c1 = {c1:.6f}  (e⁻²/3 = {np.exp(-2)/3:.6f})\")\nprint(f\"c2 = {c2:.6f}  (2e/3  = {2*np.e/3:.6f})\")\nprint(f\"y(1) = {y(1):.6f}, y'(1) = {dy(1):.1e}\")\n\n\nc1 = 0.045112  (e⁻²/3 = 0.045112)\nc2 = 1.812188  (2e/3  = 1.812188)\ny(1) = 1.000000, y'(1) = 0.0e+00\n\n\nExample 7 (choosing an initial value). For \\(y'' - y' - 2y = 0\\), \\(y(0) = \\alpha\\), \\(y'(0) = 2\\), find \\(\\alpha\\) so that the solution tends to \\(0\\) as \\(t \\to \\infty\\).\nWith \\(r = 2, -1\\): \\(c_1 + c_2 = \\alpha\\) and \\(2c_1 - c_2 = 2\\), so \\(c_1 = \\tfrac{\\alpha + 2}{3}\\), \\(c_2 = \\tfrac{2\\alpha - 2}{3}\\).\nThe term \\(e^{2t}\\) grows, so \\(y \\to 0\\) only if its coefficient vanishes: \\(\\alpha = -2\\), which gives \\(y = -2e^{-t}\\). For any other \\(\\alpha\\) the solution blows up, towards \\(+\\infty\\) if \\(\\alpha &gt; -2\\) and \\(-\\infty\\) if \\(\\alpha &lt; -2\\).\n\n\nCode\nt = np.linspace(0, 2.5, 300)\nfor alpha in [-1, -1.5, -2, -2.5, -3]:\n    *_, y, _ = solve_ivp_const(1, -1, -2, 0, alpha, 2)\n    plt.plot(t, y(t), lw=3 if alpha == -2 else 1.5, label=f\"α = {alpha}\")\nplt.ylim(-8, 6)\nplt.axhline(0, color=\"gray\", lw=0.8)\nplt.xlabel(\"t\"); plt.ylabel(\"y\")\nplt.title(\"y'' − y' − 2y = 0,  y(0) = α,  y'(0) = 2\")\nplt.legend();\n\n\n\n\n\n\n\n\n\nOnly the bold curve \\(\\alpha = -2\\) stays bounded. A tiny change in \\(\\alpha\\) switches on the growing term, so this solution is very sensitive to its initial value.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#long-term-behaviour",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#long-term-behaviour",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "6. Long-term behaviour",
+    "text": "6. Long-term behaviour\nFor \\(y = c_1 e^{r_1 t} + c_2 e^{r_2 t}\\) with \\(r_1 &gt; r_2\\), the term with the larger root dominates for large \\(t\\) (when \\(c_1 \\ne 0\\)). So the behaviour as \\(t \\to \\infty\\) is decided by the signs of the roots:\n\n\n\n\n\n\n\nRoots\nTypical solution as \\(t \\to \\infty\\)\n\n\n\n\nboth negative\n\\(y \\to 0\\) for every initial condition\n\n\n\\(r_1 = 0\\), \\(r_2 &lt; 0\\)\n\\(y \\to c_1\\), a constant\n\n\n\\(r_1 &gt; 0 &gt; r_2\\)\n\\(\\lvert y\\rvert \\to \\infty\\), except when \\(c_1 = 0\\) (then \\(y \\to 0\\))\n\n\nboth positive\n\\(\\lvert y \\rvert \\to \\infty\\), except \\(y \\equiv 0\\)\n\n\n\nThe signs can be read from the coefficients without solving: \\(r_1 r_2 = c/a\\) and \\(r_1 + r_2 = -b/a\\). For example, if \\(a, b, c\\) are all positive, both roots are negative and every solution decays. This is the situation for a damped spring (Section 3.7).\n\n\nCode\ncases = [((1, 3, 2), \"y'' + 3y' + 2y = 0:  r = −1, −2\"),\n         ((1, 2, 0), \"y'' + 2y' = 0:  r = 0, −2\"),\n         ((1, 1, -2), \"y'' + y' − 2y = 0:  r = 1, −2\"),\n         ((1, -3, 2), \"y'' − 3y' + 2y = 0:  r = 1, 2\")]\nt = np.linspace(0, 3, 300)\nfig, axes = plt.subplots(2, 2, figsize=(11, 7), sharex=True)\nfor ax, ((a, b, c), title) in zip(axes.flat, cases):\n    for y0, yp0 in [(1, 0), (0, 1), (1, -1), (-1, 0.5), (0.5, -2)]:\n        *_, y, _ = solve_ivp_const(a, b, c, 0, y0, yp0)\n        ax.plot(t, y(t), lw=1.5)\n    ax.set_title(title, fontsize=10)\n    ax.set_ylim(-3, 3)\n    ax.axhline(0, color=\"gray\", lw=0.8)\nfor ax in axes[1]:\n    ax.set_xlabel(\"t\")\nplt.tight_layout()",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#a-numerical-check",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#a-numerical-check",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "7. A numerical check",
+    "text": "7. A numerical check\nAs shown in Numerical Methods, Section 8, a second-order equation becomes a first-order system by introducing the velocity \\(v = y'\\):\n\\[y' = v, \\qquad v' = -\\frac{b\\,v + c\\,y}{a}.\\]\nSolving Example 3 this way with RK4 and comparing with \\(9e^{-2t} - 7e^{-3t}\\) is an independent check of the formula. When \\(h\\) is halved the error ratio approaches \\(2^4 = 16\\), as expected for a fourth-order method.\n\n\nCode\ndef rk4_system(F, t0, u0, h, n):\n    t, u = t0 + h * np.arange(n + 1), np.zeros((n + 1, len(u0)))\n    u[0] = u0\n    for i in range(n):\n        k1 = F(t[i], u[i])\n        k2 = F(t[i] + h / 2, u[i] + h / 2 * k1)\n        k3 = F(t[i] + h / 2, u[i] + h / 2 * k2)\n        k4 = F(t[i] + h, u[i] + h * k3)\n        u[i + 1] = u[i] + h / 6 * (k1 + 2 * k2 + 2 * k3 + k4)\n    return t, u\n\na, b, c = 1, 5, 6\nF = lambda t, u: np.array([u[1], -(b * u[1] + c * u[0]) / a])\nexact = lambda t: 9 * np.exp(-2 * t) - 7 * np.exp(-3 * t)\n\nprev = None\nfor h in [0.2, 0.1, 0.05, 0.025]:\n    t, u = rk4_system(F, 0, [2, 3], h, round(4 / h))\n    err = np.max(np.abs(u[:, 0] - exact(t)))\n    print(f\"h = {h:5}: max error on [0, 4] = {err:.3e}\" + (f\",  ratio {prev / err:.1f}\" if prev else \"\"))\n    prev = err\n\n\nh =   0.2: max error on [0, 4] = 3.558e-03\nh =   0.1: max error on [0, 4] = 1.755e-04,  ratio 20.3\nh =  0.05: max error on [0, 4] = 9.563e-06,  ratio 18.4\nh = 0.025: max error on [0, 4] = 5.580e-07,  ratio 17.1",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#summary",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#summary",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "8. Summary",
+    "text": "8. Summary\n\n\n\n\n\n\n\nStep\nWhat to do\n\n\n\n\n1\nWrite the characteristic equation \\(ar^2 + br + c = 0\\)\n\n\n2\nFind the roots; this section needs \\(b^2 - 4ac &gt; 0\\), giving \\(r_1 \\ne r_2\\)\n\n\n3\nGeneral solution \\(y = c_1 e^{r_1 t} + c_2 e^{r_2 t}\\)\n\n\n4\nUse \\(y(t_0)\\) and \\(y'(t_0)\\) to find \\(c_1\\), \\(c_2\\)\n\n\n5\nCheck the initial conditions; read off the behaviour from the dominant exponential\n\n\n\n\nA second-order IVP needs two conditions: \\(y(t_0)\\) and \\(y'(t_0)\\).\nLinear homogeneous equations obey the superposition principle: combinations of solutions are solutions.\nFor large \\(t\\) the term with the larger root dominates, unless its coefficient is zero.",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
+    ]
+  },
+  {
+    "objectID": "second-order-linear/01-homogeneous-constant-coefficients.html#exercises",
+    "href": "second-order-linear/01-homogeneous-constant-coefficients.html#exercises",
+    "title": "3.1 Homogeneous Equations with Constant Coefficients",
+    "section": "Exercises",
+    "text": "Exercises\nFind the general solution.\n\n\\(y'' + 2y' - 3y = 0\\)\n\\(6y'' - y' - y = 0\\)\n\\(y'' + 4y' = 0\\)\n\\(y'' - 9y = 0\\)\n\nSolve the initial value problem, and describe the behaviour as \\(t \\to \\infty\\).\n\n\\(y'' + y' - 2y = 0\\), \\(y(0) = 1\\), \\(y'(0) = 1\\)\n\\(y'' + 3y' = 0\\), \\(y(0) = -2\\), \\(y'(0) = 3\\)\n\\(2y'' - 3y' + y = 0\\), \\(y(0) = 2\\), \\(y'(0) = \\tfrac12\\). Also find the maximum value of the solution and where it crosses zero.\n\nFurther problems.\n\nFind a differential equation whose general solution is \\(y = c_1 e^{2t} + c_2 e^{-3t}\\).\nFor \\(y'' - y' - 6y = 0\\), \\(y(0) = 1\\), \\(y'(0) = \\alpha\\), find \\(\\alpha\\) so that \\(y \\to 0\\) as \\(t \\to \\infty\\).\nShow that if \\(a &gt; 0\\) and \\(c &lt; 0\\), the roots of \\(ar^2 + br + c = 0\\) are always real with opposite signs, and conclude that almost every solution of \\(ay'' + by' + cy = 0\\) is unbounded.\n\nAnswers\n\n\\(r^2 + 2r - 3 = (r + 3)(r - 1)\\): \\(y = c_1 e^{t} + c_2 e^{-3t}\\).\n\\(6r^2 - r - 1 = (2r - 1)(3r + 1)\\): \\(y = c_1 e^{t/2} + c_2 e^{-t/3}\\).\n\\(r(r + 4) = 0\\): \\(y = c_1 + c_2 e^{-4t}\\).\n\\(r = \\pm 3\\): \\(y = c_1 e^{3t} + c_2 e^{-3t}\\).\n\\(r = 1, -2\\): \\(c_1 + c_2 = 1\\), \\(c_1 - 2c_2 = 1\\), so \\(y = e^{t}\\), which grows without bound.\n\\(r = 0, -3\\): \\(c_1 + c_2 = -2\\), \\(-3c_2 = 3\\), so \\(y = -1 - e^{-3t}\\), which tends to \\(-1\\).\n\\(r = 1, \\tfrac12\\): \\(y = -e^{t} + 3e^{t/2}\\), which tends to \\(-\\infty\\). \\(y' = 0\\) where \\(e^{t/2} = \\tfrac32\\), i.e. \\(t = 2\\ln\\tfrac32 \\approx 0.811\\), with maximum \\(y = \\tfrac94\\). Zero where \\(e^{t/2} = 3\\), i.e. \\(t = \\ln 9 \\approx 2.197\\).\n\\((r - 2)(r + 3) = r^2 + r - 6\\): \\(y'' + y' - 6y = 0\\).\n\\(r = 3, -2\\): \\(c_1 = \\tfrac{\\alpha + 2}{5}\\), so \\(\\alpha = -2\\) (then \\(y = e^{-2t}\\)).\n\\(b^2 - 4ac &gt; 0\\) because \\(-4ac &gt; 0\\), so the roots are real and distinct, and \\(r_1 r_2 = c/a &lt; 0\\), so one is positive. The positive root’s term grows unless its coefficient is zero, which happens only for one particular ratio \\(y'(t_0)/y(t_0)\\).\n\nThe cell below checks answers 5 to 9 numerically.\n\n\nCode\nfor k, (abc, y0, yp0, claim) in {\n    5: ((1, 1, -2), 1, 1, lambda t: np.exp(t)),\n    6: ((1, 3, 0), -2, 3, lambda t: -1 - np.exp(-3 * t)),\n    7: ((2, -3, 1), 2, 0.5, lambda t: -np.exp(t) + 3 * np.exp(t / 2)),\n}.items():\n    *_, y, _ = solve_ivp_const(*abc, 0, y0, yp0)\n    t = np.linspace(0, 3, 50)\n    print(f\"{k}. max |solver − answer| = {np.max(np.abs(y(t) - claim(t))):.1e}\")\n\n*_, y, _ = solve_ivp_const(2, -3, 1, 0, 2, 0.5)\nprint(f\"7. y(2 ln 1.5) = {y(2 * np.log(1.5)):.6f},  y(ln 9) = {y(np.log(9)):.1e}\")\nprint(\"8. roots of r² + r − 6:\", char_roots(1, 1, -6))\n_, (c1, c2), _, _ = solve_ivp_const(1, -1, -6, 0, 1, -2)\nprint(f\"9. α = −2 gives c1 = {c1:.1e}, c2 = {c2:g}\")\n\n\n5. max |solver − answer| = 0.0e+00\n6. max |solver − answer| = 0.0e+00\n7. max |solver − answer| = 0.0e+00\n7. y(2 ln 1.5) = 2.250000,  y(ln 9) = 0.0e+00\n8. roots of r² + r − 6: (2.0, -3.0)\n9. α = −2 gives c1 = 0.0e+00, c2 = 1",
+    "crumbs": [
+      "Second-Order Linear ODEs",
+      "3.1 Homogeneous Equations with Constant Coefficients"
     ]
   }
 ]
