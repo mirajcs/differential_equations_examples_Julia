@@ -6,6 +6,7 @@ project:
     - first-order-differential-equations.ipynb
     - bifurcations-first-order-differential-equations.ipynb
     - numerical-methods/*.ipynb
+    - second-order-linear/*.ipynb
 
 website:
   title: "Differential Equations"
@@ -19,6 +20,8 @@ website:
         text: Bifurcations
       - href: numerical-methods/index.ipynb
         text: Numerical Methods
+      - href: second-order-linear/index.ipynb
+        text: Second-Order Linear ODEs
   sidebar:
     - title: "Numerical Methods"
       style: docked
@@ -32,6 +35,11 @@ website:
         - numerical-methods/06-adaptive-step-size.ipynb
         - numerical-methods/07-multistep-methods.ipynb
         - numerical-methods/08-systems-and-higher-order.ipynb
+    - title: "Second-Order Linear Equations"
+      style: docked
+      contents:
+        - second-order-linear/index.ipynb
+        - second-order-linear/01-homogeneous-constant-coefficients.ipynb
 
 format:
   html:

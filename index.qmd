@@ -6,3 +6,4 @@ title: "Differential Equations"
 - [First-Order Differential Equations](first-order-differential-equations.ipynb)
 - [Bifurcations of First-Order Differential Equations](bifurcations-first-order-differential-equations.ipynb)
 - [Numerical Methods for First-Order ODEs](numerical-methods/index.ipynb)
+- [Second-Order Linear Differential Equations](second-order-linear/index.ipynb)
